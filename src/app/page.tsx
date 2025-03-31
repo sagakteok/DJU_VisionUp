@@ -14,8 +14,9 @@ export default function Home() {
             </>
         ) : (
             <>
-              <p>로그인 해주세요.</p>
-              <button onClick={() => signIn("google")}>구글 로그인</button>
+                <p>로그인 해주세요.</p>
+                <button onClick={() => signIn("google")}>구글 로그인</button>
+                <button onClick={() => signIn('kakao')}>카카오 로그인</button>
             </>
         )}
       </main>
