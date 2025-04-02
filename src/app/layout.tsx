@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { ReactNode } from "react";
-import SessionWrapper from "@/components/SessionWrapper";
+import SessionWrapper from "@/app/SessionWrapper";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (

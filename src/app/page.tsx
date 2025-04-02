@@ -1,23 +1,28 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-export default function Home() {
-  const { data: session } = useSession();
+export default function HomePage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  if (status === "loading") return <p>로딩 중...</p>;
 
   return (
-      <main>
+      <main style={{ padding: "2rem" }}>
         {session ? (
             <>
-              <p>안녕하세요, {session.user?.name}님!</p>
+              <h1>홈화면</h1>
+              <p>안녕하세요, {session.user?.name ?? "사용자"}님!</p>
               <button onClick={() => signOut()}>로그아웃</button>
             </>
         ) : (
             <>
-                <p>로그인 해주세요.</p>
-                <button onClick={() => signIn("google")}>구글 로그인</button>
-                <button onClick={() => signIn('kakao')}>카카오 로그인</button>
-                <button onClick={() => signIn("naver")}>네이버 로그인</button>
+              <h1>홈화면</h1>
+              <p>로그인이 필요합니다</p>
+              <button onClick={() => router.push("/auth/signin")}>로그인</button>
+              <button onClick={() => router.push("/auth/register")}>계정 만들기</button>
             </>
         )}
       </main>
