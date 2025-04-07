@@ -1,13 +1,18 @@
-import "./globals.css";
-import type { ReactNode } from "react";
-import SessionWrapper from "@/components/SessionWrapper";
+import './customer/globals.css';
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export const metadata = {
+    title: 'My App',
+    description: 'Welcome!',
+};
+
+export default function RootLayout({
+                                       children,
+                                   }: {
+    children: React.ReactNode;
+}) {
     return (
-        <html lang="en">
-        <body>
-        <SessionWrapper>{children}</SessionWrapper>
-        </body>
+        <html lang="ko">
+        <body>{children}</body>
         </html>
     );
 }

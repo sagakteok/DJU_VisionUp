@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Thin';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Light';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+$font-thin: 'SpoqaHanSansNeo-Thin';
+$font-light: 'SpoqaHanSansNeo-Light';
+$font-regular: 'SpoqaHanSansNeo-Regular';
+$font-medium: 'SpoqaHanSansNeo-Medium';
+$font-bold: 'SpoqaHanSansNeo-Bold';
+
+.RefreshOverlayStyle {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #1C1F26, #57595E);
+  display: flex;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.RefreshOverlayStyle.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.RefreshOverlaySubTitleStyle {
+  font-family: $font-medium;
+  color: #CACACA;
+  font-size: clamp(15px, 3vw, 30px);
+  line-height: clamp(3.5px, 0.7vw, 7px);
+  text-align: left;
+  margin-left: clamp(30px, 6vw, 60px);
+}
+
+.RefreshOverlayBigTitleStyle {
+  font-family: $font-thin;
+  color: #FBE4D7;
+  font-size: clamp(25px, 5vw, 50px);
+  line-height: clamp(3.5px, 0.7vw, 7px);
+  text-align: left;
+  margin-left: clamp(30px, 6vw, 60px);
+}
+
+.ProgressBarWrapper {
+  width: 100vw;
+  height: 1px;
+  background-color: #2F3644;
+  border-radius: 0px;
+  overflow: hidden;
+  margin: auto;
+  margin-top: clamp(75px, 15vw, 150px);
+}
+
+.ProgressBar {
+  height: 100%;
+  background-color: #FFFFFF;
+  transition: width 0.1s ease;
+}
+
+.ProgressText {
+  font-family: $font-regular;
+  font-size: clamp(15px, 3vw, 30px);
+  color: #E8EEFF;
+  text-align: right;
+  margin-top: clamp(10px, 2vw, 20px);
+  margin-right: clamp(15px, 3vw, 30px);
+}
