@@ -82,7 +82,7 @@ const handler = NextAuth({
         strategy: "jwt",
     },
     pages: {
-        signIn: "/auth/signin",
+        signIn: "/customer/auth/signin",
     },
 
     callbacks: {
@@ -101,7 +101,7 @@ const handler = NextAuth({
         },
 
         async session({ session, token }) {
-            console.log("왜안따와지냐 session(): token.name =", token.name); // 콘솔 확인용
+            console.log("토따 session(): token.name =", token.name); // 콘솔 확인용
             if (token?.name && session.user) {
                 session.user.name = token.name;
             }

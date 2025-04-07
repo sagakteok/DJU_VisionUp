@@ -28,7 +28,7 @@ export default function SignInPage() {
         if (res?.error) {
             alert("로그인 실패: " + res.error);
         } else {
-            router.push("/");
+            router.push("/customer/");
         }
     };
 
@@ -51,7 +51,7 @@ export default function SignInPage() {
                     required
                 />
                 <button type="submit">로그인</button>
-                <button onClick={() => router.push("/auth/register")}>회원가입</button>
+                <button onClick={() => router.push("/customer/auth/register")}>회원가입</button>
             </form>
             <hr/>
 
@@ -60,7 +60,7 @@ export default function SignInPage() {
                 Object.values(providers).map((provider: any) => (
                     provider.id !== "credentials" && (
                         <div key={provider.name}>
-                            <button onClick={() => signIn(provider.id, { callbackUrl: "/" })}>
+                            <button onClick={() => signIn(provider.id, { callbackUrl: "/customer" })}>
                                 {provider.name}로 로그인하기
                             </button>
                         </div>
