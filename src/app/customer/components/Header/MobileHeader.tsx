@@ -8,11 +8,13 @@ import Icon from "@mdi/react";
 import { mdiMagnify, mdiAccountCircle, mdiMenu, mdiChevronRight } from "@mdi/js";
 import { AppBar, Toolbar, IconButton, Drawer, List, InputBase, ListItemButton } from "@mui/material";
 import "./Header.scss";
+import { useSession } from "next-auth/react";
 
 export default function MobileHeader() {
     const pathname = usePathname();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const toggleDrawer = (open: boolean) => setIsDrawerOpen(open);
+    const { data: session, status } = useSession();
 
     return (
         <>
@@ -21,9 +23,15 @@ export default function MobileHeader() {
                     <Link href="/" style={{color: "#FFFFFF", textDecoration: "none"}}>카셀렉트</Link>
                     {/* 헤더 아이콘 버튼 2개 */}
                     <div>
-                        <IconButton disableTouchRipple component={Link} href="/" className={`MobileHeader_icon ${pathname === "/" ? "active" : ""}`}>
+                        <IconButton disableTouchRipple component={Link} href="/customer/auth/signin" className={`MobileHeader_icon ${pathname === "/customer/auth/signin" ? "active" : ""}`}>
                             <Icon path={mdiAccountCircle} size={1} />
                         </IconButton>
+                        {/*로그인시, oo님*/}
+                        {status === "authenticated" && session?.user?.name && (
+                            <span style={{ color: "#FFFFFF", fontSize: "0.7rem" }}>
+                                {session.user.name}님
+                            </span>
+                        )}
                         <IconButton onClick={() => toggleDrawer(!isDrawerOpen)} className={`MobileHeader_icon ${isDrawerOpen ? "active" : ""}`}>
                             <Icon path={mdiMenu} size={1} />
                         </IconButton>
