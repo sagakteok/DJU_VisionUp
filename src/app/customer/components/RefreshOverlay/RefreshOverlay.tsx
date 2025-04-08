@@ -3,14 +3,20 @@
 import { useEffect, useState } from 'react';
 import './RefreshOverlay.scss';
 import { AppBar, Toolbar } from '@mui/material';
+import { usePathname } from "next/navigation";
 
 export default function RefreshOverlay({ children }: { children: React.ReactNode }) {
-    const [hydrated, setHydrated] = useState(false);
+    const pathname = usePathname(); //현재 경로 감지
     const [fadeOut, setFadeOut] = useState(false);
     const [visible, setVisible] = useState(true);
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
+        //페이지 이동할때마다 상태 초기화
+        setVisible(true);
+        setFadeOut(false);
+        setProgress(0);
+
         const interval = setInterval(() => {
             setProgress((prev) => {
                 if (prev >= 99) {
@@ -20,19 +26,16 @@ export default function RefreshOverlay({ children }: { children: React.ReactNode
                 return prev + 1;
             });
         }, 10);
-        return () => clearInterval(interval);
-    }, []);
 
-    useEffect(() => {
-        setHydrated(true);
-        setProgress(100);
-
-        const timeout = setTimeout(() => {
+        const timeout = setTimeout(()=> {
             setFadeOut(true);
-        }, 500);
+        }, 200);
 
-        return () => clearTimeout(timeout);
-    }, []);
+        return () => {
+            clearInterval(interval);
+            clearTimeout(timeout);
+        };
+    }, [pathname]); //경로 바뀔때마다 실행
 
     const handleTransitionEnd = () => {
         if (fadeOut) setVisible(false);
