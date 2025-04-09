@@ -29,7 +29,7 @@ export default function RefreshOverlay({ children }: { children: React.ReactNode
 
         const timeout = setTimeout(()=> {
             setFadeOut(true);
-        }, 200);
+        }, 700);
 
         return () => {
             clearInterval(interval);

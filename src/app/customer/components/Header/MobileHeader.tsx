@@ -5,10 +5,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Icon from "@mdi/react";
-import { mdiMagnify, mdiAccountCircle, mdiMenu, mdiChevronRight } from "@mdi/js";
+import {mdiMagnify, mdiAccountCircle, mdiMenu, mdiChevronRight, mdiLogout} from "@mdi/js";
 import { AppBar, Toolbar, IconButton, Drawer, List, InputBase, ListItemButton } from "@mui/material";
 import "./Header.scss";
-import { useSession } from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 
 export default function MobileHeader() {
     const pathname = usePathname();
@@ -31,6 +31,9 @@ export default function MobileHeader() {
                             <span style={{ color: "#FFFFFF", fontSize: "0.7rem" }}>
                                 {session.user.name}님
                             </span>
+                        )}
+                        {status === "authenticated" && (
+                            <IconButton disableTouchRipple onClick={() => signOut({callbackUrl: "/customer"})} className= "DesktopHeader_icon" title= "로그아웃"><Icon path={mdiLogout} size={1} /></IconButton>
                         )}
                         <IconButton onClick={() => toggleDrawer(!isDrawerOpen)} className={`MobileHeader_icon ${isDrawerOpen ? "active" : ""}`}>
                             <Icon path={mdiMenu} size={1} />

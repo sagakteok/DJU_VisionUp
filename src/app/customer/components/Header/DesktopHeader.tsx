@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Icon from "@mdi/react";
-import { mdiMagnify, mdiAccountCircle } from "@mdi/js";
+import {mdiMagnify, mdiAccountCircle, mdiLogout} from "@mdi/js";
 import { AppBar, Toolbar, IconButton } from "@mui/material";
 import "./Header.scss";
-import { useSession } from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 
 export default function DesktopHeader() {
     const pathname = usePathname();
@@ -26,11 +26,14 @@ export default function DesktopHeader() {
                         <IconButton disableTouchRipple component={Link} href="/customer/auth/signin" className={`DesktopHeader_icon ${pathname === "/customer/auth/signin" ? "active" : ""}`}><Icon path={mdiAccountCircle} size={1} /></IconButton>
                         {/*로그인시, oo님*/}
                         {status === "authenticated" && session?.user?.name && (
-                            <span style={{ color: "#FFFFFF", fontSize: "1.0rem" }}>
+                            <span style={{ color: "#FFFFFF", fontSize: "0.9rem" }}>
                                 {session.user.name}님
                             </span>
                         )}
-                    </div>
+                        {status === "authenticated" && (
+                            <IconButton disableTouchRipple onClick={() => signOut({callbackUrl: "/customer"})} className= "DesktopHeader_icon" title= "로그아웃"><Icon path={mdiLogout} size={1} /></IconButton>
+                        )}
+                        </div>
                 </Toolbar>
             </div>
         </AppBar>
