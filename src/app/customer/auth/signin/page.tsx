@@ -1,8 +1,8 @@
 'use client';
 
-import { signIn, getProviders } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {signIn, getProviders} from "next-auth/react";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 
 export default function SignInPage() {
     const [email, setEmail] = useState("");
@@ -26,11 +26,12 @@ export default function SignInPage() {
         });
 
         if (res?.error) {
-            alert("로그인 실패: " + res.error);
-        } else {
+            alert(res.error);
+        }
+        else {
             router.push("/customer/");
         }
-    };
+    }
 
     return (
         <main>
@@ -60,13 +61,13 @@ export default function SignInPage() {
                 Object.values(providers).map((provider: any) => (
                     provider.id !== "credentials" && (
                         <div key={provider.name}>
-                            <button onClick={() => signIn(provider.id, { callbackUrl: "/customer" })}>
+                            <button onClick={() => signIn(provider.id, {callbackUrl: "/customer"})}>
                                 {provider.name}로 로그인하기
                             </button>
                         </div>
                     )
                 ))}
-            <br />
+            <br/>
         </main>
     );
 }
