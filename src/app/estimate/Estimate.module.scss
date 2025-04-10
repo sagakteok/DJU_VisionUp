@@ -1,0 +1,130 @@
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Thin';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Light';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Medium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+$font-thin: 'SpoqaHanSansNeo-Thin';
+$font-light: 'SpoqaHanSansNeo-Light';
+$font-regular: 'SpoqaHanSansNeo-Regular';
+$font-medium: 'SpoqaHanSansNeo-Medium';
+$font-bold: 'SpoqaHanSansNeo-Bold';
+
+.MainHomeStyle {
+    height: 100vh;
+    background: linear-gradient(to bottom, #2F3644, #596A8A);
+
+    .MainHomeContainer {
+        width: 100vw;
+        max-width: 1100px;
+        margin: auto;
+    }
+}
+
+.estimate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5vh 10vw;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.leftArea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+//Palisade 견적내기
+.subHeading {
+    font-family: $font-bold;
+    font-size: 20px;
+    padding-top: 200px;
+    color: #ffffff;
+    margin-left: 100px;
+}
+//내가 타고 싶은 나만의 차를 만들어보세요.
+.description {
+    font-family: $font-thin;
+    font-size: 16px;
+    color: #ffffff;
+    margin-left: 300px;
+    position: relative;
+    top: -45px;
+
+}
+//모델찾기
+.modelSearchLink {
+    font-size: 1vw;
+    color: #ccc;
+    text-decoration: none;
+    align-self: flex-start;
+
+    &:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+}
+//차 이미지
+.carImageWrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        margin-left: 500px;
+    }
+}
+//바디타입, 구동 방식, 모델 비교
+.rightMenu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-end;
+    color: white;
+
+    p {
+        font-size: 1.2vw;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #ccc;
+        }
+    }
+}
