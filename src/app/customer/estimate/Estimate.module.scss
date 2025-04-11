@@ -1,11 +1,4 @@
 @font-face {
-    font-family: 'SpoqaHanSansNeo-Thin';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'SpoqaHanSansNeo-Light';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
     font-weight: 300;
@@ -13,16 +6,9 @@
 }
 
 @font-face {
-    font-family: 'SpoqaHanSansNeo-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'SpoqaHanSansNeo-Medium';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
-    font-weight: 500;
+    font-family: 'SpoqaHanSansNeo-Thin';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+    font-weight: 100;
     font-style: normal;
 }
 
@@ -33,15 +19,17 @@
     font-style: normal;
 }
 
-$font-thin: 'SpoqaHanSansNeo-Thin';
 $font-light: 'SpoqaHanSansNeo-Light';
-$font-regular: 'SpoqaHanSansNeo-Regular';
-$font-medium: 'SpoqaHanSansNeo-Medium';
+$font-thin: 'SpoqaHanSansNeo-Thin';
 $font-bold: 'SpoqaHanSansNeo-Bold';
+$white: #ffffff;
 
 .MainHomeStyle {
     height: 100vh;
     background: linear-gradient(to bottom, #2F3644, #596A8A);
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
 
     .MainHomeContainer {
         width: 100vw;
@@ -57,74 +45,125 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
     padding: 5vh 10vw;
     height: 100vh;
     box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 .leftArea {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    margin-left: 50px;
+    margin-top: clamp(100px, 14vh, 200px);
 }
-//Palisade 견적내기
+
 .subHeading {
     font-family: $font-bold;
     font-size: 20px;
-    padding-top: 200px;
-    color: #ffffff;
+    color: $white;
     margin-left: 100px;
+    padding-top: 150px;
 }
-//내가 타고 싶은 나만의 차를 만들어보세요.
+
 .description {
     font-family: $font-thin;
     font-size: 16px;
-    color: #ffffff;
+    color: $white;
     margin-left: 300px;
     position: relative;
     top: -45px;
-
 }
-//모델찾기
+
 .modelSearchLink {
-    font-size: 1vw;
-    color: #ccc;
+    font-family: $font-light;
+    font-size: 17px;
+    margin-left: 20vw;
+    color: $white;
     text-decoration: none;
-    align-self: flex-start;
 
     &:hover {
-        color: #fff;
-        text-decoration: underline;
+        color: $white;
     }
 }
-//차 이미지
+
+.rightGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
 .carImageWrapper {
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
 
     img {
         width: 100%;
-        max-width: 350px;
+        max-width: 600px;
         height: auto;
-        margin-left: 500px;
+        margin-bottom: 6px;
+        object-fit: contain;
+        animation: slideInFromRight 1s ease-out;
     }
 }
-//바디타입, 구동 방식, 모델 비교
+
 .rightMenu {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    align-items: flex-end;
-    color: white;
+    margin-right: 20vw;
+    margin-top: -50px;
+    gap: 10px;
 
     p {
         font-size: 1.2vw;
         cursor: pointer;
         transition: color 0.2s;
+        color: $white;
 
         &:hover {
             color: #ccc;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .estimate {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5vh 5vw;
+        height: auto;
+    }
+
+    .leftArea {
+
+        margin-top: 8vh;
+    }
+
+    .subHeading,
+    .description {
+
+        text-align: center;
+    }
+
+    .modelSearchLink {
+        text-align: center;
+        display: block;
+        font-size: 4vw;
+    }
+
+    .rightGroup {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .carImageWrapper img {
+        width: 80%;
+    }
+
+    .rightMenu {
+        align-items: center;
+
+        p {
+            font-size: 4vw;
         }
     }
 }

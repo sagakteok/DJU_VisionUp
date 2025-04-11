@@ -18,7 +18,7 @@ export default function DesktopHeader() {
             <div className="DesktopHeader_Container">
                 <Toolbar className="DesktopHeader_ToolbarStyle">
                     <Link href="/" style={{color: "#FFFFFF", textDecoration: "none"}}>카셀렉트</Link>
-                    <Link href="/AllDocuments" className={`DesktopHeader_text ${pathname === "/AllDocuments" ? "active" : ""}`}>견적 짜기</Link>
+                    <Link href="/customer/estimate" className={`DesktopHeader_text ${pathname === "/estimate" ? "active" : ""}`}>견적 짜기</Link>
                     <Link href="/Businesses" className={`DesktopHeader_text ${pathname === "/Businesses" ? "active" : ""}`}>나의 견적</Link>
                     <Link href="/TownCommunity" className={`DesktopHeader_text ${pathname === "/TownCommunity" ? "active" : ""}`}>나의 상담</Link>
                     <div style={{ marginLeft: "auto" }}>
