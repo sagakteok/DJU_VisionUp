@@ -1,6 +1,5 @@
 import styles from './Estimate.module.scss';
-import "../globals.css";
-
+import Link from 'next/link';
 
 export default function Estimate() {
     return (
@@ -10,7 +9,9 @@ export default function Estimate() {
                     <div className="leftArea">
                         <p className={styles.subHeading}>PALISADE 견적내기</p>
                         <p className={styles.description}>내가 타고 싶은 나만의 차를 만들어보세요.</p>
-                        <a className={styles.modelSearchLink} href="#">모델 찾기 &gt;</a>
+                        <Link href="/customer/estimate/model-search" className={styles.modelSearchLink}>
+                            모델 찾기 &gt;
+                        </Link>
                     </div>
 
                     <div className={styles.rightGroup}>

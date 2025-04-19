@@ -1,0 +1,122 @@
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Thin';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Light';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+$font-thin: 'SpoqaHanSansNeo-Thin';
+$font-light: 'SpoqaHanSansNeo-Light';
+$font-regular: 'SpoqaHanSansNeo-Regular';
+$font-medium: 'SpoqaHanSansNeo-Medium';
+$font-bold: 'SpoqaHanSansNeo-Bold';
+
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #222;
+}
+
+.leftArea {
+  flex: 0.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: linear-gradient(to right, #2F3644, #596A8A);
+}
+
+.imagePlaceholder {
+  width: 80%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #FFFFFF;
+  opacity: 1;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.rightArea {
+  flex: 0.4;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  color: #FFFFFF;
+}
+
+.title {
+  font-family: 'SpoqaHanSansNeo-Bold', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #FFFFFF;
+}
+
+.modelList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #444;
+  font-family: 'SpoqaHanSansNeo-Light', sans-serif;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #FFFFFF;
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listItem:hover {
+  background-color: #444;
+}
+
+.arrow {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #888;
+}
