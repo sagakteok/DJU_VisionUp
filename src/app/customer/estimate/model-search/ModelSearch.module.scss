@@ -52,8 +52,8 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 }
 
 .imagePlaceholder {
-  width: 90%; /* 이미지 가로 크기를 90%로 변경 */
-  max-width: 600px; /* 최대 가로 크기를 600px로 변경 */
+  width: 90%;
+  max-width: 600px;
   height: auto;
   border-radius: 8px;
   display: flex;
@@ -148,7 +148,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
   cursor: pointer;
   transition: background-color 0.2s ease;
   color: #FFFFFF;
-  text-decoration: none; /* Link 스타일 제거 */
+  text-decoration: none;
 }
 
 .listItem:last-child {

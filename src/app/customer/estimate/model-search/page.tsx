@@ -1,4 +1,4 @@
-"use client"; // 이 줄을 파일 최상단에 추가하세요.
+"use client";
 
 import React, { useState } from 'react';
 import styles from './ModelSearch.module.scss';
