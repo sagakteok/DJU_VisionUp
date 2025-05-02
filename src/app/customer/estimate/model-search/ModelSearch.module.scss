@@ -51,27 +51,38 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
   background: linear-gradient(to bottom, #1C1F26, #4E4A47);
 }
 
-.imagePlaceholder {
-  width: 90%;
+.carImageWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  position: relative;
+}
+
+.carImageWrapper img {
+  width: 100%;
   max-width: 600px;
   height: auto;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-  color: #FFFFFF;
-  opacity: 1;
+  margin-top: 40px;
+  margin-left: 100px;
+  object-fit: contain;
+  animation: slideInFromRight 1s ease-out;
+  display: block;
+}
 
-  img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
+.carImageWrapper h2.text {
+  position: absolute;
+  top: 5px;
+  left: 55%;
+  transform: translate(-50%, 0);
+  color: #FFFFFF;
+  font-size: 2em;
+  font-family: 'SpoqaHanSansNeo-Thin', sans-serif;
+  text-align: center;
 }
 
 .rightArea {
+  font-family: 'SpoqaHanSansNeo-Bold', sans-serif;
   flex: 0.4;
   padding: 60px;
   display: flex;
@@ -81,7 +92,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 }
 
 .title {
-  font-family: 'SpoqaHanSansNeo-Bold', sans-serif;
+  font-family: 'SpoqaHanSansNeo-Regular', sans-serif;
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 40px;

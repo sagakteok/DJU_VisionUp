@@ -16,6 +16,7 @@ export default function ModelSearchPage() {
             <div className={styles.leftArea}>
                 <div className={styles.carImageWrapper}>
                     <img src="/palisade_side.png" alt="Palisade" />
+                    <h2 className={styles.text}>The All-New PALISADE</h2>
                 </div>
             </div>
             <div className={styles.rightArea}>
