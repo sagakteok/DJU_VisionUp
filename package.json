@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
+    "websocket": "ts-node -P tsconfig.server.json server.ts",
+    "dev:all": "concurrently \"npm run websocket\" \"npm run dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
+
   "dependencies": {
     "@auth/core": "^0.34.2",
     "@emotion/react": "^11.14.0",
