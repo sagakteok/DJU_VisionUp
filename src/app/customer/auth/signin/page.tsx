@@ -1,8 +1,8 @@
 'use client';
 
-import { signIn, getProviders } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {signIn, getProviders} from "next-auth/react";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 import Script from "next/script";
 
 export default function SignInPage() {
@@ -28,7 +28,7 @@ export default function SignInPage() {
                     grecaptcha.ready(async () => {
                         recaptchaToken = await grecaptcha.execute(
                             process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string,
-                            { action: "login" }
+                            {action: "login"}
                         );
                         resolve();
                     });
@@ -43,11 +43,11 @@ export default function SignInPage() {
         // 서버에서 토큰 검증
         const verifyRes = await fetch('/api/recaptcha', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token: recaptchaToken }),
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({token: recaptchaToken}),
         });
 
-        const { success,score } = await verifyRes.json();
+        const {success, score} = await verifyRes.json();
         console.log("reCAPTCHA score:", score);
 
         if (!success) {
@@ -95,9 +95,21 @@ export default function SignInPage() {
                 />
                 <button type="submit">로그인</button>
                 <button type="button" onClick={() => router.push("/customer/auth/register")}>회원가입</button>
+                <button
+                    type="button"
+                    onClick={() => router.push("/customer/auth/find-id")}
+                >아이디 찾기
+                </button>
 
-                <p style={{ fontSize: '12px', color: '#666', marginTop: '1rem' }}>
-                    이 사이트는 Google reCAPTCHA로 보호되며, 다음의 정책이 적용됩니다.<br />
+                <button
+                    type="button"
+                    onClick={() => router.push("/customer/auth/reset-password")}
+                >비밀번호 찾기
+                </button>
+
+
+                <p style={{fontSize: '12px', color: '#666', marginTop: '1rem'}}>
+                    이 사이트는 Google reCAPTCHA로 보호되며, 다음의 정책이 적용됩니다.<br/>
                     <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
                         개인정보처리방침
                     </a> 및{' '}
@@ -107,20 +119,20 @@ export default function SignInPage() {
                 </p>
             </form>
 
-            <hr />
+            <hr/>
 
             <h3>소셜 로그인</h3>
             {providers &&
                 Object.values(providers).map((provider: any) => (
                     provider.id !== "credentials" && (
                         <div key={provider.name}>
-                            <button onClick={() => signIn(provider.id, { callbackUrl: "/customer" })}>
+                            <button onClick={() => signIn(provider.id, {callbackUrl: "/customer"})}>
                                 {provider.name}로 로그인하기
                             </button>
                         </div>
                     )
                 ))}
-            <br />
+            <br/>
         </main>
     );
 }

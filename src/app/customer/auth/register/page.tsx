@@ -119,6 +119,18 @@ export default function RegisterPage() {
                             서비스 약관
                         </a>
                     </p>
+
+                    <button
+                        type="button"
+                        onClick={() => router.push("/customer/auth/find-id")}
+                    >아이디 찾기
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => router.push("/customer/auth/reset-password")}
+                    >비밀번호 찾기
+                    </button>
                 </form>
             </div>
         </>
