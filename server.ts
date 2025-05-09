@@ -10,6 +10,14 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
     const expressApp = express();
     const httpServer = createServer(expressApp);
+
+    expressApp.use(express.json());
+
+    expressApp.post("/submit", (req, res) => {
+        console.log("받은 POST:", req.body);
+        res.json({ status: "ok", received: req.body });
+    });
+
     const io = new Server(httpServer, {
         path: "/socket.io",
         cors: {
@@ -30,7 +38,7 @@ app.prepare().then(() => {
         });
     });
 
-    expressApp.all("*", (req, res) => {
+    expressApp.use((req, res) => {
         handle(req, res).catch((err) => {
             console.error("Error handling request:", err);
             res.status(500).end("Internal Server Error");
