@@ -26,6 +26,7 @@
     "nodemailer": "^6.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "react-responsive": "^10.0.1",
     "sass": "^1.86.3",
     "socket.io": "^4.8.1",
