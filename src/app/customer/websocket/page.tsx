@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
+import toast, {Toaster} from 'react-hot-toast';
 
 let socket: Socket;
 
@@ -10,6 +11,11 @@ export default function WebSocketPage() {
     const [response, setResponse] = useState('');
 
     useEffect(() => {
+        //알림 권한 요청
+        if (Notification.permission !== 'granted') {
+            Notification.requestPermission();
+        }
+
         socket = io('http://localhost:4000', {
             path: '/socket.io',
         });
@@ -21,6 +27,18 @@ export default function WebSocketPage() {
         socket.on('message', (msg: string) => {
             console.log('Received from server:', msg);
             setResponse(msg);
+
+            //브라우저 알림
+            if (Notification.permission === 'granted') {
+                new Notification('새로운 알림이 있습니다.', {
+                    body: msg,
+                });
+            }
+
+            //화면 보고 있으면 토스트 알림도 전송
+            if (!document.hidden) {
+                toast.success(`새로운 메시지: ${msg}`);
+            }
         });
 
         return () => {
@@ -43,6 +61,8 @@ export default function WebSocketPage() {
             />
             <button onClick={sendMessage}>전송</button>
             <p>서버 응답: {response}</p>
+
+            <Toaster position="top-right"/>
         </div>
     );
 }
