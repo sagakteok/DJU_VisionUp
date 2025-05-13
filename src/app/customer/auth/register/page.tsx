@@ -8,6 +8,7 @@ export default function RegisterPage() {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("");
     const router = useRouter();
 
     const handleRegister = async (e: React.FormEvent) => {
@@ -54,7 +55,7 @@ export default function RegisterPage() {
         // 검증 통과한 경우에만 회원가입 요청
         const res = await fetch("/api/register", {
             method: "POST",
-            body: JSON.stringify({ email, name, password }),
+            body: JSON.stringify({ email, name, password, phone }),
             headers: { "Content-Type": "application/json" },
         });
 
@@ -99,6 +100,13 @@ export default function RegisterPage() {
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                         placeholder="이메일"
+                        required
+                    />
+                    <input
+                        type="text"
+                        value={phone}
+                        onChange={e => setPhone(e.target.value)}
+                        placeholder="전화번호(숫자만 입력해주세요)"
                         required
                     />
                     <input
