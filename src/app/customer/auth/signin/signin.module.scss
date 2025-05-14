@@ -35,7 +35,15 @@
   $font-regular: 'SpoqaHanSansNeo-Regular';
   $font-medium: 'SpoqaHanSansNeo-Medium';
   $font-bold: 'SpoqaHanSansNeo-Bold';
-  
+
+//recaptcha 공통 가운데 정렬
+.CustomerSigninRecaptchaWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
 // 데스크톱 사이즈  
 @media screen and (min-width: 700px) {
     .CustomerSigninStyle {
@@ -228,6 +236,7 @@
                     font-size: 12px;
                     color: #F7D7C5;
                 }
+
 
                 .CustomerSigninNaverLoginButton { 
                     width: 65vw;

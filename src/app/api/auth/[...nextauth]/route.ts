@@ -69,15 +69,18 @@ const handler = NextAuth({
                 try {
                     const { email, password, recaptchaToken } = credentials ?? {};
 
-                    if (!email || !password || !recaptchaToken) {
-                        throw new Error("모든 필드를 입력해주세요.");
+                    if (!email || !password) {
+                        throw new Error("이메일과 비밀번호를 모두 입력해주세요.");
+                    }
+
+                    if (recaptchaToken) {
+                        const isHuman = await verifyRecaptcha(recaptchaToken);
+                        if (!isHuman) {
+                            throw new Error("reCAPTCHA 인증에 실패했습니다.");
+                        }
                     }
 
 
-                    const isHuman = await verifyRecaptcha(recaptchaToken);
-                    if (!isHuman) {
-                        throw new Error("reCAPTCHA 인증에 실패했습니다.");
-                    }
 
                     const user = await prisma.user.findUnique({
                         where: { email },
@@ -126,6 +129,7 @@ const handler = NextAuth({
     callbacks: {
         async jwt({ token, user, account, profile }) {
             if (user) {
+                // credentials 로그인
                 token.name = user.name;
             }
 
