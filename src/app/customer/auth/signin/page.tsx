@@ -93,7 +93,6 @@ export default function SignInPage() {
                                 </span>
                             </div>
 
-                            {/* ✅ 항상 표시되는 reCAPTCHA + 가운데 정렬 */}
                             <div className={styles.CustomerSigninRecaptchaWrapper}>
                                 <ReCAPTCHA
                                     ref={recaptchaRef}
