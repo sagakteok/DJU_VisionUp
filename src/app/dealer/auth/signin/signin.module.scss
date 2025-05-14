@@ -38,34 +38,34 @@
   
 // 데스크톱 사이즈  
 @media screen and (min-width: 700px) {
-    .CustomerSigninStyle {
+    .DealerSigninStyle {
         min-height: 100vh;
-        background: linear-gradient(to bottom, #817C79, #3D4659);
+        background: linear-gradient(to bottom, #57595E, #2F3644);
         display: flex;
         justify-content: center;
         align-items: center;
         overflow-y: auto;
 
-        .CustomerSigninCard {
+        .DealerSigninCard {
             width: 530px;
-            height: 600px;
+            height: 500px;
             margin-top: 60px;
             border-radius: 20px;
             background-color: #FFFFFF;
             display: flex;
             align-items: center;
 
-            .CustomerSigninLogoStyle {
+            .DealerSigninLogoStyle {
                 text-align: center;
                 font-family: $font-medium;
                 font-size: 32px;
                 color: #000000;
             }
 
-            .CustomerSigninTopContent {
+            .DealerSigninTopContent {
                 text-align: center;
             
-                .CustomerSigninTextField {
+                .DealerSigninTextField {
                     padding-left: 15px;
                     width: 420px;
                     height: 50px;
@@ -80,19 +80,19 @@
             }
         }
 
-            .CustomerSigninMidContent {
+            .DealerSigninMidContent {
                 text-align: right;
                 margin-top: 10px;
                 margin-right: 30px;
 
-                .CustomerSigninMidContentTextStyle {
+                .DealerSigninMidContentTextStyle {
                     font-family: $font-thin;
                     font-size: 14px;
                     color: #2F3644;
                     cursor: pointer;
                 }
 
-                .CustomerSigninMidContentLineStyle {
+                .DealerSigninMidContentLineStyle {
                     font-family: $font-bold;
                     font-size: 10px;
                     color: #CACACA;
@@ -101,11 +101,11 @@
                 }
             }
 
-            .CustomerSigninBottomContent {
+            .DealerSigninBottomContent {
                 text-align: center;
                 margin-top: 50px;
 
-                .CustomerSigninLoginButton { 
+                .DealerSigninLoginButton { 
                     width: 420px;
                     height: 50px;
                     border-radius: 10px;
@@ -115,27 +115,7 @@
                     color: #F7D7C5;
                 }
 
-                .CustomerSigninNaverLoginButton { 
-                    width: 420px;
-                    height: 50px;
-                    border-radius: 10px;
-                    background-color: #66D564;
-                    font-family: $font-medium;
-                    font-size: 16px;
-                    color: #FFFFFF;
-                }
-
-                .CustomerSigninKakaoLoginButton { 
-                    width: 420px;
-                    height: 50px;
-                    border-radius: 10px;
-                    background-color: #F5EF44;
-                    font-family: $font-medium;
-                    font-size: 16px;
-                    color: #4E4A47;
-                }
-
-                .CustomerSigninRegisterButton {
+                .DealerSigninRegisterButton {
                     width: 420px;
                     height: 50px;
                     border-radius: 10px;
@@ -152,34 +132,34 @@
 
 // 모바일 사이즈
 @media screen and (max-width: 699px) {
-    .CustomerSigninStyle {
+    .DealerSigninStyle {
         min-height: 100vh;
-        background: linear-gradient(to bottom, #817C79, #3D4659);
+        background: linear-gradient(to bottom, #57595E, #2F3644);
         display: flex;
         justify-content: center;
         align-items: center;
         overflow-y: auto;
 
-        .CustomerSigninCard {
+        .DealerSigninCard {
             width: 85vw;
-            height: 500px;
+            height: 400px;
             margin-top: 60px;
             border-radius: 20px;
             background-color: #FFFFFF;
             display: flex;
             align-items: center;
 
-            .CustomerSigninLogoStyle {
+            .DealerSigninLogoStyle {
                 text-align: center;
                 font-family: $font-medium;
                 font-size: 24px;
                 color: #000000;
             }
 
-            .CustomerSigninTopContent {
+            .DealerSigninTopContent {
                 text-align: center;
             
-                .CustomerSigninTextField {
+                .DealerSigninTextField {
                     padding-left: 10px;
                     width: 65vw;
                     height: 40px;
@@ -194,19 +174,19 @@
             }
         }
 
-            .CustomerSigninMidContent {
+            .DealerSigninMidContent {
                 text-align: right;
                 margin-top: 5px;
                 margin-right: 7vw;
 
-                .CustomerSigninMidContentTextStyle {
+                .DealerSigninMidContentTextStyle {
                     font-family: $font-thin;
                     font-size: 11px;
                     color: #2F3644;
                     cursor: pointer;
                 }
 
-                .CustomerSigninMidContentLineStyle {
+                .DealerSigninMidContentLineStyle {
                     font-family: $font-bold;
                     font-size: 7px;
                     color: #CACACA;
@@ -215,11 +195,11 @@
                 }
             }
 
-            .CustomerSigninBottomContent {
+            .DealerSigninBottomContent {
                 text-align: center;
                 margin-top: 40px;
 
-                .CustomerSigninLoginButton { 
+                .DealerSigninLoginButton { 
                     width: 65vw;
                     height: 40px;
                     border-radius: 10px;
@@ -229,27 +209,7 @@
                     color: #F7D7C5;
                 }
 
-                .CustomerSigninNaverLoginButton { 
-                    width: 65vw;
-                    height: 40px;
-                    border-radius: 10px;
-                    background-color: #66D564;
-                    font-family: $font-medium;
-                    font-size: 12px;
-                    color: #FFFFFF;
-                }
-
-                .CustomerSigninKakaoLoginButton { 
-                    width: 65vw;
-                    height: 40px;
-                    border-radius: 10px;
-                    background-color: #F5EF44;
-                    font-family: $font-medium;
-                    font-size: 12px;
-                    color: #4E4A47;
-                }
-
-                .CustomerSigninRegisterButton {
+                .DealerSigninRegisterButton {
                     width: 65vw;
                     height: 40px;
                     border-radius: 10px;

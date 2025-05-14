@@ -8,7 +8,6 @@ export default function RegisterPage() {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    const [phone, setPhone] = useState("");
     const router = useRouter();
 
     const handleRegister = async (e: React.FormEvent) => {
@@ -55,12 +54,12 @@ export default function RegisterPage() {
         // 검증 통과한 경우에만 회원가입 요청
         const res = await fetch("/api/register", {
             method: "POST",
-            body: JSON.stringify({ email, name, password, phone }),
+            body: JSON.stringify({ email, name, password }),
             headers: { "Content-Type": "application/json" },
         });
 
         if (res.ok) {
-            router.push("/customer/auth/signin");
+            router.push("/dealer/auth/signin");
         } else {
             const data = await res.json();
             alert(data.error);
@@ -103,13 +102,6 @@ export default function RegisterPage() {
                         required
                     />
                     <input
-                        type="text"
-                        value={phone}
-                        onChange={e => setPhone(e.target.value)}
-                        placeholder="전화번호(숫자만 입력해주세요)"
-                        required
-                    />
-                    <input
                         type="password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
@@ -130,13 +122,13 @@ export default function RegisterPage() {
 
                     <button
                         type="button"
-                        onClick={() => router.push("/customer/auth/find-id")}
+                        onClick={() => router.push("/dealer/auth/find-id")}
                     >아이디 찾기
                     </button>
 
                     <button
                         type="button"
-                        onClick={() => router.push("/customer/auth/reset-password")}
+                        onClick={() => router.push("/dealer/auth/reset-password")}
                     >비밀번호 찾기
                     </button>
                 </form>

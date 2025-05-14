@@ -23,7 +23,7 @@ export default function MobileHeader() {
                     <Link href="/dealer" style={{color: "#FFFFFF", textDecoration: "none"}}>카셀렉트</Link>
                     {/* 헤더 아이콘 버튼 2개 */}
                     <div>
-                        <IconButton disableTouchRipple component={Link} href="/customer/auth/signin" className={`MobileHeader_icon ${pathname === "/customer/auth/signin" ? "active" : ""}`}>
+                        <IconButton disableTouchRipple component={Link} href="/dealer/auth/signin" className={`MobileHeader_icon ${pathname === "/dealer/auth/signin" ? "active" : ""}`}>
                             <Icon path={mdiAccountCircle} size={1} />
                         </IconButton>
                         {/*로그인시, oo님*/}
@@ -33,7 +33,7 @@ export default function MobileHeader() {
                             </span>
                         )}
                         {status === "authenticated" && (
-                            <IconButton disableTouchRipple onClick={() => signOut({callbackUrl: "/customer"})} className= "DesktopHeader_icon" title= "로그아웃"><Icon path={mdiLogout} size={1} /></IconButton>
+                            <IconButton disableTouchRipple onClick={() => signOut({callbackUrl: "/dealer"})} className= "DesktopHeader_icon" title= "로그아웃"><Icon path={mdiLogout} size={1} /></IconButton>
                         )}
                         <IconButton onClick={() => toggleDrawer(!isDrawerOpen)} className={`MobileHeader_icon ${isDrawerOpen ? "active" : ""}`}>
                             <Icon path={mdiMenu} size={1} />
