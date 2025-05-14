@@ -63,6 +63,15 @@
             display: flex;
             align-items: center;
 
+            .CustomerSigninErrorMsg {
+                color: red;
+                font-size: 14px;
+                font-family: $font-regular;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+
             .CustomerSigninLogoStyle {
                 text-align: center;
                 font-family: $font-medium;

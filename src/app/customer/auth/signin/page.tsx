@@ -13,6 +13,8 @@ export default function SignInPage() {
     const [password, setPassword] = useState("");
     const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
     const [providers, setProviders] = useState<any>(null);
+    const [loading, setLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
     const recaptchaRef = useRef<ReCAPTCHA | null>(null);
     const router = useRouter();
 
@@ -20,13 +22,38 @@ export default function SignInPage() {
         getProviders().then((res) => setProviders(res));
     }, []);
 
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const validateForm = (): boolean => {
+        if (!email || !password) {
+            setErrorMsg("이메일과 비밀번호를 모두 입력해주세요.");
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setErrorMsg("올바른 이메일 형식을 입력해주세요.");
+            return false;
+        }
+
+        if (password.length < 6) {
+            setErrorMsg("비밀번호는 최소 6자 이상이어야 합니다.");
+            return false;
+        }
 
         if (!recaptchaToken) {
-            alert("reCAPTCHA 인증을 완료해주세요.");
-            return;
+            setErrorMsg("reCAPTCHA 인증을 완료해주세요.");
+            return false;
         }
+
+        return true;
+    };
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setErrorMsg("");
+
+        if (!validateForm()) return;
+
+        setLoading(true);
 
         const result = await signIn("credentials", {
             email,
@@ -35,8 +62,10 @@ export default function SignInPage() {
             redirect: false,
         });
 
+        setLoading(false);
+
         if (result?.error) {
-            alert(result.error);
+            setErrorMsg(result.error);
             recaptchaRef.current?.reset();
             setRecaptchaToken(null);
         } else {
@@ -61,7 +90,6 @@ export default function SignInPage() {
                                     className={styles.CustomerSigninTextField}
                                     style={{ marginTop: '40px' }}
                                     type="email"
-                                    required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="이메일을 입력해주세요"
@@ -70,7 +98,6 @@ export default function SignInPage() {
                                     className={styles.CustomerSigninTextField}
                                     style={{ marginTop: '8px' }}
                                     type="password"
-                                    required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="비밀번호를 입력해주세요"
@@ -93,6 +120,10 @@ export default function SignInPage() {
                                 </span>
                             </div>
 
+                            {errorMsg && (
+                                <p className={styles.CustomerSigninErrorMsg}>{errorMsg}</p>
+                            )}
+
                             <div className={styles.CustomerSigninRecaptchaWrapper}>
                                 <ReCAPTCHA
                                     ref={recaptchaRef}
@@ -102,8 +133,12 @@ export default function SignInPage() {
                             </div>
 
                             <div className={styles.CustomerSigninBottomContent}>
-                                <Button className={styles.CustomerSigninLoginButton} type="submit">
-                                    로그인
+                                <Button
+                                    className={styles.CustomerSigninLoginButton}
+                                    type="submit"
+                                    disabled={loading}
+                                >
+                                    {loading ? "로그인 중..." : "로그인"}
                                 </Button>
 
                                 {providers?.naver && (

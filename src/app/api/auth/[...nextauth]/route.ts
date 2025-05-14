@@ -129,6 +129,7 @@ const handler = NextAuth({
     callbacks: {
         async jwt({ token, user, account, profile }) {
             if (user) {
+                // credentials 로그인
                 token.name = user.name;
             }
 
