@@ -26,20 +26,18 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const { name, email, password, recaptchaToken } = body;
+        const { name, email, password, phone, recaptchaToken } = body;
 
         console.log("받은 reCAPTCHA token:", recaptchaToken);
 
-
-
-        if (!name || !email || !password || !recaptchaToken) {
+        // 입력값 검증
+        if (!name || !email || !password || !phone || !recaptchaToken) {
             return NextResponse.json(
                 { error: "입력 항목이 누락되었습니다" },
                 { status: 400 }
             );
         }
 
-        // 이메일 형식 검사
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             return NextResponse.json(
@@ -47,7 +45,6 @@ export async function POST(request: Request) {
                 { status: 400 }
             );
         }
-
 
         if (password.length < 6) {
             return NextResponse.json(
@@ -65,8 +62,16 @@ export async function POST(request: Request) {
             );
         }
 
+        // 사용자 중복 확인 (email 또는 phone)
+        const existingUser = await prisma.user.findFirst({
+            where: {
+                OR: [
+                    { email },
+                    { phone }
+                ]
+            }
+        });
 
-        const existingUser = await prisma.user.findUnique({ where: { email } });
         if (existingUser) {
             return NextResponse.json(
                 { error: "이미 등록된 사용자입니다" },
@@ -74,15 +79,14 @@ export async function POST(request: Request) {
             );
         }
 
-
         const hashedPassword = await bcrypt.hash(password, 10);
-
 
         const user = await prisma.user.create({
             data: {
                 name,
                 email,
                 password: hashedPassword,
+                phone,
             },
         });
 

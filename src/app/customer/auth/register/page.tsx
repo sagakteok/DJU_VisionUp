@@ -8,6 +8,7 @@ export default function RegisterPage() {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("");
     const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
     const recaptchaRef = useRef<ReCAPTCHA | null>(null);
     const router = useRouter();
@@ -40,7 +41,6 @@ export default function RegisterPage() {
             recaptchaRef.current?.reset();
             setRecaptchaToken(null);
         }
-
     };
 
     return (
