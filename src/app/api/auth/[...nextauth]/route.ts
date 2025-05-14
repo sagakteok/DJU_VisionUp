@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import KakaoProvider from 'next-auth/providers/kakao';
+import KakaoProvider from "next-auth/providers/kakao";
 import NaverProvider from "next-auth/providers/naver";
 import CredentialsProvider from "next-auth/providers/credentials";
-import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import {PrismaClient} from "@prisma/client";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -18,6 +18,20 @@ interface KakaoProfile {
         };
         email?: string;
     };
+}
+
+async function verifyRecaptcha(token: string): Promise<boolean> {
+    const secret = process.env.RECAPTCHA_SECRET_KEY;
+    if (!token || !secret) return false;
+
+    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${secret}&response=${token}`,
+    });
+
+    const data = await res.json();
+    return data.success === true;
 }
 
 const handler = NextAuth({
@@ -47,24 +61,33 @@ const handler = NextAuth({
         CredentialsProvider({
             name: "Credentials",
             credentials: {
-                email: {label: "Email", type: "text"},
-                password: {label: "Password", type: "password"},
+                email: { label: "Email", type: "text" },
+                password: { label: "Password", type: "password" },
+                recaptchaToken: { label: "reCAPTCHA", type: "text" },
             },
             async authorize(credentials, _req) {
                 try {
-                    if (!credentials || !credentials.email || !credentials.password) {
-                        throw new Error("이메일과 비밀번호를 입력해주세요.");
+                    const { email, password, recaptchaToken } = credentials ?? {};
+
+                    if (!email || !password || !recaptchaToken) {
+                        throw new Error("모든 필드를 입력해주세요.");
+                    }
+
+
+                    const isHuman = await verifyRecaptcha(recaptchaToken);
+                    if (!isHuman) {
+                        throw new Error("reCAPTCHA 인증에 실패했습니다.");
                     }
 
                     const user = await prisma.user.findUnique({
-                        where: {email: credentials.email},
+                        where: { email },
                     });
 
                     if (!user || !user.password) {
                         throw new Error("존재하지 않는 이메일 혹은 비밀번호입니다.");
                     }
 
-                    const isValid = await bcrypt.compare(credentials.password, user.password);
+                    const isValid = await bcrypt.compare(password, user.password);
                     if (!isValid) {
                         throw new Error("이메일 혹은 비밀번호가 일치하지 않습니다.");
                     }
@@ -77,14 +100,18 @@ const handler = NextAuth({
                 } catch (err: any) {
                     console.log("로그인 중 에러:", err);
 
-                    //prisma db 연결 실패 메시지
-                    if (err.message.includes("Can't reach database server") || err.message.includes("ECONNREFUSED")) {
-                        throw new Error("서버에 일시적인 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                    if (
+                        err.message.includes("Can't reach database server") ||
+                        err.message.includes("ECONNREFUSED")
+                    ) {
+                        throw new Error(
+                            "서버에 일시적인 문제가 발생했습니다. 잠시 후 다시 시도해주세요."
+                        );
                     }
-                    //위에거 제외한 에러 메시지
+
                     throw new Error(err.message || "로그인 중 알 수 없는 오류가 발생했습니다.");
                 }
-            }
+            },
         }),
     ],
 
@@ -97,9 +124,8 @@ const handler = NextAuth({
     },
 
     callbacks: {
-        async jwt({token, user, account, profile}) {
+        async jwt({ token, user, account, profile }) {
             if (user) {
-                // credentials 로그인
                 token.name = user.name;
             }
 
@@ -111,8 +137,8 @@ const handler = NextAuth({
             return token;
         },
 
-        async session({session, token}) {
-            console.log("토따 session(): token.name =", token.name); // 콘솔 확인용
+        async session({ session, token }) {
+            console.log("토따 session(): token.name =", token.name);
             if (token?.name && session.user) {
                 session.user.name = token.name;
             }
@@ -121,4 +147,4 @@ const handler = NextAuth({
     },
 });
 
-export {handler as GET, handler as POST};
+export { handler as GET, handler as POST };
