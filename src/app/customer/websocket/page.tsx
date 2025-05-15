@@ -1,68 +1,59 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { io, Socket } from 'socket.io-client';
-import toast, {Toaster} from 'react-hot-toast';
 
-let socket: Socket;
+export default function ChatPage() {
+    const searchParams = useSearchParams();
+    const me = searchParams.get('me') || 'me';
+    const to = searchParams.get('to') || 'target';
 
-export default function WebSocketPage() {
     const [message, setMessage] = useState('');
-    const [response, setResponse] = useState('');
+    const [chatLog, setChatLog] = useState<string[]>([]);
+    const socketRef = useRef<Socket | null>(null);
 
     useEffect(() => {
-        //알림 권한 요청
-        if (Notification.permission !== 'granted') {
-            Notification.requestPermission();
-        }
+        const socket = io('http://localhost:4000', { path: '/socket.io' });
+        socketRef.current = socket;
+        socket.emit('register', me);
 
-        socket = io('http://localhost:4000', {
-            path: '/socket.io',
-        });
-
-        socket.on('connect', () => {
-            console.log('Connected to server');
-        });
-
-        socket.on('message', (msg: string) => {
-            console.log('Received from server:', msg);
-            setResponse(msg);
-
-            //브라우저 알림
-            if (Notification.permission === 'granted') {
-                new Notification('새로운 알림이 있습니다.', {
-                    body: msg,
-                });
-            }
-
-            //화면 보고 있으면 토스트 알림도 전송
-            if (!document.hidden) {
-                toast.success(`새로운 메시지: ${msg}`);
-            }
+        // 메시지 수신
+        socket.on('private_message', ({ from, content }) => {
+            setChatLog((prev) => [...prev, `[${from}]: ${content}`]);
         });
 
         return () => {
             socket.disconnect();
         };
-    }, []);
+    }, [me]);
 
     const sendMessage = () => {
-        socket.emit('message', message);
-        setMessage('');
+        if (socketRef.current && message.trim() !== '') {
+            socketRef.current.emit('private_message', {
+                from: me,
+                to,
+                content: message.trim()
+            });
+            setChatLog((prev) => [...prev, `[나]: ${message}`]);
+            setMessage('');
+        }
     };
 
     return (
         <div style={{ padding: '2rem' }}>
-            <h1>WebSocket (Socket.io) 테스트</h1>
+            <h2>1:1 채팅 – {me} ↔ {to}</h2>
+            <div style={{ marginBottom: '1rem', height: '200px', overflowY: 'auto' }}>
+                {chatLog.map((line, idx) => (
+                    <div key={idx}>{line}</div>
+                ))}
+            </div>
             <input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="메시지를 입력하세요"
             />
-            <button onClick={sendMessage}>전송</button>
-            <p>서버 응답: {response}</p>
-
-            <Toaster position="top-right"/>
+            <button onClick={sendMessage}>보내기</button>
         </div>
     );
 }
