@@ -89,7 +89,7 @@ export default function SignInPage() {
                             <input className={styles.CustomerSigninTextField} style={{marginTop: '8px'}} type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호를 입력해주세요"/>
                         </div>
                         <div className={styles.CustomerSigninMidContent}>
-                            <span className={styles.CustomerSigninMidContentTextStyle} onClick={() => router.push("/customer/auth/find-id")}>ID 찾기</span>
+                            <span className={styles.CustomerSigninMidContentTextStyle} onClick={() => router.push("/customer/auth/phone_auth")}>ID 찾기</span>
                             <span className={styles.CustomerSigninMidContentLineStyle}>|</span>
                             <span className={styles.CustomerSigninMidContentTextStyle} onClick={() => router.push("/customer/auth/reset-password")}>비밀번호 재설정</span>
                         </div>
