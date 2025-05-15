@@ -107,7 +107,7 @@ export default function SignInPage() {
                             <div className={styles.CustomerSigninMidContent}>
                                 <span
                                     className={styles.CustomerSigninMidContentTextStyle}
-                                    onClick={() => router.push("/customer/auth/find-id")}
+                                    onClick={() => router.push("/customer/auth/phone_auth")}
                                 >
                                     ID 찾기
                                 </span>

@@ -107,11 +107,20 @@ export default function RegisterPage() {
                     placeholder="이메일"
                     required
                 />
+
                 <input
                     type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder="비밀번호 (6자 이상)"
+                    required
+                />
+
+                <input
+                    type="text"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    placeholder="전화번호(숫자만 입력해주세요)"
                     required
                 />
 
