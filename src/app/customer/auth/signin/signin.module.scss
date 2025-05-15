@@ -56,8 +56,9 @@
 
         .CustomerSigninCard {
             width: 530px;
-            height: 600px;
-            margin-top: 60px;
+            min-height: 750px;
+            margin-top: 120px;
+            margin-bottom: 60px;
             border-radius: 20px;
             background-color: #FFFFFF;
             display: flex;
@@ -179,8 +180,9 @@
 
         .CustomerSigninCard {
             width: 85vw;
-            height: 500px;
-            margin-top: 60px;
+            height: 650px;
+            margin-top: 120px;
+            margin-bottom: 60px;
             border-radius: 20px;
             background-color: #FFFFFF;
             display: flex;

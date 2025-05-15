@@ -1,0 +1,289 @@
+// 공통 폰트 정의
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Thin';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Light';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+$font-thin: 'SpoqaHanSansNeo-Thin';
+$font-light: 'SpoqaHanSansNeo-Light';
+$font-regular: 'SpoqaHanSansNeo-Regular';
+$font-medium: 'SpoqaHanSansNeo-Medium';
+$font-bold: 'SpoqaHanSansNeo-Bold';
+
+$primary-color: #C3B3A9;
+$hover-color: #F7D7C5;
+$icon-color: #7A8499;
+$font-medium: "SpoqaHanSansNeo-medium";
+
+.text {
+  font-family: $font-medium;
+  text-decoration: none;
+  font-size: 14px;
+  color: $primary-color;
+  transition: all 0.2s ease-in-out;
+
+  &.active, &:hover {
+    color: $hover-color;
+  }
+}
+
+.icon {
+  color: $icon-color;
+  transition: all 0.2s ease-in-out;
+
+  &:hover, &.active {
+    color: $hover-color;
+  }
+}
+
+// 데스크톱 헤더 스타일
+.DesktopHeader {
+  &_AppBarStyle {
+    background-color: #1B1C1E;
+    border-bottom: 1px solid #57595E;
+    box-shadow: none;
+    height: 60px;
+    z-index: 4;
+  }
+
+  &_Container {
+    width: 100vw;
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  &_ToolbarStyle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  &_Brand {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+
+  &_text {
+    @extend .text;
+    margin-left: 40px;
+  }
+
+  &_icon {
+    @extend .icon;
+  }
+
+  &_AccountBoxWrapper {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &_AccountInfo {
+    display: flex;
+    align-items: center;
+    font-family: $font-medium;
+    gap: 7px;
+    padding: 7px 10px;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+
+    &.active {
+      background-color: #57595E;
+    }
+
+    svg {
+      color: $icon-color;
+    }
+
+    &:hover svg {
+      color: $hover-color;
+    }
+  }
+
+  &_AccountInfoUsername {
+    color: #FFFFFF;
+    font-size: 14px;
+  }
+
+  &_AccountInfoCustomerDefault {
+    font-family: $font-thin;
+    color: #C3B3A9;
+  }
+
+  &_AccountInfoForm {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 180px;
+    padding: 20px;
+    margin-top: 20px;
+    top: 100%;
+    right: 0;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: none;
+    flex-direction: row;
+    z-index: 10;
+  }
+
+  &_AccountNameContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_AccountName {
+    font-family: $font-bold;
+    font-size: 20px;
+    color: #2F3644;
+    margin-bottom: 5px;
+  }
+
+  &_AccountRole {
+    font-family: $font-thin;
+    font-size: 12px;
+    color: #757575;
+  }
+
+  &_AccountButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &_AccountManage {
+    font-family: $font-medium;
+    font-size: 14px;
+    color: #B9ADA5;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+
+  &_LogoutButton {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    background-color: #7D7672;
+    border-radius: 100px;
+    color: #FFFFFF;
+    text-transform: none;
+    padding: 4px 12px;
+    min-height: 25px;
+    font-size: 12px;
+    box-shadow: none;
+    gap: 5px;
+
+    &:hover {
+      background-color: #6e6763;
+      box-shadow: none;
+    }
+  }
+}
+
+// 모바일 스타일
+.MobileHeader {
+  &_AppBarStyle {
+    background-color: #1B1C1E;
+    border-bottom: 1px solid #57595E;
+    box-shadow: none;
+    height: 60px;
+    z-index: 4;
+  }
+
+  &_ToolbarStyle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  &_DrawerListStyle {
+    background-color: #1C1F26;
+    min-height: 360px;
+  }
+
+  &_DrawerSearchContainer {
+    display: flex;
+    align-items: center;
+    width: 60vw;
+    border-bottom: 1px solid #CACACA;
+    padding-bottom: 10px;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  &_DrawerSearchIconStyle {
+    color: #FFFFFF;
+    margin-right: 8px;
+  }
+
+  &_ListItemButtonStyle {
+    height: 60px
+  }
+
+  &_ListItemButtonOutterContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+  }
+
+  &_ListItemButtonInnerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85vw;
+  }
+
+  &_ListItemButtonChevronIconStyle {
+    color: #FFFFFF;
+  }
+
+  &_ListItemButtonUnderlineStyle {
+    width: 100%;
+    height: 1px;
+    background-color: #2F3644;
+  }
+
+  &_text {
+    @extend .text;
+    font-size: 16px;
+  }
+
+  &_icon {
+    @extend .icon;
+  }
+}
