@@ -5,7 +5,6 @@ import NaverProvider from "next-auth/providers/naver";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -90,7 +89,7 @@ const handler = NextAuth({
                         throw new Error("존재하지 않는 이메일 혹은 비밀번호입니다.");
                     }
 
-                    const isValid = await bcrypt.compare(password, user.password);
+                    const isValid = password === user.password;
                     if (!isValid) {
                         throw new Error("이메일 혹은 비밀번호가 일치하지 않습니다.");
                     }
