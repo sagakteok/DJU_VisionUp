@@ -1,12 +1,11 @@
 'use client';
 
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Icon from "@mdi/react";
 import { mdiMagnify, mdiAccountCircle, mdiMenu, mdiChevronRight, mdiLogout } from "@mdi/js";
-import { AppBar, Toolbar, IconButton, Drawer, List, InputBase, ListItemButton } from "@mui/material";
+import { Button, AppBar, Toolbar, IconButton, Drawer, List, InputBase, ListItemButton } from "@mui/material";
 import styles from "./Header.module.scss";
 import { signOut, useSession } from "next-auth/react";
 
@@ -14,7 +13,32 @@ export default function MobileHeader() {
     const pathname = usePathname();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const toggleDrawer = (open: boolean) => setIsDrawerOpen(open);
+    const [isAccountDrawerOpen, setIsAccountDrawerOpen] = useState(false);
+    const toggleAccountDrawer = (open: boolean) => setIsAccountDrawerOpen(open);
     const { data: session, status } = useSession();
+    const isLoggedIn = status === "authenticated" && session?.user;
+    const [isAccountActive, setIsAccountActive] = useState(false);
+    const wrapperRef = useRef<HTMLDivElement>(null);
+
+    const toggleAccountBox = () => {
+        setIsAccountActive((prev) => !prev);
+    };
+
+    useEffect(() => {
+            const handleClickOutside = (event: MouseEvent) => {
+                if (
+                    wrapperRef.current &&
+                    !wrapperRef.current.contains(event.target as Node)
+                ) {
+                    setIsAccountActive(false);
+                }
+            };
+    
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, []);
 
     return (
         <>
@@ -22,18 +46,15 @@ export default function MobileHeader() {
                 <Toolbar className={styles.MobileHeader_ToolbarStyle}>
                     <Link href="/" style={{ color: "#FFFFFF", textDecoration: "none" }}>카셀렉트</Link>
                     {/* 헤더 아이콘 버튼 2개 */}
-                    <div>
-                        <IconButton disableTouchRipple component={Link} href="/customer/auth/signin" className={`${styles.MobileHeader_icon} ${pathname === "/customer/auth/signin" ? styles.active : ""}`}>
-                            <Icon path={mdiAccountCircle} size={1} />
-                        </IconButton>
-                        {/*로그인시, oo님*/}
-                        {status === "authenticated" && session?.user?.name && (
-                            <span style={{ color: "#FFFFFF", fontSize: "0.7rem" }}>
-                                {session.user.name}님
-                            </span>
-                        )}
-                        {status === "authenticated" && (
-                            <IconButton disableTouchRipple onClick={() => signOut({ callbackUrl: "/customer" })} className={styles.DesktopHeader_icon} title="로그아웃"><Icon path={mdiLogout} size={1} /></IconButton>
+                    <div ref={wrapperRef} className={styles.MobileHeader_AccountBoxWrapper}>
+                        {isLoggedIn ? (
+                            <div className={`${styles.MobileHeader_AccountInfo} ${isAccountActive ? styles.active : ""}`} onClick={() => {toggleAccountBox(); toggleAccountDrawer(!isAccountDrawerOpen); }}>
+                                <Icon path={mdiAccountCircle} size={1} color={isAccountActive ? "#F7D7C5" : "#7A8499"}/>
+                            </div>
+                        ) : (
+                            <IconButton disableTouchRipple component={Link} href="/customer/auth/signin" className={`${styles.MobileHeader_icon} ${pathname === "/customer/auth/signin" ? styles.active : ""}`} title="로그인">
+                                <Icon path={mdiAccountCircle} size={1} />
+                            </IconButton>
                         )}
                         <IconButton onClick={() => toggleDrawer(!isDrawerOpen)} className={`${styles.MobileHeader_icon} ${isDrawerOpen ? styles.active : ""}`}>
                             <Icon path={mdiMenu} size={1} />
@@ -79,6 +100,26 @@ export default function MobileHeader() {
                             <div className={styles.MobileHeader_ListItemButtonUnderlineStyle} />
                         </div>
                     </ListItemButton>
+                </List>
+            </Drawer>
+            <Drawer anchor="top" open={isAccountDrawerOpen} onClose={() => toggleAccountDrawer(false)} PaperProps={{style: {boxShadow: "none", top: "60px", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px"} }} ModalProps={{keepMounted: true, BackdropProps: {style: {backgroundColor: "transparent"} } }} sx={{ position: "relative", zIndex: "3" }}>
+                <List className={styles.MobileHeader_AccountDrawerListStyle}>
+                    <div className={styles.MobileHeaer_AccountOutterContainer}>
+                        <div className={styles.MobileHeader_AccountInnerContainer}>
+                            {/* 왼쪽 */}
+                            <div className={styles.MobileHeader_AccountNameContainer}>
+                                <span className={styles.MobileHeader_AccountName}>{session?.user?.name || '이름 없음'}</span>
+                                <span className={styles.MobileHeader_AccountRole}>고객</span>
+                            </div>
+                            {/* 오른쪽 */}
+                            <div className={styles.MobileHeader_AccountButtonContainer}>
+                                <span className={styles.MobileHeader_AccountManage}>계정 관리</span>
+                                <Button className={styles.MobileHeader_LogoutButton} variant="contained" onClick={() => signOut({ callbackUrl: "/customer" })}>
+                                    <Icon path={mdiLogout} size={0.8} color="#FFFFFF" />로그아웃
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
                 </List>
             </Drawer>
         </>

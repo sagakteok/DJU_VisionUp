@@ -50,7 +50,7 @@ export default function DesktopHeader() {
                         {isLoggedIn ? (
                             <div className={`${styles.DesktopHeader_AccountInfo} ${isAccountActive ? styles.active : ""}`} onClick={toggleAccountBox}>
                                 <Icon path={mdiAccountCircle} size={1} color={isAccountActive ? "#F7D7C5" : "#7A8499"} />
-                                <span className={styles.DesktopHeader_AccountInfoUsername}>{session.user.name}
+                                <span className={styles.DesktopHeader_AccountInfoUsername}>{session?.user?.name || '이름 없음'}
                                     <span className={styles.DesktopHeader_AccountInfoCustomerDefault}> 고객님</span>
                                 </span>
                             </div>
@@ -63,7 +63,7 @@ export default function DesktopHeader() {
                         {isLoggedIn && isAccountActive && (
                             <div className={styles.DesktopHeader_AccountInfoForm}>
                                 <div className={styles.DesktopHeader_AccountNameContainer}>
-                                    <div className={styles.DesktopHeader_AccountName}>{session.user.name}</div>
+                                    <div className={styles.DesktopHeader_AccountName}>{session?.user?.name || '이름 없음'}</div>
                                     <div className={styles.DesktopHeader_AccountRole}>고객</div>
                                 </div>
                                 <div className={styles.DesktopHeader_AccountButtons}>
