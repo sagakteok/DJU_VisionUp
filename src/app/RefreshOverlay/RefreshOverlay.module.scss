@@ -42,7 +42,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 .RefreshOverlayStyle {
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(to bottom, #1C1F26, #57595E);
   display: flex;
   align-items: center;
@@ -52,7 +52,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
   pointer-events: all;
 }
 
-.RefreshOverlayStyle.fade-out {
+.RefreshOverlayFadeOut {
   opacity: 0;
   pointer-events: none;
 }

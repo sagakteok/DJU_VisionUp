@@ -1,8 +1,8 @@
-import './MainHome.scss';
+import styles from './MainHome.module.scss';
 
 export default function MainHomeDesktop() {
   return (
-      <div className="MainHomeStyle">
+      <div className={styles.MainHomeStyle}>
         
       </div>
   );

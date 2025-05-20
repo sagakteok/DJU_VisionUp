@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 0.0.0.0",
+    "dev": "next dev",
     "websocket": "ts-node -P tsconfig.server.json server.ts",
     "dev:all": "concurrently \"npm run websocket\" \"npm run dev\"",
     "build": "next build",
