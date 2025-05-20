@@ -21,20 +21,6 @@ export async function POST(req: Request) {
 
         const data = await response.json();
 
-        if (data.success && data.action === "login" && data.score >= 0.3) {
-            return NextResponse.json({
-                success: true,
-                score: data.score,
-                action: data.action
-            });
-        } else {
-            return NextResponse.json({
-                success: false,
-                score: data.score,
-                action: data.action,
-                reason: 'Low score or failed verification'
-            }, { status: 403 });
-        }
     } catch (err: any) {
         return NextResponse.json({
             success: false,
