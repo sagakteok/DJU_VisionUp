@@ -48,8 +48,8 @@ export default function MobileHeader() {
                     {/* 헤더 아이콘 버튼 2개 */}
                     <div ref={wrapperRef} className={styles.MobileHeader_AccountBoxWrapper}>
                         {isLoggedIn ? (
-                            <div className={`${styles.MobileHeader_AccountInfo} ${isAccountActive ? styles.active : ""}`} onClick={() => {toggleAccountBox(); toggleAccountDrawer(!isAccountDrawerOpen); }}>
-                                <Icon path={mdiAccountCircle} size={1} color={isAccountActive ? "#F7D7C5" : "#7A8499"}/>
+                            <div onClick={() => {toggleAccountBox(); toggleAccountDrawer(!isAccountDrawerOpen); }} className={`${styles.MobileHeader_AccountInfo} ${isAccountDrawerOpen ? styles.active : ""}`}>
+                                <Icon path={mdiAccountCircle} size={1} color={isAccountDrawerOpen ? "#F7D7C5" : "#7A8499"}/>
                             </div>
                         ) : (
                             <IconButton disableTouchRipple component={Link} href="/customer/auth/signin" className={`${styles.MobileHeader_icon} ${pathname === "/customer/auth/signin" ? styles.active : ""}`} title="로그인">
