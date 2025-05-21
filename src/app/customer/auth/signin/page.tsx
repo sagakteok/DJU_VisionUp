@@ -75,10 +75,7 @@ export default function SignInPage() {
 
     return (
         <main>
-            <Script
-                src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
-                strategy="beforeInteractive"
-            />
+            <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} strategy="beforeInteractive"/>
 
             <div className={styles.CustomerSigninStyle}>
                 <div className={styles.CustomerSigninCard}>
@@ -86,38 +83,13 @@ export default function SignInPage() {
                         <span className={styles.CustomerSigninLogoStyle}>LOGO in Here</span>
                         <form onSubmit={handleLogin}>
                             <div className={styles.CustomerSigninTopContent}>
-                                <input
-                                    className={styles.CustomerSigninTextField}
-                                    style={{ marginTop: '40px' }}
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="이메일을 입력해주세요"
-                                />
-                                <input
-                                    className={styles.CustomerSigninTextField}
-                                    style={{ marginTop: '8px' }}
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="비밀번호를 입력해주세요"
-                                />
+                                <input className={styles.CustomerSigninTextField} style={{ marginTop: '40px' }} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="이메일을 입력해주세요"/>
+                                <input className={styles.CustomerSigninTextField} style={{ marginTop: '8px' }} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호를 입력해주세요"/>
                             </div>
-
                             <div className={styles.CustomerSigninMidContent}>
-                                <span
-                                    className={styles.CustomerSigninMidContentTextStyle}
-                                    onClick={() => router.push("/customer/auth/phone_auth")}
-                                >
-                                    ID 찾기
-                                </span>
+                                <span className={styles.CustomerSigninMidContentTextStyle} onClick={() => router.push("/customer/auth/phone_auth")}>ID 찾기</span>
                                 <span className={styles.CustomerSigninMidContentLineStyle}>|</span>
-                                <span
-                                    className={styles.CustomerSigninMidContentTextStyle}
-                                    onClick={() => router.push("/customer/auth/reset-password")}
-                                >
-                                    비밀번호 재설정
-                                </span>
+                                <span className={styles.CustomerSigninMidContentTextStyle} onClick={() => router.push("/customer/auth/reset-password")}>비밀번호 재설정</span>
                             </div>
 
                             {errorMsg && (
@@ -125,49 +97,26 @@ export default function SignInPage() {
                             )}
 
                             <div className={styles.CustomerSigninRecaptchaWrapper}>
-                                <ReCAPTCHA
-                                    ref={recaptchaRef}
-                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                                    onChange={(token) => setRecaptchaToken(token)}
-                                />
+                                <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!} onChange={(token) => setRecaptchaToken(token)}/>
                             </div>
-
                             <div className={styles.CustomerSigninBottomContent}>
-                                <Button
-                                    className={styles.CustomerSigninLoginButton}
-                                    type="submit"
-                                    disabled={loading}
-                                >
+                                <Button className={styles.CustomerSigninLoginButton} type="submit" disabled={loading}>
                                     {loading ? "로그인 중..." : "로그인"}
                                 </Button>
 
                                 {providers?.naver && (
-                                    <Button
-                                        className={styles.CustomerSigninNaverLoginButton}
-                                        style={{ marginTop: '8px' }}
-                                        onClick={() => signIn("naver", { callbackUrl: "/customer" })}
-                                    >
-                                        네이버로 로그인하기
-                                    </Button>
+                                    <Button className={styles.CustomerSigninGoogleLoginButton} style={{ marginTop: '8px' }} onClick={() => signIn("google", { callbackUrl: "/customer" })}>Google로 로그인하기</Button>
+                                )}
+
+                                {providers?.naver && (
+                                    <Button className={styles.CustomerSigninNaverLoginButton} style={{ marginTop: '8px' }} onClick={() => signIn("naver", { callbackUrl: "/customer" })}>네이버로 로그인하기</Button>
                                 )}
 
                                 {providers?.kakao && (
-                                    <Button
-                                        className={styles.CustomerSigninKakaoLoginButton}
-                                        style={{ marginTop: '8px' }}
-                                        onClick={() => signIn("kakao", { callbackUrl: "/customer" })}
-                                    >
-                                        카카오로 로그인하기
-                                    </Button>
+                                    <Button className={styles.CustomerSigninKakaoLoginButton} style={{ marginTop: '8px' }} onClick={() => signIn("kakao", { callbackUrl: "/customer" })}>카카오로 로그인하기</Button>
                                 )}
 
-                                <Button
-                                    className={styles.CustomerSigninRegisterButton}
-                                    style={{ marginTop: '8px' }}
-                                    onClick={() => router.push("/customer/auth/register")}
-                                >
-                                    계정 만들기
-                                </Button>
+                                <Button className={styles.CustomerSigninRegisterButton} style={{ marginTop: '8px' }} onClick={() => router.push("/customer/auth/register")}>계정 만들기</Button>
                             </div>
                         </form>
                     </CardContent>

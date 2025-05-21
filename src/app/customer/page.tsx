@@ -16,10 +16,7 @@ export default function MainHomeDesktop() {
           <div className={styles.MainHomeForthTitle}><span>4,383 만원 부터</span></div>
         </div>
         <div className={styles.MainHomeBottomContent}>
-          <Link
-            href="https://www.hyundai.com/kr/ko/e/vehicles/the-all-new-palisade/intro"
-            style={{ textDecoration: "none" }}
-          >
+          <Link href="https://www.hyundai.com/kr/ko/e/vehicles/the-all-new-palisade/intro" style={{ textDecoration: "none" }}>
             <div className={styles.MainHomeCarHrefContainer}>
               <span className={styles.MainHomeCarHrefText}>차량 상세 보기</span>
               <Icon className={styles.MainHomeCarHrefIcon} path={mdiChevronRight} size={1} />
