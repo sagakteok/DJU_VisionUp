@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { io, Socket } from 'socket.io-client';
+import styles from './ChatPage.module.scss';
 
 export default function ChatPage() {
     const searchParams = useSearchParams();
@@ -18,7 +19,6 @@ export default function ChatPage() {
         socketRef.current = socket;
         socket.emit('register', me);
 
-        // 메시지 수신
         socket.on('private_message', ({ from, content }) => {
             setChatLog((prev) => [...prev, `[${from}]: ${content}`]);
         });
@@ -35,25 +35,40 @@ export default function ChatPage() {
                 to,
                 content: message.trim()
             });
-            setChatLog((prev) => [...prev, `[나]: ${message}`]);
+            setChatLog((prev) => [...prev, `[나]: ${message.trim()}`]);
             setMessage('');
         }
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') sendMessage();
+    };
+
     return (
-        <div style={{ padding: '2rem' }}>
-            <h2>1:1 채팅 – {me} ↔ {to}</h2>
-            <div style={{ marginBottom: '1rem', height: '200px', overflowY: 'auto' }}>
-                {chatLog.map((line, idx) => (
-                    <div key={idx}>{line}</div>
-                ))}
+        <div className={styles.pageWrapper}>
+            <div className={styles.chatContainer}>
+                <h2 className={styles.title}>1:1 채팅 – <span>{me}</span> ↔ <span>{to}</span></h2>
+
+                <div className={styles.chatBox}>
+                    {chatLog.map((line, idx) => (
+                        <div key={idx} className={line.startsWith('[나]') ? styles.myMessage : styles.otherMessage}>
+                            {line}
+                        </div>
+                    ))}
+                </div>
+
+                <div className={styles.inputGroup}>
+                    <input
+                        className={styles.input}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        placeholder="메시지를 입력하세요"
+                        autoFocus
+                    />
+                    <button className={styles.sendButton} onClick={sendMessage}>보내기</button>
+                </div>
             </div>
-            <input
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="메시지를 입력하세요"
-            />
-            <button onClick={sendMessage}>보내기</button>
         </div>
     );
 }
