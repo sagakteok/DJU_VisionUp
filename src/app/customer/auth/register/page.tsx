@@ -2,6 +2,8 @@
 
 import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "@mui/material"
+import styles from "./register.module.scss"
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function RegisterPage() {
@@ -64,7 +66,7 @@ export default function RegisterPage() {
         setLoading(false);
 
         if (res.ok) {
-            router.push("/customer/auth/signin");
+            router.push("/customer/auth/register/finish");
         } else {
             setErrorMsg(data.error || "회원가입에 실패했습니다.");
             recaptchaRef.current?.reset();
@@ -73,87 +75,57 @@ export default function RegisterPage() {
     };
 
     return (
-        <div style={{ paddingTop: '60px', display: 'flex', justifyContent: 'center' }}>
-            <form
-                onSubmit={handleRegister}
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1rem',
-                    width: '300px',
-                    padding: '2rem',
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
-                }}
-            >
-                <h2 style={{ textAlign: 'center' }}>회원가입</h2>
-
-                {errorMsg && (
-                    <p style={{ color: 'red', fontSize: '14px', textAlign: 'center' }}>{errorMsg}</p>
-                )}
-
-                <input
-                    type="text"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    placeholder="이름"
-                    required
-                />
-                <input
-                    type="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder="이메일"
-                    required
-                />
-
-                <input
-                    type="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder="비밀번호 (6자 이상)"
-                    required
-                />
-
-                <input
-                    type="text"
-                    value={phone}
-                    onChange={e => setPhone(e.target.value)}
-                    placeholder="전화번호(숫자만 입력해주세요)"
-                    required
-                />
-
-
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <ReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                        onChange={(token) => setRecaptchaToken(token)}
-                    />
+        <main className={styles.RegisterUserFormStyle}>
+            <div className={styles.RegisterUserFormContainer}>
+                <div className={styles.RegisterUserFormContent}>
+                    <div className={styles.RegisterUserFormTopContent}>
+                        <div>
+                            <span className={styles.RegisterUserFormTitle}>카셀렉트 고객 회원가입</span>
+                        </div>
+                        <div>
+                            <span className={styles.RegisterUserFormSubTitle}>회원 정보를 입력하고 가입을 완료하세요.</span>
+                        </div>
+                    </div>
+                    <div className={styles.RegisterUserFormSmallTitleContent}>
+                        <span className={styles.RegisterUserFormSmallTitleNumber}>3</span>
+                        <span className={styles.RegisterUserFormSmallTitle}>회원 정보 입력</span>
+                    </div>
+                    <form onSubmit={handleRegister}>
+                        {errorMsg && (
+                            <p style={{ color: 'red', fontSize: '14px', textAlign: 'center' }}>{errorMsg}</p>
+                        )}
+                        <div className={styles.RegisterUserFormInputContent}>
+                            <div>
+                                <input className={styles.RegisterUserFormTextField} type="text" value={name} onChange={e => setName(e.target.value)} placeholder="성함을 입력해주세요." required/>
+                            </div>
+                            <div>
+                                <input className={styles.RegisterUserFormTextField} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="이메일을 입력해주세요." required/>
+                            </div>
+                            <div>
+                                <input className={styles.RegisterUserFormTextField} type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="비밀번호를 입력해주세요." required/>
+                            </div>
+                            <div>
+                                <input className={styles.RegisterUserFormTextField} type="text" value={phone} onChange={e => setPhone(e.target.value)} placeholder="전화번호를 입력해주세요." required/>
+                            </div>
+                        </div>
+                        <div style={{ display: "flex", justifyContent: "center", marginTop: '20px' }}>
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                                onChange={(token) => setRecaptchaToken(token)}
+                            />
+                        </div>
+                        <div className={styles.RegisterUserFormButtonContent}>
+                            <div>
+                                <span className={styles.RegisterUserFormToLoginText} onClick={() => router.push("/customer/auth/signin")}>로그인으로 돌아가기</span>
+                            </div>
+                            <div>
+                                <Button className={styles.RegisterUserFormSubmitButton} type="submit" disabled={loading} variant="contained">{loading ? "가입 중..." : "가입 완료"}</Button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-
-                <button type="submit" disabled={loading}>
-                    {loading ? "가입 중..." : "회원가입"}
-                </button>
-
-                <p style={{ fontSize: '12px', color: '#666', marginTop: '1rem' }}>
-                    이 사이트는 Google reCAPTCHA로 보호되며, 다음의 정책이 적용됩니다.<br />
-                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-                        개인정보처리방침
-                    </a> 및{' '}
-                    <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
-                        서비스 약관
-                    </a>
-                </p>
-
-                <button type="button" onClick={() => router.push("/customer/auth/find-id")}>
-                    아이디 찾기
-                </button>
-                <button type="button" onClick={() => router.push("/customer/auth/reset-password")}>
-                    비밀번호 찾기
-                </button>
-            </form>
-        </div>
-    );
+            </div>
+        </main>
+    )
 }
