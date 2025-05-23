@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import next from "next";
 import dotenv from "dotenv";
-import mysql from "mysql2/promise";
+import { PrismaClient } from "@prisma/client";
 
 dotenv.config();
 
@@ -11,15 +11,8 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const db = mysql.createPool({
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-});
-
-const userSocketMap = new Map<string, string>(); // userId -> socket.id
+const prisma = new PrismaClient();
+const userSocketMap = new Map<string, string>();
 
 app.prepare().then(() => {
     const expressApp = express();
@@ -27,7 +20,6 @@ app.prepare().then(() => {
 
     expressApp.use(express.json());
 
-    // 소켓 서버 초기화
     const io = new Server(httpServer, {
         path: "/socket.io",
         cors: {
@@ -36,35 +28,48 @@ app.prepare().then(() => {
         }
     });
 
-    // 소켓 연결
     io.on("connection", (socket) => {
         console.log("연결됨:", socket.id);
 
         socket.on("register", (userId: string) => {
             userSocketMap.set(userId, socket.id);
-            console.log(`사용자 등록: ${userId} -> ${socket.id}`);
+            console.log(`사용자 등록: ${userId} → ${socket.id}`);
         });
 
         socket.on("private_message", async ({ from, to, content }) => {
+            const sentAt = new Date();
             const targetSocketId = userSocketMap.get(to);
 
-
             try {
-                await db.query(
-                    "INSERT INTO messages (sender, receiver, content) VALUES (?, ?, ?)",
-                    [from, to, content]
-                );
+                await prisma.message.create({
+                    data: {
+                        sender: from,
+                        receiver: to,
+                        content,
+                        sentAt,
+                        read: !!targetSocketId
+                    }
+                });
                 console.log(`메시지 저장됨: ${from} → ${to}: ${content}`);
             } catch (err) {
-                console.error("DB 저장 실패:", err);
+                console.error("메시지 저장 실패:", err);
             }
 
-            // 대상에게 메시지 전달
             if (targetSocketId) {
-                io.to(targetSocketId).emit("private_message", { from, content });
-            } else {
-                console.log(`대상 사용자(${to})가 오프라인이거나 등록 안됨`);
+                io.to(targetSocketId).emit("private_message", {
+                    from,
+                    content,
+                    sentAt,
+                    read: true
+                });
             }
+
+            socket.emit("message_status", {
+                to,
+                content,
+                sentAt,
+                read: !!targetSocketId
+            });
         });
 
         socket.on("disconnect", () => {
@@ -78,7 +83,6 @@ app.prepare().then(() => {
         });
     });
 
-    // Next.js 처리
     expressApp.all(/.*/, (req, res) => {
         return handle(req, res).catch((err) => {
             console.error("Next 핸들링 중 에러:", err);
