@@ -38,7 +38,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 
 // 데스크톱 사이즈
 @media screen and (min-width: 700px) {
-    .RegisterUserFormStyle {
+    .ResetPWSetFormStyle {
         min-height: 100vh;
         background: linear-gradient(to bottom, #3D4659, #484644);
         display: flex;
@@ -46,7 +46,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
         justify-content: center;
         overflow-y: auto;
 
-        .RegisterUserFormContainer {
+        .ResetPWSetFormContainer {
             width: 100vw;
             height: 100%;
             max-width: 1100px;
@@ -54,34 +54,56 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
             align-items: center;
             justify-content: center;
 
-            .RegisterUserFormContent {
+            .ResetPWSetFormContent {
                 margin-top: 120px;
                 margin-bottom: 60px;
 
-                .RegisterUserFormTopContent {
+                .ResetPWSetFormTopContent {
                     text-align: center;
                     line-height: 1.6;
 
-                    .RegisterUserFormTitle {
+                    .ResetPWSetFormTitle {
                         font-family: $font-bold;
                         font-size: 35px;
                         color: #FFFFFF;
                     }
 
-                    .RegisterUserFormSubTitle {
+                    .ResetPWSetFormSubTitle {
                         font-family: $font-light;
                         font-size: 17px;
                         color: #FFFFFF;
                     }
                 }
-                
-                .RegisterUserFormSmallTitleContent {
+
+                .ResetPWSetFormSmallTitleTopContent {
                     width: 100vw;
                     max-width: 450px;
                     margin-top: 80px;
                     margin-bottom: 20px;
+                    display: flex;
+                    align-items: center;
 
-                    .RegisterUserFormSmallTitleNumber {
+                    .ResetPWSetFormSmallTitleIcon {
+                        width: 30px;
+                        height: 30px;
+                        color: #F7D7C5;
+                    }
+
+                    .ResetPWSetFormTopSmallTitle {
+                        text-align: left;
+                        font-family: $font-thin;
+                        font-size: 15px;
+                        margin-left: 15px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .ResetPWSetFormSmallTitleBottomContent {
+                    width: 100vw;
+                    max-width: 450px;
+                    margin-bottom: 20px;
+
+                    .ResetPWSetFormSmallTitleNumber {
                         display: inline-flex;
                         justify-content: center;
                         align-items: center;
@@ -94,7 +116,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                         font-size: 15px;
                     }
 
-                    .RegisterUserFormSmallTitle {
+                    .ResetPWSetFormBottomSmallTitle {
                         text-align: left;
                         font-family: $font-regular;
                         font-size: 15px;
@@ -103,10 +125,10 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                     }
                 }
 
-                .RegisterUserFormInputContent {
+                .ResetPWSetFormInputContent {
                     text-align: center;
 
-                    .RegisterUserFormTextField {
+                    .ResetPWSetFormTextField {
                         margin-top: 10px;
                         padding-left: 15px;
                         width: 350px;
@@ -121,18 +143,19 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                         }
                     }
                 }
-                .RegisterUserFormButtonContent {
+
+                .ResetPWSetFormButtonContent {
                     text-align: center;
                     margin-top: 80px;
 
-                    .RegisterUserFormToLoginText {
+                    .ResetPWSetFormToLoginText {
                         font-family: $font-medium;
                         font-size: 12px;
                         color: #C3B3A9;
                         cursor: pointer;
                     }
 
-                    .RegisterUserFormSubmitButton {
+                    .ResetPWSetFormSubmitButton {
                         margin-top: 12px;
                         width: 350px;
                         height: 42px;
@@ -152,7 +175,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 
 // 모바일 사이즈
 @media screen and (max-width: 699px) {
-    .RegisterUserFormStyle {
+    .ResetPWSetFormStyle {
         min-height: 100vh;
         background: linear-gradient(to bottom, #3D4659, #484644);
         display: flex;
@@ -160,7 +183,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
         justify-content: center;
         overflow-y: auto;
 
-        .RegisterUserFormContainer {
+        .ResetPWSetFormContainer {
             width: 100vw;
             height: 100%;
             max-width: 1100px;
@@ -168,34 +191,56 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
             align-items: center;
             justify-content: center;
 
-            .RegisterUserFormContent {
+            .ResetPWSetFormContent {
                 margin-top: 120px;
                 margin-bottom: 60px;
 
-                .RegisterUserFormTopContent {
+                .ResetPWSetFormTopContent {
                     text-align: center;
                     line-height: 1.4;
 
-                    .RegisterUserFormTitle {
+                    .ResetPWSetFormTitle {
                         font-family: $font-bold;
                         font-size: 25px;
                         color: #FFFFFF;
                     }
 
-                    .RegisterUserFormSubTitle {
+                    .ResetPWSetFormSubTitle {
                         font-family: $font-light;
                         font-size: 12px;
                         color: #FFFFFF;
                     }
                 }
-                
-                .RegisterUserFormSmallTitleContent {
+
+                .ResetPWSetFormSmallTitleTopContent {
                     width: 100vw;
                     max-width: 330px;
                     margin-top: 70px;
                     margin-bottom: 15px;
+                    display: flex;
+                    align-items: center;
 
-                    .RegisterUserFormSmallTitleNumber {
+                    .ResetPWSetFormSmallTitleIcon {
+                        width: 24px;
+                        height: 24px;
+                        color: #F7D7C5;
+                    }
+
+                    .ResetPWSetFormTopSmallTitle {
+                        text-align: left;
+                        font-family: $font-thin;
+                        font-size: 12px;
+                        margin-left: 12px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .ResetPWSetFormSmallTitleBottomContent {
+                    width: 100vw;
+                    max-width: 330px;
+                    margin-bottom: 15px;
+
+                    .ResetPWSetFormSmallTitleNumber {
                         display: inline-flex;
                         justify-content: center;
                         align-items: center;
@@ -205,10 +250,10 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                         background-color: #F7D7C5;
                         color: #2F3644;
                         font-family: $font-light;
-                        font-size: 12px;
+                        font-size: 15px;
                     }
 
-                    .RegisterUserFormSmallTitle {
+                    .ResetPWSetFormBottomSmallTitle {
                         text-align: left;
                         font-family: $font-regular;
                         font-size: 12px;
@@ -217,10 +262,10 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                     }
                 }
 
-                .RegisterUserFormInputContent {
+                .ResetPWSetFormInputContent {
                     text-align: center;
 
-                    .RegisterUserFormTextField {
+                    .ResetPWSetFormTextField {
                         margin-top: 10px;
                         padding-left: 15px;
                         width: 280px;
@@ -235,18 +280,19 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                         }
                     }
                 }
-                .RegisterUserFormButtonContent {
+                
+                .ResetPWSetFormButtonContent {
                     text-align: center;
                     margin-top: 80px;
 
-                    .RegisterUserFormToLoginText {
+                    .ResetPWSetFormToLoginText {
                         font-family: $font-medium;
                         font-size: 12px;
                         color: #C3B3A9;
                         cursor: pointer;
                     }
 
-                    .RegisterUserFormSubmitButton {
+                    .ResetPWSetFormSubmitButton {
                         margin-top: 10px;
                         width: 280px;
                         height: 40px;

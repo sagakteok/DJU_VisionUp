@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Icon from "@mdi/react";
 import { mdiMagnify, mdiAccountCircle, mdiLogout } from "@mdi/js";
 import { AppBar, Toolbar, IconButton, Button } from "@mui/material";
@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function DesktopHeader() {
     const pathname = usePathname();
+    const router = useRouter();
     const { data: session, status } = useSession();
     const isLoggedIn = status === "authenticated" && session?.user;
     const [isAccountActive, setIsAccountActive] = useState(false);
@@ -67,7 +68,7 @@ export default function DesktopHeader() {
                                     <div className={styles.DesktopHeader_AccountRole}>고객</div>
                                 </div>
                                 <div className={styles.DesktopHeader_AccountButtons}>
-                                    <div className={styles.DesktopHeader_AccountManage}>계정 관리</div>
+                                    <div className={styles.DesktopHeader_AccountManage} onClick={() => router.push("/customer/auth/account_manage")}>계정 관리</div>
                                     <Button className={styles.DesktopHeader_LogoutButton} variant="contained" onClick={() => signOut({ callbackUrl: "/customer" })}>
                                         <Icon path={mdiLogout} size={0.8} color="#FFFFFF" />로그아웃
                                     </Button>

@@ -1,0 +1,407 @@
+// 공통 폰트 정의
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Thin';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Light';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+$font-thin: 'SpoqaHanSansNeo-Thin';
+$font-light: 'SpoqaHanSansNeo-Light';
+$font-regular: 'SpoqaHanSansNeo-Regular';
+$font-medium: 'SpoqaHanSansNeo-Medium';
+$font-bold: 'SpoqaHanSansNeo-Bold';
+
+// 데스크톱 사이즈
+@media screen and (min-width: 700px) {
+    .RegisterSignUpFormStyle {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #3D4659, #484644);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-y: auto;
+
+        .RegisterSignUpFormContainer {
+            width: 100vw;
+            height: 100%;
+            max-width: 1100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .RegisterSignUpFormContent {
+                margin-top: 120px;
+                margin-bottom: 60px;
+
+                .RegisterSignUpFormTopContent {
+                    text-align: center;
+                    line-height: 1.6;
+
+                    .RegisterSignUpFormTitle {
+                        font-family: $font-bold;
+                        font-size: 35px;
+                        color: #FFFFFF;
+                    }
+
+                    .RegisterSignUpFormSubTitle {
+                        font-family: $font-light;
+                        font-size: 17px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .ResetPWSetFormSmallTitleTopContent {
+                    width: 100vw;
+                    max-width: 450px;
+                    margin-top: 80px;
+                    margin-bottom: 20px;
+                    display: flex;
+                    align-items: center;
+
+                    .ResetPWSetFormSmallTitleIcon {
+                        width: 30px;
+                        height: 30px;
+                        color: #F7D7C5;
+                    }
+
+                    .ResetPWSetFormTopSmallTitle {
+                        text-align: left;
+                        font-family: $font-thin;
+                        font-size: 15px;
+                        margin-left: 15px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .ResetPWSetFormSmallTitleBottomContent {
+                    width: 100vw;
+                    max-width: 450px;
+                    margin-bottom: 20px;
+
+                    .ResetPWSetFormSmallTitleNumber {
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background-color: #F7D7C5;
+                        color: #2F3644;
+                        font-family: $font-light;
+                        font-size: 15px;
+                    }
+
+                    .ResetPWSetFormBottomSmallTitle {
+                        text-align: left;
+                        font-family: $font-regular;
+                        font-size: 15px;
+                        margin-left: 15px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .RegisterSignUpFormInputContent {
+                    text-align: center;
+
+                    .RegisterSignUpFormTextField {
+                        margin-top: 10px;
+                        padding-left: 15px;
+                        width: 350px;
+                        height: 42px;
+                        border-radius: 10px;
+                        border: none;
+
+                            &::placeholder {
+                                font-family: $font-light;
+                                font-size: 12px;
+                                color: #000000;
+                        }
+                    }
+
+                    .RegisterSignUpFormCertificateContent {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .RegisterSignUpFormCertificateTextField {
+                            margin-top: 10px;
+                            padding-left: 15px;
+                            width: 270px;
+                            height: 42px;
+                            border-radius: 10px;
+                            border: none;
+
+                            &::placeholder {
+                                font-family: $font-light;
+                                font-size: 12px;
+                                color: #000000;
+                        }
+                    }
+
+                        .RegisterSignUpFormCertificateButton {
+                            margin-left: 10px;
+                            margin-top: 10px;
+                            width: 70px;
+                            height: 42px;
+                            background-color: #596A8A;
+                            box-shadow: none;
+                            border-radius: 10px;
+                            font-family: $font-medium;
+                            font-size: 10px;
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+
+                .RegisterSignUpFormSmallTitleBottomContent {
+                    width: 100vw;
+                    max-width: 450px;
+                    margin-top: 80px;
+                    margin-bottom: 20px;
+
+                    .RegisterSignUpFormSmallTitleBottomNumber {
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background-color: transparent;
+                        border: 1px solid #596A8A;
+                        color: #596A8A;
+                        font-family: $font-light;
+                        font-size: 15px;
+                    }
+
+                    .RegisterSignUpFormBottomSmallTitle {
+                        text-align: left;
+                        font-family: $font-regular;
+                        font-size: 15px;
+                        margin-left: 15px;
+                        color: #7A8499;
+                    }
+                }
+
+                .RegisterSignUpFormButtonContent {
+                    text-align: center;
+                    margin-top: 80px;
+
+                    .RegisterSignUpFormToLoginText {
+                        font-family: $font-medium;
+                        font-size: 12px;
+                        color: #C3B3A9;
+                        cursor: pointer;
+                    }
+
+                    .RegisterSignUpFormSubmitButton {
+                        margin-top: 12px;
+                        width: 350px;
+                        height: 42px;
+                        background-color: #FFFFFF;
+                        border: 1px solid #AF9D93;
+                        box-shadow: none;
+                        border-radius: 10px;
+                        font-family: $font-medium;
+                        font-size: 12px;
+                        color: #2F3644;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 모바일 사이즈
+@media screen and (max-width: 699px) {
+    .RegisterSignUpFormStyle {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #3D4659, #484644);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-y: auto;
+
+        .RegisterSignUpFormContainer {
+            width: 100vw;
+            height: 100%;
+            max-width: 1100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .RegisterSignUpFormContent {
+                margin-top: 120px;
+                margin-bottom: 60px;
+
+                .RegisterSignUpFormTopContent {
+                    text-align: center;
+                    line-height: 1.4;
+
+                    .RegisterSignUpFormTitle {
+                        font-family: $font-bold;
+                        font-size: 25px;
+                        color: #FFFFFF;
+                    }
+
+                    .RegisterSignUpFormSubTitle {
+                        font-family: $font-light;
+                        font-size: 12px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .ResetPWSetFormSmallTitleTopContent {
+                    width: 100vw;
+                    max-width: 330px;
+                    margin-top: 70px;
+                    margin-bottom: 15px;
+                    display: flex;
+                    align-items: center;
+
+                    .ResetPWSetFormSmallTitleIcon {
+                        width: 24px;
+                        height: 24px;
+                        color: #F7D7C5;
+                    }
+
+                    .ResetPWSetFormTopSmallTitle {
+                        text-align: left;
+                        font-family: $font-thin;
+                        font-size: 12px;
+                        margin-left: 12px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .ResetPWSetFormSmallTitleBottomContent {
+                    width: 100vw;
+                    max-width: 330px;
+                    margin-bottom: 15px;
+
+                    .ResetPWSetFormSmallTitleNumber {
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        background-color: #F7D7C5;
+                        color: #2F3644;
+                        font-family: $font-light;
+                        font-size: 15px;
+                    }
+
+                    .ResetPWSetFormBottomSmallTitle {
+                        text-align: left;
+                        font-family: $font-regular;
+                        font-size: 12px;
+                        margin-left: 12px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .RegisterSignUpFormInputContent {
+                    text-align: center;
+
+                    .RegisterSignUpFormTextField {
+                        margin-top: 10px;
+                        padding-left: 15px;
+                        width: 280px;
+                        height: 40px;
+                        border-radius: 10px;
+                        border: none;
+
+                            &::placeholder {
+                                font-family: $font-light;
+                                font-size: 10px;
+                                color: #000000;
+                        }
+                    }
+                    .RegisterSignUpFormCertificateContent {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .RegisterSignUpFormCertificateTextField {
+                            margin-top: 10px;
+                            padding-left: 15px;
+                            width: 210px;
+                            height: 40px;
+                            border-radius: 10px;
+                            border: none;
+
+                            &::placeholder {
+                                font-family: $font-light;
+                                font-size: 10px;
+                                color: #000000;
+                            }
+                        }
+
+                        .RegisterSignUpFormCertificateButton {
+                            margin-left: 7px;
+                            margin-top: 10px;
+                            width: 60px;
+                            height: 40px;
+                            background-color: #596A8A;
+                            box-shadow: none;
+                            border-radius: 10px;
+                            font-family: $font-medium;
+                            font-size: 8px;
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+                
+                .RegisterSignUpFormButtonContent {
+                    text-align: center;
+                    margin-top: 80px;
+
+                    .RegisterSignUpFormToLoginText {
+                        font-family: $font-medium;
+                        font-size: 12px;
+                        color: #C3B3A9;
+                        cursor: pointer;
+                    }
+
+                    .RegisterSignUpFormSubmitButton {
+                        margin-top: 10px;
+                        width: 280px;
+                        height: 40px;
+                        background-color: #FFFFFF;
+                        box-shadow: none;
+                        border-radius: 10px;
+                        font-family: $font-medium;
+                        font-size: 12px;
+                        color: #2F3644;
+
+                    }
+                }
+            }
+        }
+    }
+}

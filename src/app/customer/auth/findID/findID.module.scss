@@ -38,7 +38,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 
 // 데스크톱 사이즈
 @media screen and (min-width: 700px) {
-    .RegisterUserFormStyle {
+    .FindIDStyle {
         min-height: 100vh;
         background: linear-gradient(to bottom, #3D4659, #484644);
         display: flex;
@@ -46,7 +46,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
         justify-content: center;
         overflow-y: auto;
 
-        .RegisterUserFormContainer {
+        .FindIDContainer {
             width: 100vw;
             height: 100%;
             max-width: 1100px;
@@ -54,34 +54,34 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
             align-items: center;
             justify-content: center;
 
-            .RegisterUserFormContent {
+            .FindIDContent {
                 margin-top: 120px;
                 margin-bottom: 60px;
 
-                .RegisterUserFormTopContent {
+                .FindIDTopContent {
                     text-align: center;
                     line-height: 1.6;
 
-                    .RegisterUserFormTitle {
+                    .FindIDTitle {
                         font-family: $font-bold;
                         font-size: 35px;
                         color: #FFFFFF;
                     }
 
-                    .RegisterUserFormSubTitle {
+                    .FindIDSubTitle {
                         font-family: $font-light;
                         font-size: 17px;
                         color: #FFFFFF;
                     }
                 }
-                
-                .RegisterUserFormSmallTitleContent {
+
+                .FindIDSmallTitleTopContent {
                     width: 100vw;
                     max-width: 450px;
                     margin-top: 80px;
                     margin-bottom: 20px;
 
-                    .RegisterUserFormSmallTitleNumber {
+                    .FindIDSmallTitleTopNumber {
                         display: inline-flex;
                         justify-content: center;
                         align-items: center;
@@ -94,7 +94,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                         font-size: 15px;
                     }
 
-                    .RegisterUserFormSmallTitle {
+                    .FindIDTopSmallTitle {
                         text-align: left;
                         font-family: $font-regular;
                         font-size: 15px;
@@ -103,10 +103,10 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                     }
                 }
 
-                .RegisterUserFormInputContent {
+                .FindIDInputContent {
                     text-align: center;
 
-                    .RegisterUserFormTextField {
+                    .FindIDTextField {
                         margin-top: 10px;
                         padding-left: 15px;
                         width: 350px;
@@ -120,19 +120,83 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                                 color: #000000;
                         }
                     }
+
+                    .FindIDCertificateContent {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .FindIDCertificateTextField {
+                            margin-top: 10px;
+                            padding-left: 15px;
+                            width: 270px;
+                            height: 42px;
+                            border-radius: 10px;
+                            border: none;
+
+                            &::placeholder {
+                                font-family: $font-light;
+                                font-size: 12px;
+                                color: #000000;
+                        }
+                    }
+
+                        .FindIDCertificateButton {
+                            margin-left: 10px;
+                            margin-top: 10px;
+                            width: 70px;
+                            height: 42px;
+                            background-color: #596A8A;
+                            box-shadow: none;
+                            border-radius: 10px;
+                            font-family: $font-medium;
+                            font-size: 10px;
+                            color: #FFFFFF;
+                        }
+                    }
                 }
-                .RegisterUserFormButtonContent {
+
+                .FindIDSmallTitleBottomContent {
+                    width: 100vw;
+                    max-width: 450px;
+                    margin-top: 80px;
+                    margin-bottom: 20px;
+
+                    .FindIDSmallTitleBottomNumber {
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background-color: transparent;
+                        border: 1px solid #596A8A;
+                        color: #596A8A;
+                        font-family: $font-light;
+                        font-size: 15px;
+                    }
+
+                    .FindIDBottomSmallTitle {
+                        text-align: left;
+                        font-family: $font-regular;
+                        font-size: 15px;
+                        margin-left: 15px;
+                        color: #7A8499;
+                    }
+                }
+
+                .FindIDButtonContent {
                     text-align: center;
                     margin-top: 80px;
 
-                    .RegisterUserFormToLoginText {
+                    .FindIDToLoginText {
                         font-family: $font-medium;
                         font-size: 12px;
                         color: #C3B3A9;
                         cursor: pointer;
                     }
 
-                    .RegisterUserFormSubmitButton {
+                    .FindIDSubmitButton {
                         margin-top: 12px;
                         width: 350px;
                         height: 42px;
@@ -152,7 +216,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 
 // 모바일 사이즈
 @media screen and (max-width: 699px) {
-    .RegisterUserFormStyle {
+    .FindIDStyle {
         min-height: 100vh;
         background: linear-gradient(to bottom, #3D4659, #484644);
         display: flex;
@@ -160,7 +224,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
         justify-content: center;
         overflow-y: auto;
 
-        .RegisterUserFormContainer {
+        .FindIDContainer {
             width: 100vw;
             height: 100%;
             max-width: 1100px;
@@ -168,34 +232,34 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
             align-items: center;
             justify-content: center;
 
-            .RegisterUserFormContent {
+            .FindIDContent {
                 margin-top: 120px;
                 margin-bottom: 60px;
 
-                .RegisterUserFormTopContent {
+                .FindIDTopContent {
                     text-align: center;
                     line-height: 1.4;
 
-                    .RegisterUserFormTitle {
+                    .FindIDTitle {
                         font-family: $font-bold;
                         font-size: 25px;
                         color: #FFFFFF;
                     }
 
-                    .RegisterUserFormSubTitle {
+                    .FindIDSubTitle {
                         font-family: $font-light;
                         font-size: 12px;
                         color: #FFFFFF;
                     }
                 }
-                
-                .RegisterUserFormSmallTitleContent {
+
+                .FindIDSmallTitleTopContent {
                     width: 100vw;
                     max-width: 330px;
                     margin-top: 70px;
                     margin-bottom: 15px;
 
-                    .RegisterUserFormSmallTitleNumber {
+                    .FindIDSmallTitleTopNumber {
                         display: inline-flex;
                         justify-content: center;
                         align-items: center;
@@ -208,7 +272,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                         font-size: 12px;
                     }
 
-                    .RegisterUserFormSmallTitle {
+                    .FindIDTopSmallTitle {
                         text-align: left;
                         font-family: $font-regular;
                         font-size: 12px;
@@ -217,10 +281,10 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                     }
                 }
 
-                .RegisterUserFormInputContent {
+                .FindIDInputContent {
                     text-align: center;
 
-                    .RegisterUserFormTextField {
+                    .FindIDTextField {
                         margin-top: 10px;
                         padding-left: 15px;
                         width: 280px;
@@ -234,19 +298,82 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
                                 color: #000000;
                         }
                     }
+                    .FindIDCertificateContent {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .FindIDCertificateTextField {
+                            margin-top: 10px;
+                            padding-left: 15px;
+                            width: 210px;
+                            height: 40px;
+                            border-radius: 10px;
+                            border: none;
+
+                            &::placeholder {
+                                font-family: $font-light;
+                                font-size: 10px;
+                                color: #000000;
+                            }
+                        }
+
+                        .FindIDCertificateButton {
+                            margin-left: 7px;
+                            margin-top: 10px;
+                            width: 60px;
+                            height: 40px;
+                            background-color: #596A8A;
+                            box-shadow: none;
+                            border-radius: 10px;
+                            font-family: $font-medium;
+                            font-size: 8px;
+                            color: #FFFFFF;
+                        }
+                    }
                 }
-                .RegisterUserFormButtonContent {
+
+                .FindIDSmallTitleBottomContent {
+                    width: 100vw;
+                    max-width: 330px;
+                    margin-top: 70px;
+                    margin-bottom: 15px;
+
+                    .FindIDSmallTitleBottomNumber {
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        background-color: transparent;
+                        border: 1px solid #596A8A;
+                        color: #596A8A;
+                        font-family: $font-light;
+                        font-size: 12px;
+                    }
+
+                    .FindIDBottomSmallTitle {
+                        text-align: left;
+                        font-family: $font-regular;
+                        font-size: 12px;
+                        margin-left: 12px;
+                        color: #7A8499;
+                    }
+                }
+                
+                .FindIDButtonContent {
                     text-align: center;
                     margin-top: 80px;
 
-                    .RegisterUserFormToLoginText {
+                    .FindIDToLoginText {
                         font-family: $font-medium;
                         font-size: 12px;
                         color: #C3B3A9;
                         cursor: pointer;
                     }
 
-                    .RegisterUserFormSubmitButton {
+                    .FindIDSubmitButton {
                         margin-top: 10px;
                         width: 280px;
                         height: 40px;

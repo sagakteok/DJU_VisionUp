@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Icon from "@mdi/react";
 import { mdiMagnify, mdiAccountCircle, mdiMenu, mdiChevronRight, mdiLogout } from "@mdi/js";
 import { Button, AppBar, Toolbar, IconButton, Drawer, List, InputBase, ListItemButton } from "@mui/material";
@@ -11,7 +11,7 @@ import { signOut, useSession } from "next-auth/react";
 
 export default function MobileHeader() {
     const pathname = usePathname();
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const router = useRouter();    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const toggleDrawer = (open: boolean) => setIsDrawerOpen(open);
     const [isAccountDrawerOpen, setIsAccountDrawerOpen] = useState(false);
     const toggleAccountDrawer = (open: boolean) => setIsAccountDrawerOpen(open);
@@ -113,7 +113,7 @@ export default function MobileHeader() {
                             </div>
                             {/* 오른쪽 */}
                             <div className={styles.MobileHeader_AccountButtonContainer}>
-                                <span className={styles.MobileHeader_AccountManage}>계정 관리</span>
+                                <span className={styles.MobileHeader_AccountManage} onClick={() => router.push("/customer/auth/account_manage")}>계정 관리</span>
                                 <Button className={styles.MobileHeader_LogoutButton} variant="contained" onClick={() => signOut({ callbackUrl: "/customer" })}>
                                     <Icon path={mdiLogout} size={0.8} color="#FFFFFF" />로그아웃
                                 </Button>

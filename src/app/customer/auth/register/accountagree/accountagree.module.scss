@@ -38,7 +38,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 
 // 데스크톱 사이즈
 @media screen and (min-width: 700px) {
-    .RegisterUserFormStyle {
+    .RegisterAccountAgreeStyle {
         min-height: 100vh;
         background: linear-gradient(to bottom, #3D4659, #484644);
         display: flex;
@@ -46,7 +46,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
         justify-content: center;
         overflow-y: auto;
 
-        .RegisterUserFormContainer {
+        .RegisterAccountAgreeContainer {
             width: 100vw;
             height: 100%;
             max-width: 1100px;
@@ -54,85 +54,39 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
             align-items: center;
             justify-content: center;
 
-            .RegisterUserFormContent {
+            .RegisterAccountAgreeContent {
                 margin-top: 120px;
                 margin-bottom: 60px;
 
-                .RegisterUserFormTopContent {
+                .RegisterAccountAgreeTopContent {
                     text-align: center;
                     line-height: 1.6;
 
-                    .RegisterUserFormTitle {
+                    .RegisterAccountAgreeTitle {
                         font-family: $font-bold;
                         font-size: 35px;
                         color: #FFFFFF;
                     }
 
-                    .RegisterUserFormSubTitle {
+                    .RegisterAccountAgreeSubTitle {
                         font-family: $font-light;
                         font-size: 17px;
                         color: #FFFFFF;
                     }
                 }
-                
-                .RegisterUserFormSmallTitleContent {
-                    width: 100vw;
-                    max-width: 450px;
-                    margin-top: 80px;
-                    margin-bottom: 20px;
 
-                    .RegisterUserFormSmallTitleNumber {
-                        display: inline-flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        background-color: #F7D7C5;
-                        color: #2F3644;
-                        font-family: $font-light;
-                        font-size: 15px;
-                    }
-
-                    .RegisterUserFormSmallTitle {
-                        text-align: left;
-                        font-family: $font-regular;
-                        font-size: 15px;
-                        margin-left: 15px;
-                        color: #FFFFFF;
-                    }
-                }
-
-                .RegisterUserFormInputContent {
-                    text-align: center;
-
-                    .RegisterUserFormTextField {
-                        margin-top: 10px;
-                        padding-left: 15px;
-                        width: 350px;
-                        height: 42px;
-                        border-radius: 10px;
-                        border: none;
-
-                            &::placeholder {
-                                font-family: $font-light;
-                                font-size: 12px;
-                                color: #000000;
-                        }
-                    }
-                }
-                .RegisterUserFormButtonContent {
+                .RegisterAccountAgreeButtonContent {
                     text-align: center;
                     margin-top: 80px;
 
-                    .RegisterUserFormToLoginText {
+                    .RegisterAccountAgreeToLoginText {
                         font-family: $font-medium;
                         font-size: 12px;
                         color: #C3B3A9;
                         cursor: pointer;
                     }
 
-                    .RegisterUserFormSubmitButton {
+                    .RegisterAccountAgreeSubmitButton {
                         margin-top: 12px;
                         width: 350px;
                         height: 42px;
@@ -152,7 +106,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 
 // 모바일 사이즈
 @media screen and (max-width: 699px) {
-    .RegisterUserFormStyle {
+    .RegisterAccountAgreeStyle {
         min-height: 100vh;
         background: linear-gradient(to bottom, #3D4659, #484644);
         display: flex;
@@ -160,7 +114,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
         justify-content: center;
         overflow-y: auto;
 
-        .RegisterUserFormContainer {
+        .RegisterAccountAgreeContainer {
             width: 100vw;
             height: 100%;
             max-width: 1100px;
@@ -168,85 +122,39 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
             align-items: center;
             justify-content: center;
 
-            .RegisterUserFormContent {
+            .RegisterAccountAgreeContent {
                 margin-top: 120px;
                 margin-bottom: 60px;
 
-                .RegisterUserFormTopContent {
+                .RegisterAccountAgreeTopContent {
                     text-align: center;
                     line-height: 1.4;
 
-                    .RegisterUserFormTitle {
+                    .RegisterAccountAgreeTitle {
                         font-family: $font-bold;
                         font-size: 25px;
                         color: #FFFFFF;
                     }
 
-                    .RegisterUserFormSubTitle {
+                    .RegisterAccountAgreeSubTitle {
                         font-family: $font-light;
                         font-size: 12px;
                         color: #FFFFFF;
                     }
                 }
                 
-                .RegisterUserFormSmallTitleContent {
-                    width: 100vw;
-                    max-width: 330px;
-                    margin-top: 70px;
-                    margin-bottom: 15px;
-
-                    .RegisterUserFormSmallTitleNumber {
-                        display: inline-flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 24px;
-                        height: 24px;
-                        border-radius: 50%;
-                        background-color: #F7D7C5;
-                        color: #2F3644;
-                        font-family: $font-light;
-                        font-size: 12px;
-                    }
-
-                    .RegisterUserFormSmallTitle {
-                        text-align: left;
-                        font-family: $font-regular;
-                        font-size: 12px;
-                        margin-left: 12px;
-                        color: #FFFFFF;
-                    }
-                }
-
-                .RegisterUserFormInputContent {
-                    text-align: center;
-
-                    .RegisterUserFormTextField {
-                        margin-top: 10px;
-                        padding-left: 15px;
-                        width: 280px;
-                        height: 40px;
-                        border-radius: 10px;
-                        border: none;
-
-                            &::placeholder {
-                                font-family: $font-light;
-                                font-size: 10px;
-                                color: #000000;
-                        }
-                    }
-                }
-                .RegisterUserFormButtonContent {
+                .RegisterAccountAgreeButtonContent {
                     text-align: center;
                     margin-top: 80px;
 
-                    .RegisterUserFormToLoginText {
+                    .RegisterAccountAgreeToLoginText {
                         font-family: $font-medium;
                         font-size: 12px;
                         color: #C3B3A9;
                         cursor: pointer;
                     }
 
-                    .RegisterUserFormSubmitButton {
+                    .RegisterAccountAgreeSubmitButton {
                         margin-top: 10px;
                         width: 280px;
                         height: 40px;
