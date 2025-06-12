@@ -42,9 +42,9 @@ export default function DesktopHeader() {
             <div className={styles.DesktopHeader_Container}>
                 <Toolbar className={styles.DesktopHeader_ToolbarStyle}>
                     <Link href="/" className={styles.DesktopHeader_Brand}>카셀렉트</Link>
-                    <Link href="/customer/estimate" className={`${styles.DesktopHeader_text} ${pathname === "/estimate" ? styles.active : ""}`}>견적 짜기</Link>
+                    <Link href="/customer/estimate" className={`${styles.DesktopHeader_text} ${pathname === "/customer/estimate" ? styles.active : ""}`}>견적 짜기</Link>
                     <Link href="/Businesses" className={`${styles.DesktopHeader_text} ${pathname === "/Businesses" ? styles.active : ""}`}>나의 견적</Link>
-                    <Link href="/customer/websocket" className={`${styles.DesktopHeader_text} ${pathname === "/websocket" ? styles.active : ""}`}>나의 상담</Link>
+                    <Link href="/customer/websocket" className={`${styles.DesktopHeader_text} ${pathname === "/customer/websocket" ? styles.active : ""}`}>나의 상담</Link>
 
                     <div ref={wrapperRef} className={styles.DesktopHeader_AccountBoxWrapper}>
                         <IconButton disableTouchRipple component={Link} href="/" className={`${styles.DesktopHeader_icon} ${pathname === "/" ? styles.active : ""}`}><Icon path={mdiMagnify} size={1} /></IconButton>

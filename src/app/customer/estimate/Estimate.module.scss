@@ -1,169 +1,445 @@
+// 공통 폰트 정의
 @font-face {
-    font-family: 'SpoqaHanSansNeo-Light';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
+  font-family: 'SpoqaHanSansNeo-Thin';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Light';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
 }
 
-@font-face {
-    font-family: 'SpoqaHanSansNeo-Thin';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'SpoqaHanSansNeo-Bold';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
-
-$font-light: 'SpoqaHanSansNeo-Light';
 $font-thin: 'SpoqaHanSansNeo-Thin';
+$font-light: 'SpoqaHanSansNeo-Light';
+$font-regular: 'SpoqaHanSansNeo-Regular';
+$font-medium: 'SpoqaHanSansNeo-Medium';
 $font-bold: 'SpoqaHanSansNeo-Bold';
-$white: #ffffff;
 
-.MainHomeStyle {
-    height: 100vh;
-    background: linear-gradient(to bottom, #2F3644, #596A8A);
-    display: flex;
-    justify-content: center;
-    overflow-y: auto;
+// 데스크톱 사이즈
+@media screen and (min-width: 700px) {
+    .EstimateStyle {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #1C1F26, #4E4A47);
+        display: flex;
+        justify-content: center;
+        overflow-y: auto;
 
-    .MainHomeContainer {
-        width: 100vw;
-        max-width: 1100px;
-        margin: auto;
-    }
-}
+        .EstimateContainer {
+            width: 100vw;
+            height: 100%;
+            max-width: 1100px;
+            margin-top: 60px;
+            margin-bottom: 60px;
 
-.estimate {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5vh 10vw;
-    height: 100vh;
-    box-sizing: border-box;
-    flex-wrap: wrap;
-}
+            .EstimateTopContent {
+                margin-top: 40px;
+                margin-left: 50px;
+                text-align: left;
+                line-height: 1.6;
 
-.leftArea {
-    margin-left: 50px;
-    margin-top: clamp(100px, 14vh, 200px);
-}
+                .EstimateTitle {
+                    font-family: $font-bold;
+                    font-size: 35px;
+                    color: #FFFFFF;
+                }
 
-.subHeading {
-    font-family: $font-bold;
-    font-size: 20px;
-    color: $white;
-    margin-left: 100px;
-    padding-top: 150px;
-}
+                .EstimateSubTitle {
+                    font-family: $font-light;
+                    font-size: 17px;
+                    color: #FFFFFF;
+                }
+            }
 
-.description {
-    font-family: $font-thin;
-    font-size: 16px;
-    color: $white;
-    margin-left: 300px;
-    position: relative;
-    top: -45px;
-}
+            .EstimateCountryContent {
+                display: flex;
+                flex-direction: row;
+                background-color: transparent;
+                margin-top: 50px;
 
-.modelSearchLink {
-    font-family: $font-light;
-    font-size: 17px;
-    margin-left: 20vw;
-    color: $white;
-    text-decoration: none;
+                .EstimateCountryContentTitle {
+                    display: flex;
+                    align-self: center;
+                    font-family: $font-bold;
+                    font-size: 15px;
+                    color: #FFFFFF;
+                    margin-left: 50px;
+                }
 
-    &:hover {
-        color: $white;
-    }
-}
+                .EstimateCountryContentDivideLine {
+                    width: 70px;
+                    height: 1px;
+                    background-color: #7A8499;
+                    margin-left: 45px;
+                    margin-top: 15px;
+                }
 
-.rightGroup {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-}
+                .EstimateCountryContentItemText {
+                    font-family: $font-medium;
+                    font-size: 12px;
+                    color: #D7D1CC;
+                    margin-left: 25px;
+                    cursor: pointer;
+                }
 
-.carImageWrapper {
-    flex: 1;
-    display: flex;
-    justify-content: left;
-    align-items: center;
+                .active {
+                    color: #F7D7C5;
+                }
+            }
 
-    img {
-        width: 100%;
-        max-width: 600px;
-        height: auto;
-        margin-bottom: 6px;
-        object-fit: contain;
-        animation: slideInFromRight 1s ease-out;
-    }
-}
+            .EstimateMidContent {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 50px;
 
-.rightMenu {
-    display: flex;
-    flex-direction: column;
-    margin-right: 20vw;
-    margin-top: -50px;
-    gap: 10px;
+                .EstimateCardStyle {
+                    width: 90%;
+                    max-width: 900px;
+                    border-radius: 10px;
 
-    p {
-        font-size: 1.2vw;
-        cursor: pointer;
-        transition: color 0.2s;
-        color: $white;
+                    .EstimateCardTitle {
+                        flex-grow: 1;
+                        margin-left: 15px;
+                        font-family: $font-bold;
+                        color: #2F3644;
+                        font-size: 15px;
+                    }
 
-        &:hover {
-            color: #ccc;
+                    .EstimateCardCategoryTabWrapper {
+                        display: flex;
+                        margin-left: 10px;
+                        padding-bottom: 20px;
+
+                        .EstimateCardCategoryTabItem {
+                            position: relative;
+                            width: 70px;
+                            background: none;
+                            border: none;
+                            font-family: $font-bold;
+                            font-size: 13px;
+                            color: #D7D1CC;
+                            cursor: pointer;
+                        }
+
+                        .active {
+                            color: #E9B89C;
+
+                            &::after {
+                                content: "";
+                                display: block;
+                                position: absolute;
+                                width: 100%;
+                                height: 1px;
+                                background-color: #E9B89C;
+                                bottom: -9px;
+                                left: 0;
+                            }
+                        }
+                    }
+
+                    .EstimateCardCarList {
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 30px;
+                        gap: 25px;
+
+                        .EstimateCardCarInfoStyle {
+                            width: 98%;
+                            max-width: 700px;
+                            margin: auto;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            background-color: #F8F8F8;
+                            padding-top: 20px;
+                            padding-bottom: 20px;
+                            border-radius: 15px;
+
+                            .EstimateCardCarInfoCarImage {
+                                width: 180px;
+                                height: auto;
+                                object-fit: contain;
+                            }
+
+                            .EstimateCardCarInfoContainer {
+                                display: flex;
+                                flex-direction: column;
+
+                                .EstimateCardCarInfoTitleContent {
+                                    display: flex;
+                                    align-items: center;
+
+                                    .EstimateCardCarInfoCarName {
+                                        font-family: $font-bold;
+                                        color: #2F3644;
+                                        font-size: 20px;
+                                    }
+
+                                    .EstimateCardCarInfoCarSegment {
+                                        font-family: $font-regular;
+                                        color: #7180A1;
+                                        font-size: 12px;
+                                        margin-left: 12px;
+                                    }
+                                }
+
+                                .EstimateCardCarInfoCarPrice {
+                                    font-family: $font-light;
+                                    font-size: 12px;
+                                    color: #AF9D93;
+                                    margin-top: 5px;
+                                    margin-bottom: 5px;
+                                }
+
+                                .EstimateCardCarInfoCarSpec {
+                                    font-family: $font-regular;
+                                    font-size: 12px;
+                                    color: #72798A;
+                                    margin-top: 3px;
+                                }
+                            }
+
+                            .EstimateCardCarInfoSelectButton {
+                                margin-left: auto;
+                                margin-top: auto;
+                                margin-right: 20px;
+                                min-width: 55px;
+                                height: 35px;
+                                background-color: #97ABD4;
+                                border-radius: 10px;
+                                box-shadow: none;
+                                font-size: 14px;
+                                color: #FFFFFF;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
-@media (max-width: 768px) {
-    .estimate {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 5vh 5vw;
-        height: auto;
-    }
+// 모바일 사이즈
+@media screen and (max-width: 699px) {
+    .EstimateStyle {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #1C1F26, #4E4A47);
+        display: flex;
+        justify-content: center;
+        overflow-y: auto;
 
-    .leftArea {
+        .EstimateContainer {
+            width: 100vw;
+            height: 100%;
+            max-width: 1100px;
+            margin-top: 60px;
+            margin-bottom: 45px;
 
-        margin-top: 8vh;
-    }
+            .EstimateTopContent {
+                margin-top: 45px;
+                margin-left: 25px;
+                text-align: left;
+                line-height: 1.2;
 
-    .subHeading,
-    .description {
+                .EstimateTitle {
+                    font-family: $font-bold;
+                    font-size: 26px;
+                    color: #FFFFFF;
+                }
 
-        text-align: center;
-    }
+                .EstimateSubTitle {
+                    font-family: $font-light;
+                    font-size: 13px;
+                    color: #FFFFFF;
+                }
+            }
 
-    .modelSearchLink {
-        text-align: center;
-        display: block;
-        font-size: 4vw;
-    }
+            .EstimateCountryContent {
+                display: flex;
+                flex-direction: row;
+                background-color: transparent;
+                margin-top: 36px;
 
-    .rightGroup {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
+                .EstimateCountryContentTitle {
+                    display: flex;
+                    align-self: center;
+                    font-family: $font-bold;
+                    font-size: 13px;
+                    color: #FFFFFF;
+                    margin-left: 25px;
+                }
 
-    .carImageWrapper img {
-        width: 80%;
-    }
+                .EstimateCountryContentDivideLine {
+                    width: 55px;
+                    height: 1px;
+                    background-color: #7A8499;
+                    margin-left: 22px;
+                    margin-top: 10px;
+                }
 
-    .rightMenu {
-        align-items: center;
+                .EstimateCountryContentItemText {
+                    font-family: $font-medium;
+                    font-size: 10px;
+                    color: #D7D1CC;
+                    margin-left: 19px;
+                    cursor: pointer;
+                }
 
-        p {
-            font-size: 4vw;
+                .active {
+                    color: #F7D7C5;
+                }
+            }
+
+            .EstimateMidContent {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 36px;
+
+                .EstimateCardStyle {
+                    width: 95%;
+                    max-width: 900px;
+                    border-radius: 10px;
+
+                    .EstimateCardTitle {
+                        flex-grow: 1;
+                        margin-left: 12px;
+                        font-family: $font-bold;
+                        color: #2F3644;
+                        font-size: 12px;
+                    }
+
+                    .EstimateCardCategoryTabWrapper {
+                        display: flex;
+                        margin-left: 8px;
+                        padding-bottom: 15px;
+
+                        .EstimateCardCategoryTabItem {
+                            position: relative;
+                            width: 53px;
+                            background: none;
+                            border: none;
+                            font-family: $font-bold;
+                            font-size: 10px;
+                            color: #D7D1CC;
+                            cursor: pointer;
+                        }
+
+                        .active {
+                            color: #E9B89C;
+
+                            &::after {
+                                content: "";
+                                display: block;
+                                position: absolute;
+                                width: 100%;
+                                height: 1px;
+                                background-color: #E9B89C;
+                                bottom: -9px;
+                                left: 0;
+                            }
+                        }
+                    }
+
+                    .EstimateCardCarList {
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 23px;
+                        gap: 15px;
+
+                        .EstimateCardCarInfoStyle {
+                            width: 98%;
+                            max-width: 700px;
+                            margin: auto;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            background-color: #F8F8F8;
+                            padding-top: 15px;
+                            padding-bottom: 15px;
+                            border-radius: 11px;
+
+                            .EstimateCardCarInfoCarImage {
+                                width: 100px;
+                                height: auto;
+                                object-fit: contain;
+                            }
+
+                            .EstimateCardCarInfoContainer {
+                                display: flex;
+                                flex-direction: column;
+
+                                .EstimateCardCarInfoTitleContent {
+                                    display: flex;
+                                    align-items: center;
+
+                                    .EstimateCardCarInfoCarName {
+                                        font-family: $font-bold;
+                                        color: #2F3644;
+                                        font-size: 15px;
+                                    }
+
+                                    .EstimateCardCarInfoCarSegment {
+                                        font-family: $font-regular;
+                                        color: #7180A1;
+                                        font-size: 9px;
+                                        margin-left: 9px;
+                                    }
+                                }
+
+                                .EstimateCardCarInfoCarPrice {
+                                    font-family: $font-light;
+                                    font-size: 9px;
+                                    color: #AF9D93;
+                                    margin-top: 4px;
+                                    margin-bottom: 4px;
+                                }
+
+                                .EstimateCardCarInfoCarSpec {
+                                    font-family: $font-regular;
+                                    font-size: 9px;
+                                    color: #72798A;
+                                    margin-top: 3px;
+                                }
+                            }
+
+                            .EstimateCardCarInfoSelectButton {
+                                margin-left: auto;
+                                margin-top: auto;
+                                margin-right: 15px;
+                                min-width: 40px;
+                                height: 26px;
+                                background-color: #97ABD4;
+                                border-radius: 8px;
+                                box-shadow: none;
+                                font-size: 11px;
+                                color: #FFFFFF;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

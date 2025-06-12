@@ -47,12 +47,24 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
   }
 }
 
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @media screen and (min-width: 700px) {
   .MainHomeStyle {
     height: 100vh;
     background: linear-gradient(to bottom, #1C1F26, #4E4A47);
     display: flex;
     justify-content: center;
+    overflow-x: hidden;
     overflow-y: auto;
 
     .MainHomeContainer {
@@ -115,7 +127,15 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
           }
         }
 
-        .MainHomeCarImage {
+        .MainHomeCarImageAnimateFromLeft {
+          width: 100%;
+          height: auto;
+          margin-bottom: 10px;
+          object-fit: contain;
+          animation: slideInFromLeft 1s ease-out;
+        }
+
+        .MainHomeCarImageAnimateFromRight {
           width: 100%;
           height: auto;
           margin-bottom: 10px;
@@ -157,6 +177,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
     background: linear-gradient(to bottom, #1C1F26, #4E4A47);
     display: flex;
     justify-content: center;
+    overflow-x: hidden;
     overflow-y: auto;
 
     .MainHomeContainer {
@@ -179,7 +200,7 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
 
         .MainHomeSecondTitle {
           font-family: $font-thin;
-          font-size: 60px;
+          font-size: 52px;
           margin-top: 8px;
           color: #E8EEFF;
         }
@@ -219,12 +240,20 @@ $font-bold: 'SpoqaHanSansNeo-Bold';
           }
         }
 
-        .MainHomeCarImage {
+        .MainHomeCarImageAnimateFromLeft {
           width: 100%;
           height: auto;
           margin-bottom: 8px;
           object-fit: contain;
-          animation: slideInFromRight 1s ease-out;
+          animation: slideInFromLeft 0.8s ease-out;
+        }
+
+        .MainHomeCarImageAnimateFromRight {
+          width: 100%;
+          height: auto;
+          margin-bottom: 8px;
+          object-fit: contain;
+          animation: slideInFromRight 0.8s ease-out;
         }
 
         .MainHomePaginationContainer {

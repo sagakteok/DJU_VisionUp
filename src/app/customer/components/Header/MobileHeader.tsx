@@ -71,10 +71,10 @@ export default function MobileHeader() {
                         <Icon className={styles.MobileHeader_DrawerSearchIconStyle} path={mdiMagnify} size={1} />
                     </div>
                     {/* 버튼 1 */}
-                    <ListItemButton className={styles.MobileHeader_ListItemButtonStyle} disableTouchRipple component={Link} href="/AllDocuments" onClick={() => toggleDrawer(false)} selected={pathname === "/AllDocuments"}>
+                    <ListItemButton className={styles.MobileHeader_ListItemButtonStyle} disableTouchRipple component={Link} href="/customer/estimate" onClick={() => toggleDrawer(false)} selected={pathname === "/customer/estimate"}>
                         <div className={styles.MobileHeader_ListItemButtonOutterContainer}>
                             <div className={styles.MobileHeader_ListItemButtonInnerContainer}>
-                                <p className={`${styles.MobileHeader_text} ${pathname === "/AllDocuments" ? styles.active : ""}`}>견적 짜기</p>
+                                <p className={`${styles.MobileHeader_text} ${pathname === "/customer/estimate" ? styles.active : ""}`}>견적 짜기</p>
                                 <Icon className={styles.MobileHeader_ListItemButtonChevronIconStyle} path={mdiChevronRight} size={1} />
                             </div>
                             <div className={styles.MobileHeader_ListItemButtonUnderlineStyle} />
