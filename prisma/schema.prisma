@@ -3,18 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-model Message {
-  id         String   @id @default(cuid())
-  sender     String
-  receiver   String
-  content    String
-  sentAt     DateTime @default(now())
-  read       Boolean  @default(false)
-}
+// 사용자 및 인증 (Auth)
 
 model User {
   id            String    @id @default(cuid())
@@ -22,19 +16,16 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  password      String?  // 자체 로그인용 비밀번호
+  password      String?
   phone         String?   @unique
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
   accounts      Account[]
   sessions      Session[]
-}
 
-model PhoneVerification {
-  phone     String   @id
-  code      String
-  expiresAt DateTime
-  verified  Boolean  @default(false)
+  // 유저의 견적 목록
+  quotes        Quote[]
 }
 
 model Account {
@@ -54,7 +45,7 @@ model Account {
   user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  @@index([userId], map: "Account_userId_fkey")
+  @@index([userId])
 }
 
 model Session {
@@ -64,5 +55,195 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id])
 
-  @@index([userId], map: "Session_userId_fkey")
+  @@index([userId])
+}
+
+model PhoneVerification {
+  phone     String   @id
+  code      String
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+}
+
+
+
+model Dealer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String   @unique
+  password  String
+
+  quotes    Quote[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+// 차량 데이터 (Car Information)
+
+// 브랜드 (CarBrand)
+model CarBrand {
+  id            Int    @id @default(autoincrement())
+  brand_name    String
+  brand_country String
+
+  // 역참조 (Brand -> Model)
+  models        CarModel[]
+}
+
+// 외장 색상 (CarExteriorColor)
+model CarExteriorColor {
+  id                     Int    @id @default(autoincrement())
+  exterior_color_id      Int    // 색상 고유 번호
+  exterior_color_name    String
+  exterior_color_hexcode String
+  exterior_color_price   Int
+
+  // 역참조 (Color -> Option)
+  options                CarOption[]
+}
+
+// 내장 색상 (CarInteriorColor)
+model CarInteriorColor {
+  id                     Int    @id @default(autoincrement())
+  interior_color_id      Int    // 색상 고유 번호
+  interior_color_name    String
+  interior_color_hexcode String
+  interior_color_price   Int
+
+  // 역참조 (Color -> Option)
+  options                CarOption[]
+}
+
+// 옵션 (CarOption)
+model CarOption {
+  id                Int    @id @default(autoincrement())
+  option_id         Int    // 옵션 고유 번호
+
+  // FK: 외장 색상
+  exterior_color_id Int
+  exteriorColor     CarExteriorColor @relation(fields: [exterior_color_id], references: [id])
+
+  // FK: 내장 색상
+  interior_color_id Int
+  interiorColor     CarInteriorColor @relation(fields: [interior_color_id], references: [id])
+
+  package_name      String
+  option_detail     String
+  option_price      Int
+
+  // 역참조 (Option -> Trim)
+  trims             CarTrim[]
+
+  @@index([exterior_color_id])
+  @@index([interior_color_id])
+}
+
+// 트림 (CarTrim)
+model CarTrim {
+  id         Int    @id @default(autoincrement())
+  trim_id    Int    // 트림 고유 번호
+
+  // FK: 옵션
+  option_id  Int
+  option     CarOption @relation(fields: [option_id], references: [id])
+
+  trim_name  String
+  trim_price Int
+
+  // 역참조 (Trim -> Model)
+  models     CarModel[]
+
+  @@index([option_id])
+}
+
+// 모델 (CarModel)
+model CarModel {
+  id              Int    @id @default(autoincrement())
+
+  // FK: 브랜드
+  brand_id        Int
+  brand           CarBrand @relation(fields: [brand_id], references: [id])
+
+  // FK: 트림
+  trim_id         Int
+  trim            CarTrim @relation(fields: [trim_id], references: [id])
+
+  car_name        String
+  body_type       String
+  price           Int
+  liter_size      Int
+  fuel_efficiency Float
+
+  // 이 모델을 참조하는 견적들
+  quotes          Quote[]
+
+  @@index([brand_id])
+  @@index([trim_id])
+}
+
+
+// 견적 및 채팅 (Quote & Chat)
+
+model Quote {
+  id        String   @id @default(cuid())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  dealerId  String
+  dealer    Dealer   @relation(fields: [dealerId], references: [id], onDelete: Cascade)
+
+
+  carModelId Int?
+  carModel   CarModel? @relation(fields: [carModelId], references: [id])
+
+  status    String   @default("PENDING")
+  price     Int?     // 최종 견적 가격
+
+  chatRoom  ChatRoom?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([dealerId])
+  @@index([carModelId])
+}
+
+model ChatRoom {
+  id        String   @id @default(cuid())
+
+  quoteId   String   @unique
+  quote     Quote    @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+
+  messages  Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id         String     @id @default(cuid())
+
+  chatRoomId String
+  chatRoom   ChatRoom   @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+
+  senderId   String
+  senderType SenderType
+
+  content    String     @db.Text
+  isRead     Boolean    @default(false)
+
+  createdAt  DateTime   @default(now())
+
+  @@index([chatRoomId])
+}
+
+enum SenderType {
+  USER
+  DEALER
+  SYSTEM
 }
