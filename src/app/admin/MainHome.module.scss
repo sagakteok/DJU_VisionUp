@@ -1,0 +1,111 @@
+// 공통 폰트 정의
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Thin';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-Light';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-Medium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  $font-thin: 'SpoqaHanSansNeo-Thin';
+  $font-light: 'SpoqaHanSansNeo-Light';
+  $font-regular: 'SpoqaHanSansNeo-Regular';
+  $font-medium: 'SpoqaHanSansNeo-Medium';
+  $font-bold: 'SpoqaHanSansNeo-Bold';
+
+  .MainHomeStyle {
+      min-height: 100vh;
+      background: #D7D1CC;
+      display: flex;
+      justify-content: center;
+      overflow-y: auto;
+  
+      .MainHomeContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1100px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+
+        .MainHomeContent {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+
+            .MainHomeCardStyle {
+                z-index: 0;
+                position: relative;
+                min-height: 600px;
+                background: #FFFFFF;
+                width: 900px;
+                height: clamp(400px, 80vh, 1000px);
+                border-radius: 20px;
+                box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.03);
+            }
+            .MainHomeLeftContentTitle {
+                margin-top: 45px;
+                margin-left: 27px;
+                margin-bottom: 40px;
+                font-family: $font-bold;
+                font-size: 18px;
+                color: #414B6A;
+            }
+            .MainHomeLeftContentItemContainer {
+              display: flex;
+              flex-direction: column;
+              gap: 30px;
+              margin-left: 27px;
+              margin-bottom: 30px;
+            }
+
+            .MainHomeLeftContentItem {
+              color: #D7D1CC;
+              font-family: $font-regular;
+              font-size: 16px;
+              cursor: pointer;
+
+              &:hover, &.active {
+                color: #E9B89C;
+                font-family: $font-bold;
+              }
+            }
+
+            .MainHomeLeftContentBottomButton {
+                margin: auto;
+                margin-bottom: 30px;
+                width: 100px;
+                height: 40px;
+                font-family: $font-bold;
+                font-size: 12px;
+                background: #E9B89C;
+                box-shadow: none;
+                border-radius: 10px;
+            }
+        }
+      }
+    }
