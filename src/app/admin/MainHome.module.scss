@@ -26,7 +26,7 @@
   @font-face {
     font-family: 'SpoqaHanSansNeo-Bold';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
-    font-weight: 700;
+    font-weight: 600;
     font-style: normal;
   }
   
@@ -41,7 +41,6 @@
       background: #D7D1CC;
       display: flex;
       justify-content: center;
-      overflow-y: auto;
   
       .MainHomeContainer {
         display: flex;
@@ -52,9 +51,6 @@
         margin-bottom: 60px;
 
         .MainHomeContent {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             margin-top: 50px;
 
             .MainHomeCardStyle {
@@ -66,46 +62,204 @@
                 height: clamp(400px, 80vh, 1000px);
                 border-radius: 20px;
                 box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.03);
-            }
-            .MainHomeLeftContentTitle {
-                margin-top: 45px;
-                margin-left: 27px;
-                margin-bottom: 40px;
-                font-family: $font-bold;
-                font-size: 18px;
-                color: #414B6A;
-            }
-            .MainHomeLeftContentItemContainer {
+
+                .MainHomeLeftContentTitle {
+                  margin-top: 45px;
+                  margin-left: 27px;
+                  margin-bottom: 40px;
+                  font-family: $font-bold;
+                  font-size: 18px;
+                  color: #414B6A;
+                }
+                .MainHomeLeftContentItemContainer {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 30px;
+                  margin-left: 27px;
+                  margin-bottom: 30px;
+                  
+                  .MainHomeLeftContentItem {
+                    color: #D7D1CC;
+                    font-family: $font-medium;
+                    font-size: 16px;
+                    cursor: pointer;
+
+                    &:hover {
+                      color: #E9B89C;
+                      font-family: $font-bold;
+                    }
+                    &.active {
+                      color: #E9B89C;
+                      font-family: $font-bold;
+                    }
+                  }
+                }
+                .MainHomeLeftContentBottomButton {
+                  margin: auto;
+                  margin-bottom: 30px;
+                  width: 100px;
+                  height: 40px;
+                  font-family: $font-bold;
+                  font-size: 12px;
+                  background: #E9B89C;
+                  box-shadow: none;
+                  border-radius: 10px;
+                }
+              }
+              .MainHomeCardTitlesContainer {
+                margin: auto;
+                width: 97%;
+                margin-top: 25px;
+                display: flex;
+                flex-direction: column;
+
+                .MainHomeCardMainTitle {
+                  font-family: $font-bold;
+                  font-size: 22px;
+                  color: #2F3644;
+                }
+
+                .MainHomeCardSubTitle {
+                  font-family: $font-regular;
+                  font-size: 12px;
+                  color: #AF9D93;
+                  margin-top: 5px;
+                }
+              }
+              .MainHomeCardDividerContainer {
+                margin: auto;
+                width: 97%;
+                margin-top: 50px;
+
+                .MainHomeCardDividerTitle {
+                  font-family: $font-bold;
+                  font-size: 15px;
+                  color: #817C79;
+                }
+
+                .MainHomeCardDivider {
+                  height: 2px;
+                  background-color: #F4EEE9;
+                  margin-top: 15px;
+                }
+              }
+
+            .MainHomeCardCarList {
               display: flex;
               flex-direction: column;
-              gap: 30px;
-              margin-left: 27px;
-              margin-bottom: 30px;
-            }
+              margin-top: 30px;
+              gap: 15px;
 
-            .MainHomeLeftContentItem {
-              color: #D7D1CC;
-              font-family: $font-regular;
-              font-size: 16px;
-              cursor: pointer;
+              .MainHomeCardCarInfoStyle {
+                  width: 95%;
+                  max-width: 700px;
+                  margin: auto;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  background-color: #F8F8F8;
+                  padding-top: 20px;
+                  padding-bottom: 20px;
+                  border-radius: 11px;
 
-              &:hover, &.active {
-                color: #E9B89C;
-                font-family: $font-bold;
+                  .MainHomeCardCarInfoCarImage {
+                      width: 150px;
+                      height: auto;
+                      object-fit: contain;
+                  }
+
+                  .MainHomeCardCarInfoContainer {
+                      display: flex;
+                      flex-direction: column;
+
+                      .MainHomeCardCarInfoTitleContent {
+                          display: flex;
+                          align-items: center;
+
+                          .MainHomeCardCarInfoCarName {
+                              font-family: $font-bold;
+                              color: #2F3644;
+                              font-size: 20px;
+                          }
+                      }
+
+                      .MainHomeCardCarInfoCarPrice {
+                          font-family: $font-light;
+                          font-size: 10px;
+                          color: #AF9D93;
+                          margin-top: 4px;
+                          margin-bottom: 4px;
+                      }
+
+                      .MainHomeCardCarInfoCarSpec {
+                          font-family: $font-regular;
+                          font-size: 10px;
+                          color: #72798A;
+                          margin-top: 3px;
+                      }
+                  }
+
+                  .MainHomeCardCarInfoSelectButtonGroupStyle {
+                      margin-left: auto;
+                      margin-top: auto;
+                      display: flex;
+                      flex-direction: row;
+                      gap: 7px;
+                      margin-right: 15px;
+
+                      .MainHomeCardCarInfoSelectButton {
+                        min-width: 56px;
+                        height: 28px;
+                        background-color: #97ABD4;
+                        border-radius: 8px;
+                        box-shadow: none;
+                        font-size: 10px;
+                        color: #FFFFFF;
+                      }
+                  }
               }
+          }
+          .MainHomeCardCarAddButtonWrapper {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-right: 18px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+
+            .MainHomeCardBrandDeleteButton {
+              width: 120px;
+              height: 40px;
+              font-family: $font-bold;
+              font-size: 12px;
+              background: #D7D1CC;
+              color: #FFFFFF;
+              border-radius: 10px;
+              box-shadow: none;
             }
 
-            .MainHomeLeftContentBottomButton {
-                margin: auto;
-                margin-bottom: 30px;
-                width: 100px;
-                height: 40px;
-                font-family: $font-bold;
-                font-size: 12px;
-                background: #E9B89C;
-                box-shadow: none;
-                border-radius: 10px;
+            .MainHomeCardBrandEditButton {
+              width: 120px;
+              height: 40px;
+              font-family: $font-bold;
+              font-size: 12px;
+              background: #7A8499;
+              color: #FFFFFF;
+              border-radius: 10px;
+              box-shadow: none;
             }
+            
+            .MainHomeCardCarAddButton {
+              width: 120px;
+              height: 40px;
+              font-family: $font-bold;
+              font-size: 12px;
+              background: #AF9D93;
+              color: #FFFFFF;
+              border-radius: 10px;
+              box-shadow: none;
+            }
+          }
         }
       }
     }
