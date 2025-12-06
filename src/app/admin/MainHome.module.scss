@@ -263,3 +263,61 @@
         }
       }
     }
+    .MainHomeModalBoxStyle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      background: #FFFFFF;
+      border-radius: 20px;
+      box-shadow: none;
+      padding-top: 45px;
+      padding-bottom: 55px;
+      padding-left: 25px;
+      padding-right: 25px;
+
+      .MainHomeModalBoxTitleWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+        width: 470px;
+        padding-bottom: 20px;
+
+        .MainHomeModalBoxMainTitle {
+          font-family: $font-medium;
+          font-size: 22px;
+          color: #000000;
+        }
+      }
+      .MainHomeModalBoxTextFieldWrapper {
+        text-align: center;
+
+        .MainHomeModalBoxTextField {
+          margin-top: 10px;
+          padding-left: 15px;
+          width: 450px;
+          height: 50px;
+          border-radius: 10px;
+          border: #AF9D93 1px solid;
+
+          &::placeholder {
+            font-family: $font-light;
+            font-size: 16px;
+            color: #596A8A;
+          }
+        }
+      }
+      .MainHomeModalBoxSaveButton {
+        margin-top: 10px;
+        width: 470px;
+        height: 50px;
+        background: #596A8A;
+        border-radius: 10px;
+        box-shadow: none;
+        font-family: $font-medium;
+        font-size: 16px;
+        color: #FFFFFF;
+      }
+    }

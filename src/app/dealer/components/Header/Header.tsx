@@ -1,22 +1,55 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import MobileHeader from './MobileHeader';
-import DesktopHeader from './DesktopHeader';
-
-function useIsMobile() {
-    const [isMobile, setIsMobile] = useState(false);
-    const mobile = useMediaQuery({ query: '(max-width: 700px)' });
-
-    useEffect(() => {
-        setIsMobile(mobile);
-    }, [mobile]);
-
-    return isMobile;
-}
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Icon from "@mdi/react";
+import { mdiAccountCircle, mdiLogout } from "@mdi/js";
+import { AppBar, Toolbar, IconButton } from "@mui/material";
+import styles from "./Header.module.scss";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Header() {
-    const isMobile = useIsMobile();
-    return isMobile ? <MobileHeader /> : <DesktopHeader />;
+    const pathname = usePathname();
+    const { data: session, status } = useSession();
+
+    return (
+        <AppBar position="fixed" className={styles.Header_AppBarStyle}>
+            <div className={styles.Header_Container}>
+                <Toolbar className={styles.Header_ToolbarStyle}>
+                    {/* [수정 포인트] href를 "/dealer"로 명확히 지정 */}
+                    <Link href="/dealer" style={{color: "#FFFFFF", textDecoration: "none"}}>
+                        카셀렉트
+                    </Link>
+                    <div style={{ marginLeft: "auto" }}>
+                        <IconButton
+                            disableTouchRipple
+                            component={Link}
+                            href="/dealer"
+                            className={`${styles.Header_icon} ${pathname === "/dealer" ? "active" : ""}`}
+                        >
+                            <Icon path={mdiAccountCircle} size={1} />
+                        </IconButton>
+
+                        {/* 로그인 시, oo님 표시 */}
+                        {status === "authenticated" && session?.user?.name && (
+                            <span style={{ color: "#FFFFFF", fontSize: "0.9rem" }}>
+                                {session.user.name}님
+                            </span>
+                        )}
+
+                        {status === "authenticated" && (
+                            <IconButton
+                                disableTouchRipple
+                                onClick={() => signOut({callbackUrl: "/dealer"})}
+                                className={styles.Header_icon}
+                                title="로그아웃"
+                            >
+                                <Icon path={mdiLogout} size={1} />
+                            </IconButton>
+                        )}
+                    </div>
+                </Toolbar>
+            </div>
+        </AppBar>
+    );
 }

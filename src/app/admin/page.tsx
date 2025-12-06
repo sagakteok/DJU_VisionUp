@@ -106,12 +106,20 @@ const CarItems = [
 export default function MainHomeDesktop() {
   const [activeBrandId, setActiveBrandId] = useState<number>(CarItems[0].CarBrand[0].brand_id);
 
-  const [openBrandModal, setOpenBrandModal] = useState(false);
   const [brandName, setBrandName] = useState("");
   const [brandCountry, setBrandCountry] = useState("");
 
-  const handleOpenBrandModal = () => setOpenBrandModal(true);
-  const handleCloseBrandModal = () => setOpenBrandModal(false);
+  const [openAddBrandModal, setOpenAddBrandModal] = useState(false);
+  const handleOpenAddBrandModal = () => setOpenAddBrandModal(true);
+  const handleCloseAddBrandModal = () => setOpenAddBrandModal(false);
+
+  const [openEditBrandModal, setOpenEditBrandModal] = useState(false);
+  const handleOpenEditBrandModal = () => setOpenEditBrandModal(true);
+  const handleCloseEditBrandModal = () => setOpenEditBrandModal(false);
+
+  const [openAddCarModal, setOpenAddCarModal] = useState(false);
+  const handleOpenAddCarModal = () => setOpenAddCarModal(true);
+  const handleCloseAddCarModal = () => setOpenAddCarModal(false);
 
   return (
     <div className={styles.MainHomeStyle}>
@@ -126,7 +134,7 @@ export default function MainHomeDesktop() {
                   ))
                 )}
               </div>
-              <Button variant="contained" className={styles.MainHomeLeftContentBottomButton} onClick={handleOpenBrandModal}>브랜드 추가</Button>
+              <Button variant="contained" className={styles.MainHomeLeftContentBottomButton} onClick={handleOpenAddBrandModal}>브랜드 추가</Button>
             </Drawer>
             <CardContent style={{ height: '100%', overflowY: 'auto', marginLeft: '180px'}}>
               <div>
@@ -166,7 +174,7 @@ export default function MainHomeDesktop() {
                           <span className={styles.MainHomeCardCarInfoCarSpec}>연비: ~ {car.fuel_efficiency} km/l</span>
                         </div>
                         <div className={styles.MainHomeCardCarInfoSelectButtonGroupStyle}>
-                          <Button className={styles.MainHomeCardCarInfoSelectButton}>선택하기</Button>
+                          <Button className={styles.MainHomeCardCarInfoSelectButton}>수정하기</Button>
                           <Button className={styles.MainHomeCardCarInfoSelectButton}>삭제하기</Button>
                         </div>
                       </div>
@@ -175,61 +183,60 @@ export default function MainHomeDesktop() {
                 )}
                 <div className={styles.MainHomeCardCarAddButtonWrapper}>
                   <Button className={styles.MainHomeCardBrandDeleteButton}>브랜드 삭제</Button>
-                  <Button className={styles.MainHomeCardBrandEditButton}>브랜드 정보 수정</Button>
-                  <Button className={styles.MainHomeCardCarAddButton}>차량 추가하기</Button>
+                  <Button className={styles.MainHomeCardBrandEditButton} onClick={handleOpenEditBrandModal}>브랜드 정보 수정</Button>
+                  <Button className={styles.MainHomeCardCarAddButton} onClick={handleOpenAddCarModal}>차량 추가하기</Button>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
-      <Modal
-        open={openBrandModal}
-        onClose={handleCloseBrandModal}
-      >
-        <Box sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 450,
-          bgcolor: 'background.paper',
-          borderRadius: 2,
-          boxShadow: 24,
-          p: 3
-        }}>
-          {/* Title + X 버튼 정렬 */}
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 10 }}>
-            <span style={{ fontSize: "18px", fontWeight: 700 }}>브랜드 추가</span>
-            <IconButton onClick={handleCloseBrandModal}>
+      <Modal open={openAddBrandModal} onClose={handleCloseAddBrandModal}>
+        <Box className={styles.MainHomeModalBoxStyle}>
+          <div className={styles.MainHomeModalBoxTitleWrapper}>
+            <span className={styles.MainHomeModalBoxMainTitle}>브랜드 추가</span>
+            <IconButton onClick={handleCloseAddBrandModal}>
               <Icon path={mdiClose} size={1} />
             </IconButton>
           </div>
-
-          <TextField 
-            label="브랜드 명을 입력해주세요."
-            fullWidth 
-            variant="outlined"
-            value={brandName}
-            onChange={(e) => setBrandName(e.target.value)}
-            sx={{ mb: 2 }}
-          />
-          <TextField 
-            label="브랜드 국가를 입력해주세요."
-            fullWidth 
-            variant="outlined"
-            value={brandCountry}
-            onChange={(e) => setBrandCountry(e.target.value)}
-            sx={{ mb: 3 }}
-          />
-
-          <Button 
-            variant="contained" 
-            fullWidth 
-            onClick={() => console.log(brandName, brandCountry)}
-          >
-            저장하기
-          </Button>
+          <div className={styles.MainHomeModalBoxTextFieldWrapper}>
+            <input className={styles.MainHomeModalBoxTextField} value={brandName} onChange={(e) => setBrandName(e.target.value)} placeholder="브랜드 명을 입력해주세요."/>
+            <input className={styles.MainHomeModalBoxTextField} value={brandCountry} onChange={(e) => setBrandCountry(e.target.value)} placeholder="브랜드 국가를 입력해주세요."/>
+            <Button className={styles.MainHomeModalBoxSaveButton} variant="contained" onClick={() => console.log(brandName, brandCountry)}>저장하기</Button>
+          </div>
+        </Box>
+      </Modal>
+      <Modal open={openEditBrandModal} onClose={handleCloseEditBrandModal}>
+        <Box className={styles.MainHomeModalBoxStyle}>
+          <div className={styles.MainHomeModalBoxTitleWrapper}>
+            <span className={styles.MainHomeModalBoxMainTitle}>브랜드 정보 수정</span>
+            <IconButton onClick={handleCloseEditBrandModal}>
+              <Icon path={mdiClose} size={1} />
+            </IconButton>
+          </div>
+          <div className={styles.MainHomeModalBoxTextFieldWrapper}>
+            <input className={styles.MainHomeModalBoxTextField} placeholder="변경할 브랜드 명을 입력해주세요."/>
+            <input className={styles.MainHomeModalBoxTextField} placeholder="변경할 브랜드 국가를 입력해주세요."/>
+            <Button className={styles.MainHomeModalBoxSaveButton} variant="contained">수정하기</Button>
+          </div>
+        </Box>
+      </Modal>
+      <Modal open={openAddCarModal} onClose={handleCloseAddCarModal}>
+        <Box className={styles.MainHomeModalBoxStyle}>
+          <div className={styles.MainHomeModalBoxTitleWrapper}>
+            <span className={styles.MainHomeModalBoxMainTitle}>차량 추가</span>
+            <IconButton onClick={handleCloseAddCarModal}>
+              <Icon path={mdiClose} size={1} />
+            </IconButton>
+          </div>
+          <div className={styles.MainHomeModalBoxTextFieldWrapper}>
+            <input className={styles.MainHomeModalBoxTextField} placeholder="차량명을 입력해주세요."/>
+            <input className={styles.MainHomeModalBoxTextField} placeholder="시작 가격을 입력해주세요."/>
+            <input className={styles.MainHomeModalBoxTextField} placeholder="배기량을 정수로 입력해주세요."/>
+            <input className={styles.MainHomeModalBoxTextField} placeholder="연비를 소수점 한 자리까지 입력해주세요."/>
+            <input className={styles.MainHomeModalBoxTextField} placeholder="바디 타입을 입력해주세요."/>
+            <Button className={styles.MainHomeModalBoxSaveButton} variant="contained">추가하기</Button>
+          </div>
         </Box>
       </Modal>
     </div>
