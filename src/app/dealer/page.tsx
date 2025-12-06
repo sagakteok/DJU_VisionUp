@@ -6,64 +6,73 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import styles from './MainHome.module.scss';
 
-interface QuoteRequest {
+// 채팅방 데이터 타입 정의
+interface ChatRoom {
+    id: string;
     quoteId: string;
-    customerId: string;
-    customerName: string;
-    status: string;
+    quote: {
+        user: { name: string };
+    };
+    messages: { content: string; createdAt: string }[];
 }
 
 export default function MainHomeDesktop() {
+    // required: true 옵션을 쓰면, 비로그인 시 자동으로 signin 페이지로 보내지 않고
+    // 우리가 직접 status 체크로 제어할 수 있습니다.
     const { data: session, status } = useSession();
     const router = useRouter();
-    const [latestRequest, setLatestRequest] = useState<QuoteRequest | null>(null);
+    const [latestRoom, setLatestRoom] = useState<ChatRoom | null>(null);
+    const [totalCount, setTotalCount] = useState(0);
 
     useEffect(() => {
+        // 1. 로딩이 끝났는데 비로그인 상태라면 -> 로그인 페이지로
         if (status === "unauthenticated") {
-            router.push("/dealer/auth/signin");
-        }
-        if (status === "authenticated" && (session?.user as any).role !== "DEALER") {
-            alert("딜러 전용 페이지입니다.");
-            router.push("/customer");
+            router.replace("/dealer/auth/signin"); // push 대신 replace 사용 (뒤로가기 방지)
+            return;
         }
 
-        const fetchLatestRequest = async () => {
-            try {
-                const res = await axios.get('/api/chat/list', {
-                    withCredentials: true
-                });
-
-
-                if (res.data && Array.isArray(res.data) && res.data.length > 0) {
-                    const firstItem = res.data[0];
-
-                    setLatestRequest({
-                        quoteId: firstItem.id,
-                        customerId: firstItem.userId,
-                        customerName: firstItem.user?.name || "알 수 없음",
-                        status: firstItem.status
-                    });
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
+        // 2. 딜러 권한 체크 (로그인 된 상태에서만)
         if (status === "authenticated") {
-            fetchLatestRequest();
-        }
+            if ((session?.user as any).role !== "DEALER") {
+                alert("딜러 전용 페이지입니다.");
+                router.replace("/customer");
+                return;
+            }
 
+            // 3. 데이터 로딩
+            fetchRooms((session.user as any).id);
+        }
     }, [status, session, router]);
 
-    if (status === "loading") {
-        return <div style={{ height: '100vh', background: '#3B3735', color: '#EAEAEA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>인증 정보를 불러오는 중...</div>;
-    }
+    const fetchRooms = async (dealerId: string) => {
+        try {
+            const res = await axios.get(`/api/chat/rooms?dealerId=${dealerId}`);
 
-    if (!session) return null;
+            if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+                setLatestRoom(res.data[0]);
+                setTotalCount(res.data.length);
+            } else {
+                setLatestRoom(null);
+                setTotalCount(0);
+            }
+        } catch (error) {
+            console.error("채팅 목록 로딩 실패:", error);
+        }
+    };
+
+    // 로딩 중이거나 세션이 없을 때는 로딩 화면 유지 (깜빡임 방지)
+    if (status === "loading" || !session) {
+        return (
+            <div className={styles.loadingScreen} style={{ height: '100vh', background: '#3B3735', color: '#EAEAEA', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                Dealer System 접속 중...
+            </div>
+        );
+    }
 
     return (
         <div className={styles.MainHomeStyle}>
             <div className={styles.MainHomeContainer}>
+                {/* 상단 헤더 영역 */}
                 <div className={styles.MainHomeTopContent}>
                     <div className={styles.MainHomeFirstTitle}>
                         Dealer Partners
@@ -83,6 +92,7 @@ export default function MainHomeDesktop() {
                     </div>
                 </div>
 
+                {/* 하단 콘텐츠 영역 */}
                 <div className={styles.MainHomeBottomContent}>
                     <div style={{
                         marginLeft: '55px',
@@ -92,6 +102,7 @@ export default function MainHomeDesktop() {
                         flexWrap: 'wrap',
                         paddingRight: '20px'
                     }}>
+                        {/* 1. 실시간 상담하기 카드 */}
                         <div
                             style={{
                                 background: 'rgba(255, 255, 255, 0.1)',
@@ -101,28 +112,39 @@ export default function MainHomeDesktop() {
                                 border: '1px solid rgba(255, 255, 255, 0.2)',
                                 cursor: 'pointer',
                                 minWidth: '280px',
-                                flex: '1'
+                                flex: '1',
+                                transition: 'transform 0.2s',
+                                marginBottom: '50px',
                             }}
                             onClick={() => {
-                                if (!latestRequest) {
-                                    alert("진행 중인 상담이 없습니다.");
+                                if (!latestRoom) {
+                                    alert("현재 진행 중인 상담이 없습니다.");
                                     return;
                                 }
                                 const dealerId = (session.user as any).id;
-                                router.push(`/customer/websocket?quoteId=${latestRequest.quoteId}&userId=${dealerId}&type=DEALER&targetName=${latestRequest.customerName}`);
+                                const customerName = latestRoom.quote.user.name;
+
+                                router.push(`/customer/websocket?quoteId=${latestRoom.quoteId}&userId=${dealerId}&type=DEALER&targetName=${customerName}`);
                             }}
                         >
                             <div className={styles.MainHomeCarHrefContainer} style={{ marginLeft: 0 }}>
                                 <span className={styles.MainHomeCarHrefText} style={{ color: '#60a5fa', fontSize: '20px' }}>💬 실시간 상담하기</span>
                             </div>
-                            <p style={{ color: '#ccc', marginTop: '10px', fontSize: '14px', fontFamily: 'SpoqaHanSansNeo-Light' }}>
-                                {latestRequest
-                                    ? `${latestRequest.customerName}님과 대화가 가능합니다.`
-                                    : "현재 진행 중인 상담이 없습니다."}
-                                <br/>터치하여 채팅방으로 이동하세요.
+
+                            <p style={{ color: '#ccc', marginTop: '10px', fontSize: '15px', fontFamily: 'SpoqaHanSansNeo-Light', lineHeight: '1.6' }}>
+                                {latestRoom ? (
+                                    <>
+                                        <strong style={{ color: '#fff', fontWeight: 'bold' }}>{latestRoom.quote.user.name}</strong> 님이 상담을 요청했습니다.
+                                        <br />
+                                        <span style={{ fontSize: '13px', color: '#888' }}>터치하여 채팅방으로 입장하세요 &rarr;</span>
+                                    </>
+                                ) : (
+                                    "현재 대기 중인 상담 요청이 없습니다."
+                                )}
                             </p>
                         </div>
 
+                        {/* 2. 견적 요청 현황 카드 */}
                         <div
                             style={{
                                 background: 'rgba(255, 255, 255, 0.05)',
@@ -130,22 +152,19 @@ export default function MainHomeDesktop() {
                                 borderRadius: '15px',
                                 border: '1px solid rgba(255, 255, 255, 0.1)',
                                 minWidth: '280px',
-                                flex: '1'
+                                flex: '1',
+                                marginBottom: '50px',
                             }}
                         >
                             <div className={styles.MainHomeCarHrefContainer} style={{ marginLeft: 0 }}>
-                                <span className={styles.MainHomeCarHrefText} style={{ color: '#a78bfa', fontSize: '20px' }}>📄 견적 요청함</span>
+                                <span className={styles.MainHomeCarHrefText} style={{ color: '#a78bfa', fontSize: '20px' }}>📄 전체 상담 현황</span>
                             </div>
                             <p style={{ color: '#888', marginTop: '10px', fontSize: '14px', fontFamily: 'SpoqaHanSansNeo-Light' }}>
-                                {latestRequest
-                                    ? `신규 요청: 1건 (${latestRequest.customerName})`
-                                    : "현재 대기 중인 요청이 없습니다."}
+                                {totalCount > 0
+                                    ? `총 ${totalCount}건의 상담이 진행 중입니다.`
+                                    : "현재 진행 중인 요청이 없습니다."}
                             </p>
                         </div>
-                    </div>
-
-                    <div className={styles.MainHomePaginationContainer}>
-                        <span className={styles.MainHomePaginationText}>Vision Up Dealer System</span>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,470 @@
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Thin';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Light';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpoqaHanSansNeo-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+$font-thin: 'SpoqaHanSansNeo-Thin';
+$font-light: 'SpoqaHanSansNeo-Light';
+$font-regular: 'SpoqaHanSansNeo-Regular';
+$font-medium: 'SpoqaHanSansNeo-Medium';
+$font-bold: 'SpoqaHanSansNeo-Bold';
+
+// 반응형 변수
+$mobile-breakpoint: 768px;
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #1C1F26, #2E323B);
+
+  // 헤더 높이에 따라 탄력적으로 조절 (최소 100px ~ 최대 140px)
+  padding-top: clamp(100px, 15vh, 140px);
+  padding-bottom: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerRow {
+  width: 100%;
+  // PC에선 700px, 모바일에선 꽉 차게
+  max-width: 700px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 0 4px;
+
+  @media (max-width: $mobile-breakpoint) {
+    margin-bottom: 20px;
+  }
+}
+
+.title {
+  font-family: $font-bold;
+  font-size: 26px;
+  color: #EAEAEA;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 22px;
+  }
+}
+
+.addButton {
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #fff;
+  font-family: $font-medium;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap; // 버튼 글자 줄바꿈 방지
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+.list {
+  width: 100%;
+  max-width: 700px; // 리스트 너비 제한
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  margin-top: 100px;
+  font-family: $font-light;
+  font-size: 18px;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 16px;
+    margin-top: 60px;
+  }
+}
+
+.card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  // 모바일 카드 패딩 조절
+  @media (max-width: $mobile-breakpoint) {
+    padding: 16px;
+    border-radius: 12px;
+  }
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+  flex-shrink: 0;
+  font-family: $font-bold;
+  color: #fff;
+  font-size: 18px;
+
+  @media (max-width: $mobile-breakpoint) {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+    margin-right: 12px;
+  }
+}
+
+.infoArea {
+  flex: 1;
+  overflow: hidden; // 말줄임표(...) 처리를 위해 필수
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.opponent {
+  font-family: $font-bold;
+  font-size: 16px;
+  color: #fff;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 15px;
+  }
+}
+
+.date {
+  font-family: $font-light;
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap; // 날짜 줄바꿈 방지
+  margin-left: 8px;
+}
+
+.carName {
+  display: block;
+  font-family: $font-medium;
+  font-size: 14px;
+  color: #6366f1;
+  margin-bottom: 4px;
+
+  // 긴 차 이름 처리
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 13px;
+  }
+}
+
+.preview {
+  font-family: $font-regular;
+  font-size: 14px;
+  color: #ccc;
+
+  // 긴 메시지 처리
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 13px;
+  }
+}
+
+.arrowIcon {
+  margin-left: 12px;
+  color: #555;
+  transition: transform 0.3s;
+  flex-shrink: 0; // 아이콘 찌그러짐 방지
+
+  @media (max-width: $mobile-breakpoint) {
+    margin-left: 8px;
+    transform: scale(0.9);
+  }
+}
+
+.card:hover .arrowIcon {
+  transform: translateX(4px);
+  color: #fff;
+}
+
+// --- 모달 관련 ---
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; // 헤더보다 위에 오도록 높게 설정
+  padding: 20px; // 모바일에서 여백 확보
+}
+
+.modalContent {
+  background: #2E323B;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh; // 화면 높이 넘어가면 스크롤
+}
+
+.modalTitle {
+  font-family: $font-bold;
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dealerList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto; // 리스트 많으면 스크롤
+  padding-right: 4px; // 스크롤바 여백
+
+  // 스크롤바 디자인
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 3px;
+  }
+}
+
+.dealerItem {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.dealerName {
+  font-family: $font-medium;
+  font-size: 16px;
+  color: #EAEAEA;
+  margin-left: 12px;
+}
+
+.closeButton {
+  margin-top: 20px;
+  background: transparent;
+  border: 1px solid #555;
+  color: #aaa;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: $font-regular;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+}
+// ... (기존 폰트 및 변수 설정 유지)
+
+// ... (기존 .container, .headerRow 등 유지)
+
+// ★ 추가/수정된 부분
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+// 기존 .addButton 스타일은 유지하되, margin 등은 .buttonGroup으로 대체
+.addButton {
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #fff;
+  font-family: $font-medium;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+// 삭제 버튼 스타일
+.deleteButton {
+  background: rgba(239, 68, 68, 0.2); // 붉은색 반투명
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #fca5a5; // 연한 붉은색 텍스트
+  font-family: $font-medium;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.3);
+    color: #fff;
+  }
+
+  &.active {
+    background: #ef4444; // 활성화시 진한 붉은색
+    color: #fff;
+    border-color: #ef4444;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+// 리스트 아이템 (.card) 수정
+.card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  position: relative; // 삭제 아이콘 위치 잡기 위해
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1); // 호버시 붉은 배경
+    }
+
+
+  @media (max-width: $mobile-breakpoint) {
+    padding: 16px;
+    border-radius: 12px;
+  }
+}
+
+// 흔들림 애니메이션 키프레임
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+// 화살표 아이콘 대신 삭제 아이콘이 들어갈 자리
+.actionIcon {
+  margin-left: 12px;
+  color: #555;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+
+  &.delete {
+    color: #ef4444; // 붉은색 휴지통
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    margin-left: 8px;
+    transform: scale(0.9);
+  }
+}
+

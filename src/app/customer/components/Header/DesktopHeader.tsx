@@ -17,6 +17,9 @@ export default function DesktopHeader() {
     const [isAccountActive, setIsAccountActive] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
+    // 세션에서 사용자 ID 가져오기 (타입 단언 사용)
+    const userId = (session?.user as any)?.id;
+
     const toggleAccountBox = () => {
         setIsAccountActive((prev) => !prev);
     };
@@ -44,7 +47,13 @@ export default function DesktopHeader() {
                     <Link href="/" className={styles.DesktopHeader_Brand}>카셀렉트</Link>
                     <Link href="/customer/estimate" className={`${styles.DesktopHeader_text} ${pathname === "/customer/estimate" ? styles.active : ""}`}>견적 짜기</Link>
                     <Link href="/Businesses" className={`${styles.DesktopHeader_text} ${pathname === "/Businesses" ? styles.active : ""}`}>나의 견적</Link>
-                    <Link href="/customer/websocket" className={`${styles.DesktopHeader_text} ${pathname === "/customer/websocket" ? styles.active : ""}`}>나의 상담</Link>
+
+                    <Link
+                        href={isLoggedIn && userId ? `/customer/consultations?userId=${userId}&type=USER` : '/customer/auth/signin'}
+                        className={`${styles.DesktopHeader_text} ${pathname.includes("/customer/consultations") || pathname.includes("/customer/websocket") ? styles.active : ""}`}
+                    >
+                        나의 상담
+                    </Link>
 
                     <div ref={wrapperRef} className={styles.DesktopHeader_AccountBoxWrapper}>
                         <IconButton disableTouchRipple component={Link} href="/" className={`${styles.DesktopHeader_icon} ${pathname === "/" ? styles.active : ""}`}><Icon path={mdiMagnify} size={1} /></IconButton>

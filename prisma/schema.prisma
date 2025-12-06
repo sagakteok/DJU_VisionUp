@@ -8,8 +8,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// 사용자 및 인증 (Auth)
-
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -20,12 +18,9 @@ model User {
   phone         String?   @unique
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-
   accounts      Account[]
-  sessions      Session[]
-
-  // 유저의 견적 목록
   quotes        Quote[]
+  sessions      Session[]
 }
 
 model Account {
@@ -34,12 +29,12 @@ model Account {
   type                     String
   provider                 String
   providerAccountId        String
-  refresh_token            String? @db.Text
-  access_token             String? @db.Text
+  refresh_token            String?
+  access_token             String?
   expires_at               Int?
   token_type               String?
   scope                    String?
-  id_token                 String? @db.Text
+  id_token                 String?
   session_state            String?
   refresh_token_expires_in Int?
   user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -65,148 +60,100 @@ model PhoneVerification {
   verified  Boolean  @default(false)
 }
 
-
-
 model Dealer {
   id        String   @id @default(cuid())
   name      String
   email     String   @unique
   phone     String   @unique
   password  String
-
-  quotes    Quote[]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  quotes    Quote[]
 }
 
-
-// 차량 데이터 (Car Information)
-
-// 브랜드 (CarBrand)
 model CarBrand {
-  id            Int    @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   brand_name    String
   brand_country String
-
-  // 역참조 (Brand -> Model)
   models        CarModel[]
 }
 
-// 외장 색상 (CarExteriorColor)
 model CarExteriorColor {
-  id                     Int    @id @default(autoincrement())
-  exterior_color_id      Int    // 색상 고유 번호
+  id                     Int         @id @default(autoincrement())
+  exterior_color_id      Int
   exterior_color_name    String
   exterior_color_hexcode String
   exterior_color_price   Int
-
-  // 역참조 (Color -> Option)
   options                CarOption[]
 }
 
-// 내장 색상 (CarInteriorColor)
 model CarInteriorColor {
-  id                     Int    @id @default(autoincrement())
-  interior_color_id      Int    // 색상 고유 번호
+  id                     Int         @id @default(autoincrement())
+  interior_color_id      Int
   interior_color_name    String
   interior_color_hexcode String
   interior_color_price   Int
-
-  // 역참조 (Color -> Option)
   options                CarOption[]
 }
 
-// 옵션 (CarOption)
 model CarOption {
-  id                Int    @id @default(autoincrement())
-  option_id         Int    // 옵션 고유 번호
-
-  // FK: 외장 색상
+  id                Int              @id @default(autoincrement())
+  option_id         Int
   exterior_color_id Int
-  exteriorColor     CarExteriorColor @relation(fields: [exterior_color_id], references: [id])
-
-  // FK: 내장 색상
   interior_color_id Int
-  interiorColor     CarInteriorColor @relation(fields: [interior_color_id], references: [id])
-
   package_name      String
   option_detail     String
   option_price      Int
-
-  // 역참조 (Option -> Trim)
+  exteriorColor     CarExteriorColor @relation(fields: [exterior_color_id], references: [id])
+  interiorColor     CarInteriorColor @relation(fields: [interior_color_id], references: [id])
   trims             CarTrim[]
 
   @@index([exterior_color_id])
   @@index([interior_color_id])
 }
 
-// 트림 (CarTrim)
 model CarTrim {
-  id         Int    @id @default(autoincrement())
-  trim_id    Int    // 트림 고유 번호
-
-  // FK: 옵션
+  id         Int        @id @default(autoincrement())
+  trim_id    Int
   option_id  Int
-  option     CarOption @relation(fields: [option_id], references: [id])
-
   trim_name  String
   trim_price Int
-
-  // 역참조 (Trim -> Model)
   models     CarModel[]
+  option     CarOption  @relation(fields: [option_id], references: [id])
 
   @@index([option_id])
 }
 
-// 모델 (CarModel)
 model CarModel {
-  id              Int    @id @default(autoincrement())
-
-  // FK: 브랜드
+  id              Int      @id @default(autoincrement())
   brand_id        Int
-  brand           CarBrand @relation(fields: [brand_id], references: [id])
-
-  // FK: 트림
   trim_id         Int
-  trim            CarTrim @relation(fields: [trim_id], references: [id])
-
   car_name        String
   body_type       String
   price           Int
   liter_size      Int
   fuel_efficiency Float
-
-  // 이 모델을 참조하는 견적들
+  brand           CarBrand @relation(fields: [brand_id], references: [id])
+  trim            CarTrim  @relation(fields: [trim_id], references: [id])
   quotes          Quote[]
 
   @@index([brand_id])
   @@index([trim_id])
 }
 
-
-// 견적 및 채팅 (Quote & Chat)
-
 model Quote {
-  id        String   @id @default(cuid())
-
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  dealerId  String
-  dealer    Dealer   @relation(fields: [dealerId], references: [id], onDelete: Cascade)
-
-
+  id         String    @id @default(cuid())
+  userId     String
+  dealerId   String
   carModelId Int?
+  status     String    @default("PENDING")
+  price      Int?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  chatRoom   ChatRoom?
   carModel   CarModel? @relation(fields: [carModelId], references: [id])
-
-  status    String   @default("PENDING")
-  price     Int?     // 최종 견적 가격
-
-  chatRoom  ChatRoom?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  dealer     Dealer    @relation(fields: [dealerId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([dealerId])
@@ -214,30 +161,23 @@ model Quote {
 }
 
 model ChatRoom {
-  id        String   @id @default(cuid())
-
-  quoteId   String   @unique
-  quote     Quote    @relation(fields: [quoteId], references: [id], onDelete: Cascade)
-
+  id        String    @id @default(cuid())
+  quoteId   String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  quote     Quote     @relation(fields: [quoteId], references: [id], onDelete: Cascade)
   messages  Message[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model Message {
   id         String     @id @default(cuid())
-
   chatRoomId String
-  chatRoom   ChatRoom   @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
-
   senderId   String
   senderType SenderType
-
-  content    String     @db.Text
+  content    String
   isRead     Boolean    @default(false)
-
   createdAt  DateTime   @default(now())
+  chatRoom   ChatRoom   @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
 
   @@index([chatRoomId])
 }

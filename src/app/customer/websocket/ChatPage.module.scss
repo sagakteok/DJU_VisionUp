@@ -1,16 +1,4 @@
 @font-face {
-  font-family: 'SpoqaHanSansNeo-Thin';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
-  font-weight: 100;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'SpoqaHanSansNeo-Light';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
   font-family: 'SpoqaHanSansNeo-Regular';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
   font-weight: 400;
@@ -29,131 +17,246 @@
   font-style: normal;
 }
 
-$font-thin: 'SpoqaHanSansNeo-Thin', sans-serif;
-$font-light: 'SpoqaHanSansNeo-Light', sans-serif;
-$font-regular: 'SpoqaHanSansNeo-Regular', sans-serif;
-$font-medium: 'SpoqaHanSansNeo-Medium', sans-serif;
-$font-bold: 'SpoqaHanSansNeo-Bold', sans-serif;
+$font-regular: 'SpoqaHanSansNeo-Regular';
+$font-medium: 'SpoqaHanSansNeo-Medium';
+$font-bold: 'SpoqaHanSansNeo-Bold';
 
-@keyframes slideInFromRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.pageWrapper {
+// 1. 페이지 전체 레이아웃
+.pageContainer {
+  width: 100%;
   height: 100vh;
-  width: 100vw;
-  background: linear-gradient(to bottom, #1C1F26, #4E4A47);
+  background: linear-gradient(to bottom, #1C1F26, #232730);
+
+  // ★ 헤더 높이만큼 띄우기 (헤더가 약 60~70px이므로 여유 있게 90px 설정)
+  padding-top: 90px;
+  padding-bottom: 20px; // 하단 여유 공간
+
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: $font-regular;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    padding-top: 70px;
+    padding-bottom: 0;
+  }
 }
 
-.chatContainer {
-  width: 100%;
-  max-width: 700px;
-  background: rgba(28, 31, 38, 0.85);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.75);
-  border-radius: 16px;
-  padding: 2rem 2.5rem;
+// 2. 채팅창 본체 (글래스모피즘 효과)
+.chatWindow {
+  width: 95%;
+  max-width: 900px; // PC에서 너무 넓지 않게 제한
+  height: 100%; // pageContainer 내부에서 꽉 차게
+  background: rgba(35, 39, 48, 0.6); // 반투명 배경
+  backdrop-filter: blur(20px); // 블러 처리
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
   display: flex;
   flex-direction: column;
-  color: #E8EEFF;
-  animation: slideInFromRight 0.6s ease forwards;
-}
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 
-.title {
-  font-family: $font-bold;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  span {
-    color: #A3CEF1;
+  @media (max-width: 768px) {
+    width: 100%;
+    border-radius: 0; // 모바일은 꽉 차게
+    border: none;
   }
 }
 
-.chatBox {
-  flex-grow: 1;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 1rem;
-  overflow-y: auto;
-  box-shadow: inset 0 0 10px #00000088;
-  margin-bottom: 1.5rem;
-  font-family: $font-light;
-  font-size: 1rem;
-  line-height: 1.4;
-
-  div {
-    margin-bottom: 0.6rem;
-    padding: 0.4rem 0.6rem;
-    border-radius: 12px;
-    max-width: 80%;
-    word-break: break-word;
-    animation: slideInFromRight 0.4s ease forwards;
-  }
-
-  .myMessage {
-    background: #395B64;
-    margin-left: auto;
-    color: #D1E8E2;
-    font-weight: 500;
-    text-align: right;
-    box-shadow: 0 1px 3px #263238aa;
-  }
-
-  .otherMessage {
-    background: #1F2833;
-    color: #B8C1EC;
-    box-shadow: 0 1px 3px #111b22aa;
-  }
-}
-
-.inputGroup {
+// 3. 채팅방 헤더
+.header {
+  height: 70px;
+  background: rgba(30, 34, 42, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  flex-shrink: 0;
 
-  .input {
-    flex-grow: 1;
-    padding: 0.75rem 1rem;
-    border-radius: 30px;
-    border: none;
-    font-family: $font-regular;
-    font-size: 1rem;
-    outline: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: #E8EEFF;
-    transition: background-color 0.3s ease;
+  .headerTitle {
+    font-family: $font-bold;
+    font-size: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-    &:focus {
-      background: rgba(163, 206, 241, 0.2);
-    }
-
-    &::placeholder {
-      color: #9aa5b1;
+    .statusIndicator {
+      width: 8px;
+      height: 8px;
+      background: #4ade80; // 초록불 (온라인 느낌)
+      border-radius: 50%;
+      box-shadow: 0 0 10px #4ade80;
     }
   }
 
-  .sendButton {
-    background: linear-gradient(45deg, #3B82F6, #9333EA);
-    border: none;
-    color: white;
-    padding: 0 1.5rem;
-    border-radius: 30px;
+  .headerActions {
     font-family: $font-medium;
-    font-size: 1rem;
+    font-size: 14px;
+    color: #888;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: color 0.2s;
+    &:hover { color: #fff; }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+    height: 60px;
+    .headerTitle { font-size: 18px; }
+  }
+}
+
+// 4. 메시지 리스트 영역
+.messageList {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: transparent;
+
+  // 스크롤바 디자인
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+}
+
+// 5. 메시지 말풍선 레이아웃
+.messageRow {
+  display: flex;
+  width: 100%;
+}
+
+.myRow {
+  justify-content: flex-end;
+
+  .bubble {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #fff;
+    border-bottom-right-radius: 4px; // 꼬리 효과
+  }
+
+  .time {
+    text-align: right;
+    margin-right: 8px;
+  }
+}
+
+.otherRow {
+  justify-content: flex-start;
+
+  .bubble {
+    background: #374151;
+    color: #e5e7eb;
+    border-bottom-left-radius: 4px; // 꼬리 효과
+  }
+
+  .time {
+    text-align: left;
+    margin-left: 8px;
+  }
+}
+
+.bubbleWrapper {
+  display: flex;
+  align-items: flex-end;
+  max-width: 70%;
+
+  @media (max-width: 768px) {
+    max-width: 85%;
+  }
+}
+
+.bubble {
+  padding: 12px 18px;
+  border-radius: 18px;
+  font-family: $font-regular;
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  word-break: break-word;
+}
+
+.time {
+  font-family: $font-regular;
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 2px;
+  min-width: 50px;
+  flex-shrink: 0;
+}
+
+// 6. 입력창 영역
+.inputArea {
+  min-height: 80px;
+  background: rgba(30, 34, 42, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+    min-height: 70px;
+  }
+
+  .inputWrapper {
+    flex: 1;
+    background: #282c36;
+    border-radius: 24px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+
+    &:focus-within {
+      border-color: #6366f1;
+      background: #2d323e;
+    }
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: $font-regular;
+      font-size: 15px;
+      outline: none;
+
+      &::placeholder {
+        color: #6b7280;
+      }
+    }
+  }
+
+  .sendBtn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #6366f1;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    color: #fff;
 
     &:hover {
-      background: linear-gradient(45deg, #9333EA, #3B82F6);
+      background: #4f46e5;
       transform: scale(1.05);
     }
 

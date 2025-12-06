@@ -37,7 +37,7 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
     }
 }
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
 
     providers: [

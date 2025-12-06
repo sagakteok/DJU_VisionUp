@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma"; // Singleton Prisma 인스턴스 사용 권장
 
 // 리캡차 검증 함수
 async function verifyRecaptcha(token: string): Promise<boolean> {
@@ -24,12 +22,31 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
     }
 }
 
+// 1. 딜러 목록 조회 (GET) - ★ 이 부분이 없어서 405 에러가 났던 겁니다!
+export async function GET() {
+    try {
+        const dealers = await prisma.dealer.findMany({
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                phone: true,
+            },
+        });
+        return NextResponse.json(dealers);
+    } catch (error) {
+        console.error("딜러 목록 조회 실패:", error);
+        return NextResponse.json({ error: "Failed to fetch dealers" }, { status: 500 });
+    }
+}
+
+// 2. 딜러 회원가입 (POST)
 export async function POST(request: Request) {
     try {
         const body = await request.json();
         const { name, email, password, phone, recaptchaToken } = body;
 
-        // 1. 입력값 검증
+        // 입력값 검증
         if (!name || !email || !password || !phone || !recaptchaToken) {
             return NextResponse.json(
                 { error: "모든 항목을 입력해주세요." },
@@ -37,7 +54,7 @@ export async function POST(request: Request) {
             );
         }
 
-        // 2. 리캡차 검증
+        // 리캡차 검증
         const isHuman = await verifyRecaptcha(recaptchaToken);
         if (!isHuman) {
             return NextResponse.json(
@@ -46,7 +63,7 @@ export async function POST(request: Request) {
             );
         }
 
-        // 3. Dealer 테이블에서 중복 확인
+        // 중복 확인
         const existingDealer = await prisma.dealer.findUnique({
             where: { email }
         });
@@ -58,12 +75,12 @@ export async function POST(request: Request) {
             );
         }
 
-        // 4. Dealer 테이블에 저장
+        // 저장
         const newDealer = await prisma.dealer.create({
             data: {
                 name,
                 email,
-                password, // (실무에선 bcrypt 필수)
+                password, // (실무에선 암호화 필요)
                 phone,
             },
         });
