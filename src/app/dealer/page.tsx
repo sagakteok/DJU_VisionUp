@@ -144,7 +144,7 @@ export default function MainHomeDesktop() {
                             </p>
                         </div>
 
-                        {/* 2. 견적 요청 현황 카드 */}
+                        {/* 2. 견적 요청 현황 카드 (수정됨: onClick 추가) */}
                         <div
                             style={{
                                 background: 'rgba(255, 255, 255, 0.05)',
@@ -154,7 +154,11 @@ export default function MainHomeDesktop() {
                                 minWidth: '280px',
                                 flex: '1',
                                 marginBottom: '50px',
+                                cursor: 'pointer', // 마우스 올렸을 때 손가락 모양
+                                transition: 'transform 0.2s', // 클릭 효과용 트랜지션
                             }}
+                            // 클릭 시 상담 목록 페이지로 이동
+                            onClick={() => router.push('/dealer/consultations')}
                         >
                             <div className={styles.MainHomeCarHrefContainer} style={{ marginLeft: 0 }}>
                                 <span className={styles.MainHomeCarHrefText} style={{ color: '#a78bfa', fontSize: '20px' }}>📄 전체 상담 현황</span>
