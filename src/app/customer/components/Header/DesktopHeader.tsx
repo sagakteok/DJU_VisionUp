@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Icon from "@mdi/react";
 import { mdiMagnify, mdiAccountCircle, mdiLogout } from "@mdi/js";
-import { AppBar, Toolbar, IconButton, Button } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Button, InputBase, Paper } from "@mui/material";
 import styles from "./Header.module.scss";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
@@ -15,6 +15,7 @@ export default function DesktopHeader() {
     const { data: session, status } = useSession();
     const isLoggedIn = status === "authenticated" && session?.user;
     const [isAccountActive, setIsAccountActive] = useState(false);
+    const [searchKeyword, setSearchKeyword] = useState("");
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     // 세션에서 사용자 ID 가져오기 (타입 단언 사용)
@@ -22,6 +23,12 @@ export default function DesktopHeader() {
 
     const toggleAccountBox = () => {
         setIsAccountActive((prev) => !prev);
+    };
+
+    const handleSearch = (e: React.FormEvent)=>{
+        e.preventDefault();
+        if (!searchKeyword.trim()) return;
+        router.push(`/customer/cars?model=${encodeURIComponent(searchKeyword)}`);
     };
 
     useEffect(() => {
@@ -56,7 +63,39 @@ export default function DesktopHeader() {
                     </Link>
 
                     <div ref={wrapperRef} className={styles.DesktopHeader_AccountBoxWrapper}>
-                        <IconButton disableTouchRipple component={Link} href="/" className={`${styles.DesktopHeader_icon} ${pathname === "/" ? styles.active : ""}`}><Icon path={mdiMagnify} size={1} /></IconButton>
+                        <Paper
+                            component="form"
+                            onSubmit={handleSearch}
+                            sx={{
+                                p: '2px 4px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                width: 200, // 너비 조절
+                                height: 30,
+                                borderRadius: '20px', // 둥근 모서리
+                                border: '1px solid #ddd',
+                                boxShadow: 'none',
+                                marginRight: '15px', // 계정 아이콘과의 간격
+                                backgroundColor: '#fff'
+                            }}
+                        >
+                            <InputBase
+                                sx={{ml: 1, flex: 1, fontSize: '0.9rem'}}
+                                placeholder="차종 검색"
+                                inputProps={{'aria-label': '차종 검색'}}
+                                value={searchKeyword}
+                                onChange={(e)=> setSearchKeyword(e.target.value)}/>
+
+                            <IconButton
+                                type="submit"
+                                sx={{p: '8px'}}
+                                aria-label="search"
+                                className={styles.DesktopHeader_icon}>
+
+                                <Icon path={mdiMagnify} size={0.9}/>
+                            </IconButton>
+                        </Paper>
+
                         {isLoggedIn ? (
                             <div className={`${styles.DesktopHeader_AccountInfo} ${isAccountActive ? styles.active : ""}`} onClick={toggleAccountBox}>
                                 <Icon path={mdiAccountCircle} size={1} color={isAccountActive ? "#F7D7C5" : "#7A8499"} />
