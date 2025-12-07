@@ -79,49 +79,48 @@ model CarBrand {
 }
 
 model CarExteriorColor {
-  id                     Int         @id @default(autoincrement())
+  id                     Int       @id @default(autoincrement())
   exterior_color_id      Int
   exterior_color_name    String
   exterior_color_hexcode String
   exterior_color_price   Int
-  options                CarOption[]
+  trims                  CarTrim[]
 }
 
 model CarInteriorColor {
-  id                     Int         @id @default(autoincrement())
+  id                     Int       @id @default(autoincrement())
   interior_color_id      Int
   interior_color_name    String
   interior_color_hexcode String
   interior_color_price   Int
-  options                CarOption[]
+  trims                  CarTrim[]
 }
 
 model CarOption {
-  id                Int              @id @default(autoincrement())
-  option_id         Int
-  exterior_color_id Int
-  interior_color_id Int
-  package_name      String
-  option_detail     String
-  option_price      Int
-  exteriorColor     CarExteriorColor @relation(fields: [exterior_color_id], references: [id])
-  interiorColor     CarInteriorColor @relation(fields: [interior_color_id], references: [id])
-  trims             CarTrim[]
-
-  @@index([exterior_color_id])
-  @@index([interior_color_id])
+  id            Int       @id @default(autoincrement())
+  option_id     Int
+  package_name  String
+  option_detail String
+  option_price  Int
+  trims         CarTrim[]
 }
 
 model CarTrim {
-  id         Int        @id @default(autoincrement())
-  trim_id    Int
-  option_id  Int
-  trim_name  String
-  trim_price Int
-  models     CarModel[]
-  option     CarOption  @relation(fields: [option_id], references: [id])
+  id                Int              @id @default(autoincrement())
+  trim_id           Int
+  trim_name         String
+  trim_price        Int
+  option_id         Int
+  exterior_color_id Int
+  interior_color_id Int
+  models            CarModel[]
+  option            CarOption        @relation(fields: [option_id], references: [id])
+  exteriorColor     CarExteriorColor @relation(fields: [exterior_color_id], references: [id])
+  interiorColor     CarInteriorColor @relation(fields: [interior_color_id], references: [id])
 
   @@index([option_id])
+  @@index([exterior_color_id])
+  @@index([interior_color_id])
 }
 
 model CarModel {
