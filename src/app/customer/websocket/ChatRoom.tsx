@@ -139,7 +139,7 @@ export default function ChatRoom({ quoteId, userId, userType, targetName }: Chat
                 <div className={styles.header}>
                     <div className={styles.headerTitle}>
                         <div className={styles.statusIndicator}></div>
-                        {targetName}
+                        {userType === 'DEALER' ? `${targetName} 고객` : `${targetName} 딜러`}
                     </div>
                     <div className={styles.headerActions} onClick={() => router.back()}>
                         나가기
