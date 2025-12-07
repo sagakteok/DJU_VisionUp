@@ -37,8 +37,9 @@ export default function DesktopHeader() {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const searchWrapperRef = useRef<HTMLDivElement>(null);
 
-    // 세션에서 사용자 ID 가져오기 (타입 단언 사용)
+    // 세션에서 사용자 ID 및 권한 가져오기
     const userId = (session?.user as any)?.id;
+    const userRole = (session?.user as any)?.role; // ★ role 추가
 
     const toggleAccountBox = () => {
         setIsAccountActive((prev) => !prev);
@@ -109,7 +110,10 @@ export default function DesktopHeader() {
                             견적</Link>
 
                         <Link
-                            href={isLoggedIn && userId ? `/customer/consultations?userId=${userId}&type=USER` : '/customer/auth/signin'}
+                            // ★ 딜러면 딜러 페이지로, 고객이면 고객 상담 페이지로 분기 처리
+                            href={isLoggedIn
+                                ? (userRole === 'DEALER' ? '/dealer/consultations' : `/customer/consultations?userId=${userId}&type=USER`)
+                                : '/customer/auth/signin'}
                             className={`${styles.DesktopHeader_text} ${pathname.includes("/customer/consultations") || pathname.includes("/customer/websocket") ? styles.active : ""}`}
                         >
                             나의 상담
@@ -209,9 +213,15 @@ export default function DesktopHeader() {
                                 className={`${styles.DesktopHeader_AccountInfo} ${isAccountActive ? styles.active : ""}`}
                                 onClick={toggleAccountBox}>
                                 <Icon path={mdiAccountCircle} size={1} color={isAccountActive ? "#F7D7C5" : "#7A8499"}/>
-                                <span
-                                    className={styles.DesktopHeader_AccountInfoUsername}>{session?.user?.name || '이름 없음'}
-                                    <span className={styles.DesktopHeader_AccountInfoCustomerDefault}> 고객님</span>
+                                <span className={styles.DesktopHeader_AccountInfoUsername}>
+                                    {session?.user?.name || '이름 없음'}
+
+                                    <span
+                                        className={styles.DesktopHeader_AccountInfoCustomerDefault}
+                                        style={{ color: userRole === 'DEALER' ? '#FFFFFF' : 'inherit' }}
+                                    >
+                                         {userRole === 'DEALER' ? ' 딜러님' : ' 고객님'}
+                                    </span>
                                 </span>
                             </div>
                         ) : (
@@ -225,13 +235,18 @@ export default function DesktopHeader() {
                         {isLoggedIn && isAccountActive && (
                             <div className={styles.DesktopHeader_AccountInfoForm}>
                                 <div className={styles.DesktopHeader_AccountNameContainer}>
-                                    <div
-                                        className={styles.DesktopHeader_AccountName}>{session?.user?.name || '이름 없음'}</div>
-                                    <div className={styles.DesktopHeader_AccountRole}>고객</div>
+                                    <div className={styles.DesktopHeader_AccountName}>{session?.user?.name || '이름 없음'}</div>
+                                    <div className={styles.DesktopHeader_AccountRole}>
+
+                                        {userRole === 'DEALER' ? '딜러' : '고객'}
+                                    </div>
                                 </div>
                                 <div className={styles.DesktopHeader_AccountButtons}>
-                                    <div className={styles.DesktopHeader_AccountManage}
-                                         onClick={() => router.push("/customer/auth/account_manage")}>계정 관리
+                                    <div
+                                        className={styles.DesktopHeader_AccountManage}
+                                        onClick={() => router.push(userRole === 'DEALER' ? "/dealer" : "/customer/auth/account_manage")}
+                                    >
+                                        {userRole === 'DEALER' ? '대시보드' : '계정 관리'}
                                     </div>
                                     <Button className={styles.DesktopHeader_LogoutButton} variant="contained"
                                             onClick={() => signOut({callbackUrl: "/customer"})}>
