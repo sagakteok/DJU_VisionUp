@@ -26,7 +26,7 @@
   @font-face {
     font-family: 'SpoqaHanSansNeo-Bold';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
-    font-weight: 700;
+    font-weight: 600;
     font-style: normal;
   }
   
@@ -36,14 +36,14 @@
   $font-medium: 'SpoqaHanSansNeo-Medium';
   $font-bold: 'SpoqaHanSansNeo-Bold';
 
-  .MainHomeStyle {
+  .EditCarStyle {
       min-height: 100vh;
       background: #D7D1CC;
       display: flex;
       justify-content: center;
       overflow-y: auto;
   
-      .MainHomeContainer {
+      .EditCarContainer {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -51,13 +51,13 @@
         margin-top: 60px;
         margin-bottom: 60px;
 
-        .MainHomeContent {
+        .EditCarContent {
             display: flex;
             align-items: center;
             justify-content: center;
             margin-top: 50px;
 
-            .MainHomeCardStyle {
+            .EditCarCardStyle {
                 z-index: 0;
                 position: relative;
                 min-height: 600px;
@@ -66,7 +66,339 @@
                 height: clamp(400px, 80vh, 1000px);
                 border-radius: 20px;
                 box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.03);
+
+                .EditCarCardTitlesContainer {
+                  margin: auto;
+                  width: 97%;
+                  margin-top: 25px;
+                  display: flex;
+                  flex-direction: column;
+
+                  .EditCarCardMainTitle {
+                    font-family: $font-bold;
+                    font-size: 22px;
+                    color: #2F3644;
+                  }
+
+                  .EditCarCardSubTitle {
+                    font-family: $font-regular;
+                    font-size: 12px;
+                    color: #AF9D93;
+                    margin-top: 5px;
+                }
+              }
+              .EditCarCardInfoContainer {
+                width: 90%;
+                margin: auto;
+                margin-top: 50px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 80px;
+
+                .EditCarCardInfoImageContainer {
+                  display: flex;
+                  flex-direction: column;
+
+                  .EditCarCardInfoImage {
+                    width: 250px;
+                    height: auto;
+                    object-fit: contain;
+                  }
+
+                  .EditCarCardInfoImageChangeButton {
+                    margin: auto;
+                    margin-top: 10px;
+                    width: 56px;
+                    height: 30px;
+                    background-color: #97ABD4;
+                    border-radius: 8px;
+                    box-shadow: none;
+                    font-size: 10px;
+                    color: #FFFFFF;
+                  }
+                }
+                .EditCarCardInfoDetailsContainer {
+                  display: flex;
+                  flex-direction: column;
+
+                  .EditCarCardInfoTitle {
+                    font-family: $font-bold;
+                    font-size: 14px;
+                    color: #817C79;
+                    margin-bottom: 12px;
+                  }
+                  .EditCarCardInfoDetailsTextWrapper {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-top: 2px;
+                    margin-left: 10px;
+
+                    .EditCarCardInfoDetailsTitle {
+                      font-family: $font-regular;
+                      font-size: 16px;
+                      color: #72798A;
+                    }
+                    .EditCarCardInfoDetailsItem {
+                      margin-left: 5px;
+                      font-family: $font-bold;
+                      font-size: 16px;
+                      color: #414B6A;
+                    }
+                    .EditCarInfoDetailsEditButton {
+                      margin-left: 15px;
+                    }
+                  }
+                }
+              }
+
+              .EditCarCardDividerContainer {
+                margin: auto;
+                width: 97%;
+                margin-top: 50px;
+
+                .EditCarCardDividerContentsContainer {
+                  justify-content: space-between;
+                  display: flex;
+
+                  .EditCarCardDividerTitle {
+                    margin-left: 5px;
+                    font-family: $font-bold;
+                    font-size: 15px;
+                    color: #817C79;
+                  }
+
+                  .EditCarTrimActionGroup {
+                    margin-left: auto;
+                    margin-right: 7px;
+                    display: flex;
+                    gap: 22px;
+                    align-items: center;
+
+                    .EditCarTrimActionButton {
+                      font-family: $font-medium;
+                      font-size: 12px;
+                      cursor: pointer;
+                      color: #C3B3A9;
+
+                      &:hover {
+                        color: #E9B89C;
+                      }
+                    }
+                  }
+              }
+              .EditCarCardDivider {
+                height: 2px;
+                background-color: #F4EEE9;
+                margin-top: 15px;
+              }
             }
+            .EditCarCardTrimList {
+              display: flex;
+              flex-direction: column;
+              margin-top: 30px;
+              gap: 15px;
+
+              .EditCarCardTrimContent {
+                display: flex;
+                flex-direction: column;
+                width: 90%;
+                margin: auto;
+                background-color: #F8F8F8;
+                padding-top: 30px;
+                padding-bottom: 30px;
+                padding-left: 25px;
+                padding-right: 25px;
+                border-radius: 15px;
+
+                .EditCarCardTrimOptionsButtonWrapper {
+                  display: flex;
+                  justify-content: flex-end;
+                  gap: 7px;
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+
+                  .EditCarCardTrimOptionsButton {
+                    width: 56px;
+                    height: 30px;
+                    background-color: #97ABD4;
+                    border-radius: 8px;
+                    box-shadow: none;
+                    font-size: 10px;
+                    color: #FFFFFF;
+                  }
+                }
+
+                .EditCarCardTrimColorsList {
+                    margin-top: 22px;
+
+                    .EditCarCardTrimColorsItemsList {
+                      display: grid;
+                      grid-template-columns: repeat(3, 1fr);
+                      column-gap: 25px;
+                      row-gap: 20px; 
+
+                      .EditCarCardTrimColorsContent {
+                        background: #FFFFFF;
+                        padding-left: 20px;
+                        padding-top: 20px;
+                        padding-bottom: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.02);
+
+                        .EditCarCardTrimColorsInnerContainer {
+                          display: flex;
+                          flex-direction: row;
+                          align-items: center;
+
+                          .EditCarCardTrimColor {
+                            width: 40px;
+                            height: 40px;
+                          }
+                          .EditCarCardTrimColorsTitleWrapper {
+                            margin-left: 16px;
+                            display: flex;
+                            flex-direction: column;
+
+                            .EditCarCardTrimColorsMainTitle {
+                              font-family: $font-bold;
+                              font-size: 14px;
+                              color: #3D4659;
+                            }
+                            .EditCarCardTrimColorsPriceContainer {
+                              margin-top: 1px;
+
+                              .EditCarCardTrimColorsPriceTitle {
+                                font-family: $font-regular;
+                                font-size: 11px;
+                                color: #72798A;
+                              }
+                              .EditCarCardTrimColorsPrice {
+                                font-family: $font-bold;
+                                font-size: 11px;
+                                color: #414B6A;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+
+
+                .EditCarCardTrimName {
+                  font-family: $font-medium;
+                  font-size: 22px;
+                  color: #E9B89C;
+                }
+
+                .EditCarCardTrimPriceContainer {
+                  margin-top: 5px;
+
+                  .EditCarCardTrimPriceTitle {
+                    font-family: $font-regular;
+                    font-size: 16px;
+                    color: #72798A;
+                  }
+
+                  .EditCarCardTrimPrice {
+                    font-family: $font-bold;
+                    font-size: 16px;
+                    color: #3D4659;
+                  }
+                }
+                .EditCarCardTrimOptionsTitle {
+                  margin-top: 35px;
+                  font-family: $font-bold;
+                  font-size: 14px;
+                  color: #817C79;
+                }
+                .EditCarCardTrimOptionsList {
+                  display: flex;
+                  flex-direction: column;
+                  margin-top: 22px;
+                  gap: 18px;
+
+                  .EditCarCardTrimOptionsContent {
+                    margin: auto;
+                    display: flex;
+                    flex-direction: column;
+                    width: 95%;
+                    background-color: #FFFFFF;
+                    padding-top: 27px;
+                    padding-bottom: 27px;
+                    padding-left: 18px;
+                    padding-right: 18px;
+                    border-radius: 15px;
+                    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.02);
+
+                   .EditCarCardOptionItemMainTitle {
+                    font-family: $font-bold;
+                    font-size: 18px;
+                    color: #2F3644;
+                   }
+                   .EditCarCardOptionItemPriceContainer {
+                    margin-top: 3px;
+
+                    .EditCarCardOptionItemPriceTitle {
+                      font-family: $font-regular;
+                      font-size: 13px;
+                      color: #72798A;
+                    }
+                    .EditCarCardOptionItemPrice {
+                      font-family: $font-bold;
+                      font-size: 13px;
+                      color: #414B6A;
+                    }
+                   }
+                   .EditCarCardOptionItemSubTitle {
+                      margin-top: 30px;
+                      font-family: $font-bold;
+                      font-size: 13px;
+                      color: #596A8A;
+                   }
+                   .EditCarCardOptionItemDetails {
+                      margin-top: 5px;
+                      font-family: $font-regular;
+                      font-size: 11px;
+                      color: #72798A;
+                   }
+                }
+                }
+              }
+            }
+            .EditCarBottomButtonWrapper {
+              display: flex;
+              justify-content: flex-end;
+              gap: 8px;
+              margin-right: 18px;
+              margin-top: 50px;
+              margin-bottom: 50px;
+
+              .EditCarBottomCancelButton {
+                width: 120px;
+                height: 40px;
+                font-family: $font-bold;
+                font-size: 12px;
+                background: #D7D1CC;
+                color: #FFFFFF;
+                border-radius: 10px;
+                box-shadow: none;
+              }
+
+              .EditCarBottomSubmitButton {
+                width: 120px;
+                height: 40px;
+                font-family: $font-bold;
+                font-size: 12px;
+                background: #E9B89C;
+                color: #FFFFFF;
+                border-radius: 10px;
+                box-shadow: none;
+              }
+            }
+          }
         }
       }
     }

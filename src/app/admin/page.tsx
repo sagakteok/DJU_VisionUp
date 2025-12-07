@@ -6,6 +6,7 @@ import { Card, CardContent, Drawer, Button, Modal, Box, TextField, IconButton } 
 import Icon from "@mdi/react";
 import { mdiClose } from "@mdi/js";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import AvanteNSide from "./assets/avanten_side.png"
 
@@ -104,6 +105,7 @@ const CarItems = [
 ];
 
 export default function MainHomeDesktop() {
+  const router = useRouter();
   const [activeBrandId, setActiveBrandId] = useState<number>(CarItems[0].CarBrand[0].brand_id);
 
   const [brandName, setBrandName] = useState("");
@@ -174,7 +176,7 @@ export default function MainHomeDesktop() {
                           <span className={styles.MainHomeCardCarInfoCarSpec}>연비: ~ {car.fuel_efficiency} km/l</span>
                         </div>
                         <div className={styles.MainHomeCardCarInfoSelectButtonGroupStyle}>
-                          <Button className={styles.MainHomeCardCarInfoSelectButton}>수정하기</Button>
+                          <Button className={styles.MainHomeCardCarInfoSelectButton} onClick={() => router.push("/admin/EditCar")}>수정하기</Button>
                           <Button className={styles.MainHomeCardCarInfoSelectButton}>삭제하기</Button>
                         </div>
                       </div>
