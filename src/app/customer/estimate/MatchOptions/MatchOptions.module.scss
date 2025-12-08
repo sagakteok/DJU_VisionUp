@@ -1,0 +1,553 @@
+// 공통 폰트 정의
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Thin';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-Light';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-Medium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'SpoqaHanSansNeo-Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Bold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  $font-thin: 'SpoqaHanSansNeo-Thin';
+  $font-light: 'SpoqaHanSansNeo-Light';
+  $font-regular: 'SpoqaHanSansNeo-Regular';
+  $font-medium: 'SpoqaHanSansNeo-Medium';
+  $font-bold: 'SpoqaHanSansNeo-Bold';
+
+  @media screen and (min-width: 800px) {
+    .MatchOptionsStyle {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #1C1F26, #4E4A47);
+    display: flex;
+    justify-content: center;
+
+    .MatchOptionsContainer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1400px;
+        min-height: 100%;
+        margin-top: 60px;
+        margin-bottom: 60px;
+        padding-left: 30px;
+        padding-right: clamp(20px, 5vw, 100px);
+
+        .MatchOptionsTopContent {
+            margin-top: 45px;
+            text-align: center;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+
+            .MatchOptionsMainTitle {
+                font-family: $font-bold;
+                font-size: 34px;
+                color: #FFFFFF;
+            }
+            .MatchOptionsSubTitle {
+                font-family: $font-regular;
+                font-size: 15px;
+                color: #FFFFFF;
+            }
+        }
+        .MatchOptionsMidContent {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .MatchOptionsLeftImageContainer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .MatchOptionsCarImage {
+                    width: 100%;
+                    object-fit: contain;
+                    margin: auto;
+                }
+                .MatchOptionsCarTitleWrapper {
+                    display: flex;
+                    flex-direction: column;
+
+                    .MatchOptionsCarTitle {
+                        margin: auto;
+                        font-family: $font-bold;
+                        font-size: 30px;
+                        color: #E8EEFF;
+                    }
+                    .MatchOptionsCarSubTitle {
+                        margin: auto;
+                        margin-top: 5px;
+                        font-family: $font-medium;
+                        font-size: 18px;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+            .MatchOptionsRightCardStyle {
+                min-width: 500px;
+                height: 60vh;
+                border-radius: 20px;
+                background: #FFFFFF;
+                overflow-y: auto;
+
+                .MatchOptionsRightCardContainer {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 25px;
+
+                    .MatchOptionsTrimColorsList {
+                        margin-top: 22px;
+                        margin-bottom: 40px;
+
+                        .MatchOptionsTrimColorsItemsList {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        column-gap: 25px;
+                        row-gap: 20px; 
+
+                        .MatchOptionsTrimColorsContent {
+                            background: #F8F8F8;
+                            padding-left: 20px;
+                            padding-top: 20px;
+                            padding-bottom: 20px;
+                            border-radius: 10px;
+                            box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.02);
+                            cursor: pointer;
+
+                            &.active {
+                                border: 2px solid #EAAA85; // 🔥 활성화 스타일
+                            }
+
+                            .MatchOptionsTrimColorsInnerContainer {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+
+                            .MatchOptionsTrimColor {
+                                width: 40px;
+                                height: 40px;
+                            }
+                            .MatchOptionsTrimColorsTitleWrapper {
+                                margin-left: 16px;
+                                display: flex;
+                                flex-direction: column;
+
+                                .MatchOptionsTrimColorsMainTitle {
+                                font-family: $font-bold;
+                                font-size: 14px;
+                                color: #3D4659;
+                                }
+                                .MatchOptionsTrimColorsPriceContainer {
+                                margin-top: 1px;
+
+                                .MatchOptionsTrimColorsPriceTitle {
+                                    font-family: $font-regular;
+                                    font-size: 11px;
+                                    color: #72798A;
+                                }
+                                .MatchOptionsTrimColorsPrice {
+                                    font-family: $font-bold;
+                                    font-size: 11px;
+                                    color: #414B6A;
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }
+                    }
+
+                    .MatchOptionsTrimOptionsList {
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 22px;
+                        gap: 18px;
+
+                        .MatchOptionsTrimOptionsContent {
+                            margin: auto;
+                            display: flex;
+                            flex-direction: column;
+                            width: 95%;
+                            background-color: #F8F8F8;
+                            padding-top: 27px;
+                            padding-bottom: 27px;
+                            padding-left: 18px;
+                            border-radius: 15px;
+                            box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.02);
+                            cursor: pointer;
+
+                            &.active {
+                                border: 2px solid #EAAA85; // 🔥 활성화 스타일
+                            }
+
+                        .MatchOptionsOptionItemMainTitle {
+                            font-family: $font-bold;
+                            font-size: 18px;
+                            color: #2F3644;
+                        }
+                        .MatchOptionsOptionItemPrice {
+                            margin-top: 3px;
+                            font-family: $font-bold;
+                            font-size: 13px;
+                            color: #414B6A;
+                        }
+                        .MatchOptionsOptionItemSubTitle {
+                            margin-top: 30px;
+                            font-family: $font-bold;
+                            font-size: 13px;
+                            color: #596A8A;
+                        }
+                        .MatchOptionsOptionItemDetails {
+                            margin-top: 5px;
+                            font-family: $font-regular;
+                            font-size: 11px;
+                            color: #72798A;
+                        }
+                        }
+                }
+
+                    .MatchOptionsRightCardTitle {
+                        font-family: $font-bold;
+                        font-size: 20px;
+                        color: #2F3644;
+                    }
+
+                    .MatchOptionsTrimSelectContent {
+                        display: flex;
+                        margin-top: 30px;
+                        margin-left: 10px;
+                        margin-bottom: 30px;
+                        padding-bottom: 20px;
+
+                        .MatchOptionsTrimSelectButton {
+                            position: relative;
+                            width: 70px;
+                            background: none;
+                            border: none;
+                            font-family: $font-bold;
+                            font-size: 13px;
+                            color: #D7D1CC;
+                            cursor: pointer;
+                        }
+
+                        .active {
+                            color: #E9B89C;
+
+                            &::after {
+                                content: "";
+                                display: block;
+                                position: absolute;
+                                width: 100%;
+                                height: 1px;
+                                background-color: #E9B89C;
+                                bottom: -9px;
+                                left: 0;
+                            }
+                        }
+                    }
+
+                    .MatchOptionsRightCardButtonWrapper {
+                        margin: auto;
+                        margin-top: 35px;
+                        margin-bottom: 15px;
+
+                        .MatchOptionsRightCardSubmitButton {
+                            width: 300px;
+                            height: 50px;
+                            background-color: #AF9D93;
+                            border-radius: 10px;
+                            box-shadow: none;
+                            font-family: $font-medium;
+                            font-size: 15px;
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
+
+  }
+
+  @media screen and (max-width: 799px) {
+    .MatchOptionsStyle {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #1C1F26, #4E4A47);
+    display: flex;
+    justify-content: center;
+
+    .MatchOptionsContainer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1400px;
+        min-height: 100%;
+        margin-top: 50px;
+        margin-bottom: 40px;
+
+        .MatchOptionsTopContent {
+            margin-top: 45px;
+            text-align: left;
+            margin-left: 20px;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+
+            .MatchOptionsMainTitle {
+                font-family: $font-bold;
+                font-size: 25px;
+                color: #FFFFFF;
+            }
+            .MatchOptionsSubTitle {
+                font-family: $font-regular;
+                font-size: 12px;
+                color: #FFFFFF;
+            }
+        }
+        .MatchOptionsMidContent {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            .MatchOptionsLeftImageContainer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .MatchOptionsCarImage {
+                    width: 100%;
+                    object-fit: contain;
+                    margin: auto;
+                }
+                .MatchOptionsCarTitleWrapper {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 30px;
+
+                    .MatchOptionsCarTitle {
+                        margin: auto;
+                        font-family: $font-bold;
+                        font-size: 20px;
+                        color: #E8EEFF;
+                    }
+                    .MatchOptionsCarSubTitle {
+                        margin: auto;
+                        margin-top: 4px;
+                        font-family: $font-medium;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+            .MatchOptionsRightCardStyle {
+                width: 95%;
+                height: 100%;
+                border-radius: 20px;
+                background: #FFFFFF;
+                overflow-y: auto;
+
+                .MatchOptionsRightCardContainer {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 18px;
+
+                    .MatchOptionsTrimColorsList {
+                        margin-top: 20px;
+                        margin-bottom: 35px;
+
+                        .MatchOptionsTrimColorsItemsList {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        column-gap: 15px;
+                        row-gap: 18px; 
+
+                        .MatchOptionsTrimColorsContent {
+                            background: #F8F8F8;
+                            padding-left: 15px;
+                            padding-top: 15px;
+                            padding-bottom: 15px;
+                            border-radius: 10px;
+                            box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.02);
+                            cursor: pointer;
+
+                            &.active {
+                                border: 2px solid #EAAA85; // 🔥 활성화 스타일
+                            }
+
+                            .MatchOptionsTrimColorsInnerContainer {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+
+                            .MatchOptionsTrimColor {
+                                width: 30px;
+                                height: 30px;
+                            }
+                            .MatchOptionsTrimColorsTitleWrapper {
+                                margin-left: 12px;
+                                display: flex;
+                                flex-direction: column;
+
+                                .MatchOptionsTrimColorsMainTitle {
+                                font-family: $font-bold;
+                                font-size: 10px;
+                                color: #3D4659;
+                                }
+                                .MatchOptionsTrimColorsPriceContainer {
+                                margin-top: 1px;
+
+                                .MatchOptionsTrimColorsPriceTitle {
+                                    font-family: $font-regular;
+                                    font-size: 6px;
+                                    color: #72798A;
+                                }
+                                .MatchOptionsTrimColorsPrice {
+                                    font-family: $font-bold;
+                                    font-size: 9px;
+                                    color: #414B6A;
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }
+                    }
+
+                    .MatchOptionsTrimOptionsList {
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 22px;
+                        gap: 15px;
+
+                        .MatchOptionsTrimOptionsContent {
+                            margin: auto;
+                            display: flex;
+                            flex-direction: column;
+                            width: 95%;
+                            background-color: #F8F8F8;
+                            padding-top: 20px;
+                            padding-bottom: 20px;
+                            padding-left: 15px;
+                            border-radius: 15px;
+                            box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.02);
+                            cursor: pointer;
+
+                            &.active {
+                                border: 2px solid #EAAA85; // 🔥 활성화 스타일
+                            }
+
+                        .MatchOptionsOptionItemMainTitle {
+                            font-family: $font-bold;
+                            font-size: 14px;
+                            color: #2F3644;
+                        }
+                        .MatchOptionsOptionItemPrice {
+                            margin-top: 2px;
+                            font-family: $font-bold;
+                            font-size: 10px;
+                            color: #414B6A;
+                        }
+                        .MatchOptionsOptionItemSubTitle {
+                            margin-top: 22px;
+                            font-family: $font-bold;
+                            font-size: 10px;
+                            color: #596A8A;
+                        }
+                        .MatchOptionsOptionItemDetails {
+                            margin-top: 5px;
+                            font-family: $font-regular;
+                            font-size: 8px;
+                            color: #72798A;
+                        }
+                        }
+                }
+
+                    .MatchOptionsRightCardTitle {
+                        font-family: $font-bold;
+                        font-size: 14px;
+                        color: #2F3644;
+                    }
+
+                    .MatchOptionsTrimSelectContent {
+                        display: flex;
+                        margin-top: 22px;
+                        margin-left: 7px;
+                        margin-bottom: 22px;
+                        padding-bottom: 20px;
+
+                        .MatchOptionsTrimSelectButton {
+                            position: relative;
+                            width: 55px;
+                            background: none;
+                            border: none;
+                            font-family: $font-bold;
+                            font-size: 10px;
+                            color: #D7D1CC;
+                            cursor: pointer;
+                        }
+
+                        .active {
+                            color: #E9B89C;
+
+                            &::after {
+                                content: "";
+                                display: block;
+                                position: absolute;
+                                width: 100%;
+                                height: 1px;
+                                background-color: #E9B89C;
+                                bottom: -9px;
+                                left: 0;
+                            }
+                        }
+                    }
+
+                    .MatchOptionsRightCardButtonWrapper {
+                        margin: auto;
+                        margin-top: 30px;
+                        margin-bottom: 15px;
+
+                        .MatchOptionsRightCardSubmitButton {
+                            width: 70vw;
+                            height: 45px;
+                            background-color: #AF9D93;
+                            border-radius: 10px;
+                            box-shadow: none;
+                            font-family: $font-medium;
+                            font-size: 12px;
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
+  }
