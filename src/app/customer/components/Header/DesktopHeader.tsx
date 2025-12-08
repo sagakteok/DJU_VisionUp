@@ -19,11 +19,7 @@ import {
 import styles from "./Header.module.scss";
 import {signOut, useSession} from "next-auth/react";
 import {useEffect, useRef, useState} from "react";
-
-const AUTOCOMPLETE_DATA = [
-    "현대 더 뉴 아이오닉 6", "현대 디 올 뉴 넥쏘", "현대 아이오닉5", "현대 코나 Electric", "현대 아이오닉 9", "현대 ST1", "현대 포터 II Electric", "현대 포터 II Electric 특장차", "2026 캐스퍼 일렉트릭", "현대 아이오닉 6 N", "현대 아이오닉 5 N", "현대 아반떼 N", "현대 쏘나타 디 엣지", "현대 쏘나타 디 엣지 Hybrid", "현대 그랜저", "현대 그랜저 Hybrid", "현대 아반떼", "현대 아반떼 Hybrid", "현대 싼타페", "현대 싼타페 Hybrid", "현대 투싼", "현대 투싼 Hybrid", "현대 코나", "현대 코나 Hybrid", "현대 베뉴", "현대 디 올 뉴 팰리세이드", "현대 디 올 뉴 팰리세이드 Hybrid", "현대 2026 캐스퍼", "현대 스타리아 라운지", "현대 스타리아 라운지 Hybrid", "현대 스타리아", "현대 스타리아 Hybrid", "현대 스타리아 킨더", "현대 스타리아 라운지 캠퍼 Hybrid", "현대 스타리아 라운지 리무진 Hybrid", "현대 그랜저 택시", "현대 쏘나타 택시", "현대 스타리아 라운지 모빌리티", "현대 스타리아 라운지 모빌리티 Hybrid", "현대 포터 II", "현대 포터 II 특장차", "현대 더 뉴 마이티", "현대 더 뉴 파비스", "현대 뉴파워트럭", "현대 더 뉴 엑시언트", "현대 엑시언트 수소전기트럭", "현대 쏠라티", "현대 카운티", "현대 카운티 일렉트릭", "현대 일렉시티 타운", "현대 뉴 슈퍼에어로시티", "현대 일렉시티", "현대 일렉시티 수소전기버스", "현대 일렉시티 이층버스", "현대 유니버스", "현대 유니버스 수소전기버스", "현대 유니버스 모바일 오피스",
-    "BMW E92M3"
-];
+import {getCarNamesForAutocomplete} from "@/app/customer/cars/actions";
 
 export default function DesktopHeader() {
     const pathname = usePathname();
@@ -53,18 +49,21 @@ export default function DesktopHeader() {
         router.push(`/customer/cars?model=${encodeURIComponent(searchKeyword)}`);
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setSearchKeyword(value);
 
         if (value.trim().length > 0) {
-            const query = value.replace(/\s+/g, '').toLowerCase();
-            const filtered = AUTOCOMPLETE_DATA.filter(car =>
-                car.replace(/\s+/g, '').toLowerCase().includes(query));
-            setFilteredSuggestions(filtered);
-            setShowSuggestions(true);
+            try {
+                const names = await getCarNamesForAutocomplete(value);
+                setFilteredSuggestions(names);
+                if (names.length > 0) setShowSuggestions(true);
+            } catch (error){
+                console.error("Failed to fetch suggestions", error);
+            }
         } else {
             setShowSuggestions(false);
+            setFilteredSuggestions([]);
         }
     };
 
