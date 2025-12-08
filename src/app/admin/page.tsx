@@ -7,6 +7,7 @@ import Icon from "@mdi/react";
 import { mdiClose } from "@mdi/js";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import {createBrand} from "@/app/admin/actions";
 
 import AvanteNSide from "./assets/avanten_side.png"
 
@@ -123,6 +124,19 @@ export default function MainHomeDesktop() {
   const handleOpenAddCarModal = () => setOpenAddCarModal(true);
   const handleCloseAddCarModal = () => setOpenAddCarModal(false);
 
+  const handleSaveBrand = async ()=>{
+    const result = await createBrand(brandName, brandCountry);
+
+    if (result.success){
+      alert(result.message);
+      setBrandName("");
+      setBrandCountry("");
+      handleCloseAddBrandModal();
+    } else {
+      alert(result.message);
+    }
+  };
+
   return (
     <div className={styles.MainHomeStyle}>
       <div className={styles.MainHomeContainer}>
@@ -204,7 +218,7 @@ export default function MainHomeDesktop() {
           <div className={styles.MainHomeModalBoxTextFieldWrapper}>
             <input className={styles.MainHomeModalBoxTextField} value={brandName} onChange={(e) => setBrandName(e.target.value)} placeholder="브랜드 명을 입력해주세요."/>
             <input className={styles.MainHomeModalBoxTextField} value={brandCountry} onChange={(e) => setBrandCountry(e.target.value)} placeholder="브랜드 국가를 입력해주세요."/>
-            <Button className={styles.MainHomeModalBoxSaveButton} variant="contained" onClick={() => console.log(brandName, brandCountry)}>저장하기</Button>
+            <Button className={styles.MainHomeModalBoxSaveButton} variant="contained" onClick={handleSaveBrand}>저장하기</Button>
           </div>
         </Box>
       </Modal>
