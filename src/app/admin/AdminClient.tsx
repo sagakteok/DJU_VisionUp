@@ -7,7 +7,7 @@ import Icon from "@mdi/react"
 import {mdiClose} from "@mdi/js";
 import {useState, useEffect} from "react";
 import {useRouter} from "next/navigation";
-import {createBrand} from "@/app/admin/actions";
+import {createBrand, deleteBrand} from "@/app/admin/actions";
 
 import AvanteNSide from "./assets/avanten_side.png";
 
@@ -69,6 +69,36 @@ export default function AdminClient({initialData}: AdminClientProps){
             alert(result.message);
         }
     };
+
+    const handleDeleteBrand = async ()=>{
+        if (!activeBrandId) return;
+
+        const currentBrand = initialData
+            .flatMap(g=> g.CarBrand)
+            .find(b=> b.brand_id === activeBrandId);
+
+        if (!confirm(`'${currentBrand?.brand_name}' 브랜드를 정말 삭제하시겠습니까?\n소속된 모든 차량 정보도 함께 삭제됩니다.`)){
+            return;
+        }
+
+        const result = await deleteBrand(activeBrandId);
+
+        if (result.success){
+            alert(result.message);
+            router.refresh();
+        } else {
+            alert(result.message);
+        }
+    };
+
+    useEffect(()=>{
+        const allBrands = initialData.flatMap(group => group.CarBrand);
+        const isValid = allBrands.some(brand => brand.brand_id === activeBrandId);
+
+        if (!isValid && allBrands.length > 0){
+            setActiveBrandId(allBrands[0].brand_id);
+        }
+    }, [initialData, activeBrandId]);
 
     return (
         <div className={styles.MainHomeStyle}>
@@ -137,7 +167,7 @@ export default function AdminClient({initialData}: AdminClientProps){
                                     )
                                 )}
                                 <div className={styles.MainHomeCardCarAddButtonWrapper}>
-                                    <Button className={styles.MainHomeCardBrandDeleteButton}>브랜드 삭제</Button>
+                                    <Button className={styles.MainHomeCardBrandDeleteButton} onClick={handleDeleteBrand}>브랜드 삭제</Button>
                                     <Button className={styles.MainHomeCardBrandEditButton} onClick={handleOpenEditBrandModal}>브랜드 정보 수정</Button>
                                     <Button className={styles.MainHomeCardCarAddButton} onClick={handleOpenAddCarModal}>차량 추가하기</Button>
                                 </div>
