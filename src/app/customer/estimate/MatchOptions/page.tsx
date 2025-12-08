@@ -7,8 +7,56 @@ import styles from "./MatchOptions.module.scss";
 
 import AvanteNSide from "../../assets/hyundai/sedan/avanten_side.png";
 
-// 차량 데이터
-const CarItems = [
+interface ExteriorColor {
+  exterior_color_name: string;
+  exterior_color_hexcode: string;
+  exterior_color_price: number;
+}
+
+interface InteriorColor {
+  interior_color_name: string;
+  interior_color_hexcode: string;
+  interior_color_price: number;
+}
+
+interface CarOption {
+  package_name: string;
+  option_detail: string;
+  option_price: number;
+}
+
+interface CarTrim {
+  trim_id: number;
+  trim_name: string;
+  trim_price: number;
+  CarInteriorColor: InteriorColor[];
+  CarExteriorColor: ExteriorColor[];
+  CarOption: CarOption[];
+}
+
+interface CarModel {
+  id: number;
+  car_name: string;
+  car_image: any;
+  price: number;
+  liter_size: number;
+  fuel_efficiency: number;
+  body_type: string;
+  CarTrim: CarTrim[];
+}
+
+interface CarBrand {
+  brand_id: number;
+  brand_name: string;
+  CarModel: CarModel[];
+}
+
+interface CarItem {
+  brand_country: string;
+  CarBrand: CarBrand[];
+}
+
+const CarItems: CarItem[] = [
   {
     brand_country: "대한민국",
     CarBrand: [
@@ -75,15 +123,14 @@ const CarItems = [
 ];
 
 export default function MatchOptions() {
-  const model = CarItems[0].CarBrand[0].CarModel[0];
-  const [selectedTrim, setSelectedTrim] = useState(model.CarTrim[0]);
+  const model: CarModel = CarItems[0].CarBrand[0].CarModel[0];
 
-  const [selectedExteriorColor, setSelectedExteriorColor] = useState(selectedTrim.CarExteriorColor[0]);
-  const [selectedInteriorColor, setSelectedInteriorColor] = useState(selectedTrim.CarInteriorColor[0]);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedTrim, setSelectedTrim] = useState<CarTrim>(model.CarTrim[0]);
+  const [selectedExteriorColor, setSelectedExteriorColor] = useState<ExteriorColor>(selectedTrim.CarExteriorColor[0]);
+  const [selectedInteriorColor, setSelectedInteriorColor] = useState<InteriorColor>(selectedTrim.CarInteriorColor[0]);
+  const [selectedOptions, setSelectedOptions] = useState<CarOption[]>([]);
 
-  // 옵션 토글 처리
-  const handleOptionToggle = (option) => {
+  const handleOptionToggle = (option: CarOption) => {
     const exists = selectedOptions.includes(option);
 
     if (exists) {
@@ -93,155 +140,154 @@ export default function MatchOptions() {
     }
   };
 
-  // 총 가격 계산 (트림 + 색상 가격 + 옵션 가격)
   const totalPrice =
-    selectedTrim.trim_price +
-    selectedExteriorColor.exterior_color_price +
-    selectedInteriorColor.interior_color_price +
-    selectedOptions.reduce((sum, opt) => sum + opt.option_price, 0);
+      selectedTrim.trim_price +
+      selectedExteriorColor.exterior_color_price +
+      selectedInteriorColor.interior_color_price +
+      selectedOptions.reduce((sum, opt) => sum + opt.option_price, 0);
 
   return (
-    <div className={styles.MatchOptionsStyle}>
-      <div className={styles.MatchOptionsContainer}>
-        <div className={styles.MatchOptionsTopContent}>
-          <span className={styles.MatchOptionsMainTitle}>옵션 맞추기</span>
-          <span className={styles.MatchOptionsSubTitle}>차량의 트림과 옵션을 선택해보세요.</span>
-        </div>
+      <div className={styles.MatchOptionsStyle}>
+        <div className={styles.MatchOptionsContainer}>
+          <div className={styles.MatchOptionsTopContent}>
+            <span className={styles.MatchOptionsMainTitle}>옵션 맞추기</span>
+            <span className={styles.MatchOptionsSubTitle}>차량의 트림과 옵션을 선택해보세요.</span>
+          </div>
 
-        <div className={styles.MatchOptionsMidContent}>
-          {/* LEFT */}
-          <div className={styles.MatchOptionsLeftImageContainer}>
-            <Image src={model.car_image} alt={model.car_name} className={styles.MatchOptionsCarImage} />
-            <div className={styles.MatchOptionsCarTitleWrapper}>
+          <div className={styles.MatchOptionsMidContent}>
+            {/* LEFT */}
+            <div className={styles.MatchOptionsLeftImageContainer}>
+              <Image src={model.car_image} alt={model.car_name} className={styles.MatchOptionsCarImage} />
+              <div className={styles.MatchOptionsCarTitleWrapper}>
               <span className={styles.MatchOptionsCarTitle}>
                 {model.car_name} - {selectedTrim.trim_name}
               </span>
-              <span className={styles.MatchOptionsCarSubTitle}>
+                <span className={styles.MatchOptionsCarSubTitle}>
                 총 차량 가격: {totalPrice.toLocaleString()}원
               </span>
-            </div>
-          </div>
-
-          {/* RIGHT */}
-          <Card className={styles.MatchOptionsRightCardStyle}>
-            <CardContent className={styles.MatchOptionsRightCardContainer}>
-              {/* 트림 선택 */}
-              <span className={styles.MatchOptionsRightCardTitle}>트림</span>
-              <div className={styles.MatchOptionsTrimSelectContent}>
-                {model.CarTrim.map((trim) => (
-                  <button
-                    key={trim.trim_id}
-                    className={`${styles.MatchOptionsTrimSelectButton} ${
-                      selectedTrim.trim_id === trim.trim_id ? styles.active : ""
-                    }`}
-                    onClick={() => {
-                      setSelectedTrim(trim);
-                      setSelectedExteriorColor(trim.CarExteriorColor[0]);
-                      setSelectedInteriorColor(trim.CarInteriorColor[0]);
-                      setSelectedOptions([]);
-                    }}
-                  >
-                    {trim.trim_name}
-                  </button>
-                ))}
               </div>
+            </div>
 
-              {/* 외장 색상 선택 */}
-              <span className={styles.MatchOptionsRightCardTitle}>외장 색상</span>
-              <div className={styles.MatchOptionsTrimColorsList}>
-                <div className={styles.MatchOptionsTrimColorsItemsList}>
-                  {selectedTrim.CarExteriorColor.map((color, idx) => (
-                    <div
-                      key={idx}
-                      className={`${styles.MatchOptionsTrimColorsContent} ${
-                        selectedExteriorColor === color ? styles.active : ""
-                      }`}
-                      onClick={() => setSelectedExteriorColor(color)}
-                    >
-                      <div className={styles.MatchOptionsTrimColorsInnerContainer}>
+            {/* RIGHT */}
+            <Card className={styles.MatchOptionsRightCardStyle}>
+              <CardContent className={styles.MatchOptionsRightCardContainer}>
+                {/* 트림 선택 */}
+                <span className={styles.MatchOptionsRightCardTitle}>트림</span>
+                <div className={styles.MatchOptionsTrimSelectContent}>
+                  {model.CarTrim.map((trim) => (
+                      <button
+                          key={trim.trim_id}
+                          className={`${styles.MatchOptionsTrimSelectButton} ${
+                              selectedTrim.trim_id === trim.trim_id ? styles.active : ""
+                          }`}
+                          onClick={() => {
+                            setSelectedTrim(trim);
+                            setSelectedExteriorColor(trim.CarExteriorColor[0]);
+                            setSelectedInteriorColor(trim.CarInteriorColor[0]);
+                            setSelectedOptions([]);
+                          }}
+                      >
+                        {trim.trim_name}
+                      </button>
+                  ))}
+                </div>
+
+                {/* 외장 색상 선택 */}
+                <span className={styles.MatchOptionsRightCardTitle}>외장 색상</span>
+                <div className={styles.MatchOptionsTrimColorsList}>
+                  <div className={styles.MatchOptionsTrimColorsItemsList}>
+                    {selectedTrim.CarExteriorColor.map((color, idx) => (
                         <div
-                          className={styles.MatchOptionsTrimColor}
-                          style={{ backgroundColor: color.exterior_color_hexcode }}
-                        />
-                        <div className={styles.MatchOptionsTrimColorsTitleWrapper}>
+                            key={idx}
+                            className={`${styles.MatchOptionsTrimColorsContent} ${
+                                selectedExteriorColor === color ? styles.active : ""
+                            }`}
+                            onClick={() => setSelectedExteriorColor(color)}
+                        >
+                          <div className={styles.MatchOptionsTrimColorsInnerContainer}>
+                            <div
+                                className={styles.MatchOptionsTrimColor}
+                                style={{ backgroundColor: color.exterior_color_hexcode }}
+                            />
+                            <div className={styles.MatchOptionsTrimColorsTitleWrapper}>
                           <span className={styles.MatchOptionsTrimColorsMainTitle}>
                             {color.exterior_color_name}
                           </span>
-                          <div className={styles.MatchOptionsTrimColorsPriceContainer}>
+                              <div className={styles.MatchOptionsTrimColorsPriceContainer}>
                             <span className={styles.MatchOptionsTrimColorsPrice}>
                               + {color.exterior_color_price.toLocaleString()}원
                             </span>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* 내장 색상 선택 */}
-              <span className={styles.MatchOptionsRightCardTitle}>내장 색상</span>
-              <div className={styles.MatchOptionsTrimColorsList}>
-                <div className={styles.MatchOptionsTrimColorsItemsList}>
-                  {selectedTrim.CarInteriorColor.map((color, idx) => (
-                    <div
-                      key={idx}
-                      className={`${styles.MatchOptionsTrimColorsContent} ${
-                        selectedInteriorColor === color ? styles.active : ""
-                      }`}
-                      onClick={() => setSelectedInteriorColor(color)}
-                    >
-                      <div className={styles.MatchOptionsTrimColorsInnerContainer}>
+                {/* 내장 색상 선택 */}
+                <span className={styles.MatchOptionsRightCardTitle}>내장 색상</span>
+                <div className={styles.MatchOptionsTrimColorsList}>
+                  <div className={styles.MatchOptionsTrimColorsItemsList}>
+                    {selectedTrim.CarInteriorColor.map((color, idx) => (
                         <div
-                          className={styles.MatchOptionsTrimColor}
-                          style={{ backgroundColor: color.interior_color_hexcode }}
-                        />
-                        <div className={styles.MatchOptionsTrimColorsTitleWrapper}>
+                            key={idx}
+                            className={`${styles.MatchOptionsTrimColorsContent} ${
+                                selectedInteriorColor === color ? styles.active : ""
+                            }`}
+                            onClick={() => setSelectedInteriorColor(color)}
+                        >
+                          <div className={styles.MatchOptionsTrimColorsInnerContainer}>
+                            <div
+                                className={styles.MatchOptionsTrimColor}
+                                style={{ backgroundColor: color.interior_color_hexcode }}
+                            />
+                            <div className={styles.MatchOptionsTrimColorsTitleWrapper}>
                           <span className={styles.MatchOptionsTrimColorsMainTitle}>
                             {color.interior_color_name}
                           </span>
-                          <div className={styles.MatchOptionsTrimColorsPriceContainer}>
+                              <div className={styles.MatchOptionsTrimColorsPriceContainer}>
                             <span className={styles.MatchOptionsTrimColorsPrice}>
                               + {color.interior_color_price.toLocaleString()}원
                             </span>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* 옵션 - 복수 선택 */}
-              <span className={styles.MatchOptionsRightCardTitle}>옵션</span>
-              <div className={styles.MatchOptionsTrimOptionsList}>
-                {selectedTrim.CarOption.map((option, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.MatchOptionsTrimOptionsContent} ${
-                      selectedOptions.includes(option) ? styles.active : ""
-                    }`}
-                    onClick={() => handleOptionToggle(option)}
-                  >
-                    <span className={styles.MatchOptionsOptionItemMainTitle}>{option.package_name}</span>
-                    <span className={styles.MatchOptionsOptionItemPrice}>
+                {/* 옵션 - 복수 선택 */}
+                <span className={styles.MatchOptionsRightCardTitle}>옵션</span>
+                <div className={styles.MatchOptionsTrimOptionsList}>
+                  {selectedTrim.CarOption.map((option, index) => (
+                      <div
+                          key={index}
+                          className={`${styles.MatchOptionsTrimOptionsContent} ${
+                              selectedOptions.includes(option) ? styles.active : ""
+                          }`}
+                          onClick={() => handleOptionToggle(option)}
+                      >
+                        <span className={styles.MatchOptionsOptionItemMainTitle}>{option.package_name}</span>
+                        <span className={styles.MatchOptionsOptionItemPrice}>
                       + {(option.option_price).toLocaleString()}원
                     </span>
-                    <span className={styles.MatchOptionsOptionItemSubTitle}>옵션 내 품목</span>
-                    <span className={styles.MatchOptionsOptionItemDetails}>{option.option_detail}</span>
-                  </div>
-                ))}
-              </div>
+                        <span className={styles.MatchOptionsOptionItemSubTitle}>옵션 내 품목</span>
+                        <span className={styles.MatchOptionsOptionItemDetails}>{option.option_detail}</span>
+                      </div>
+                  ))}
+                </div>
 
-              {/* 저장 버튼 */}
-              <div className={styles.MatchOptionsRightCardButtonWrapper}>
-                <Button className={styles.MatchOptionsRightCardSubmitButton}>완성하기</Button>
-              </div>
-            </CardContent>
-          </Card>
+                {/* 저장 버튼 */}
+                <div className={styles.MatchOptionsRightCardButtonWrapper}>
+                  <Button className={styles.MatchOptionsRightCardSubmitButton}>완성하기</Button>
+                </div>
+              </CardContent>
+            </Card>
 
+          </div>
         </div>
       </div>
-    </div>
   );
 }

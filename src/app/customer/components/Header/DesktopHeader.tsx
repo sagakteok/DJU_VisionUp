@@ -105,8 +105,8 @@ export default function DesktopHeader() {
                         <Link href="/customer/estimate"
                               className={`${styles.DesktopHeader_text} ${pathname === "/customer/estimate" ? styles.active : ""}`}>견적
                             짜기</Link>
-                        <Link href="/Businesses"
-                              className={`${styles.DesktopHeader_text} ${pathname === "/Businesses" ? styles.active : ""}`}>나의
+                        <Link href="/customer/myestimate"
+                              className={`${styles.DesktopHeader_text} ${pathname === "/customer/myestimate" ? styles.active : ""}`}>나의
                             견적</Link>
 
                         <Link
