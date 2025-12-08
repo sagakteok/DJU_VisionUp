@@ -7,7 +7,7 @@ import Icon from "@mdi/react"
 import {mdiClose} from "@mdi/js";
 import {useState, useEffect} from "react";
 import {useRouter} from "next/navigation";
-import {createBrand, deleteBrand} from "@/app/admin/actions";
+import {createBrand, deleteBrand, updateBrand} from "@/app/admin/actions";
 
 import AvanteNSide from "./assets/avanten_side.png";
 
@@ -43,13 +43,29 @@ export default function AdminClient({initialData}: AdminClientProps){
 
     const [brandName, setBrandName] = useState("");
     const [brandCountry, setBrandCountry] = useState("");
+    const [editBrandName, setEditBrandName] = useState("");
+    const [editBrandCountry, setEditBrandCountry] = useState("");
 
     const [openAddBrandModal, setOpenAddBrandModal] = useState(false);
     const handleOpenAddBrandModal = () => setOpenAddBrandModal(true);
     const handleCloseAddBrandModal = () => setOpenAddBrandModal(false);
 
     const [openEditBrandModal, setOpenEditBrandModal] = useState(false);
-    const handleOpenEditBrandModal = () => setOpenEditBrandModal(true);
+    const handleOpenEditBrandModal = () => {
+        const currentBrand = initialData
+            .flatMap(g=> g.CarBrand)
+            .find(b=> b.brand_id === activeBrandId);
+
+        if (currentBrand){
+            setEditBrandName(currentBrand.brand_name);
+
+            const parentGroup = initialData.find(group=>
+            group.CarBrand.some(b=> b.brand_id === activeBrandId)
+            );
+            setEditBrandCountry(parentGroup?.brand_country || "");
+            setOpenEditBrandModal(true);
+        }
+    };
     const handleCloseEditBrandModal = () => setOpenEditBrandModal(false);
 
     const [openAddCarModal, setOpenAddCarModal] = useState(false);
@@ -85,6 +101,20 @@ export default function AdminClient({initialData}: AdminClientProps){
 
         if (result.success){
             alert(result.message);
+            router.refresh();
+        } else {
+            alert(result.message);
+        }
+    };
+
+    const handleUpdateBrand = async ()=>{
+        if (!activeBrandId) return;
+
+        const result = await updateBrand(activeBrandId, editBrandName, editBrandCountry);
+
+        if (result.success){
+            alert(result.message);
+            handleCloseEditBrandModal();
             router.refresh();
         } else {
             alert(result.message);
@@ -200,9 +230,19 @@ export default function AdminClient({initialData}: AdminClientProps){
                         </IconButton>
                     </div>
                     <div className={styles.MainHomeModalBoxTextFieldWrapper}>
-                        <input className={styles.MainHomeModalBoxTextField} placeholder="변경할 브랜드 명을 입력해주세요."/>
-                        <input className={styles.MainHomeModalBoxTextField} placeholder="변경할 브랜드 국가를 입력해주세요."/>
-                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained">수정하기</Button>
+                        <input
+                            className={styles.MainHomeModalBoxTextField}
+                            placeholder="변경할 브랜드 명을 입력해주세요."
+                            value={editBrandName}
+                            onChange={(e)=> setEditBrandName(e.target.value)}
+                        />
+                        <input
+                            className={styles.MainHomeModalBoxTextField}
+                            placeholder="변경할 브랜드 국가를 입력해주세요."
+                            value={editBrandCountry}
+                            onChange={(e) => setEditBrandCountry(e.target.value)}
+                        />
+                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained" onClick={handleUpdateBrand}>수정하기</Button>
                     </div>
                 </Box>
             </Modal>

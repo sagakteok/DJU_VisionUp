@@ -49,3 +49,25 @@ export async function deleteBrand(brandId: number){
         return {success: false, message: "브랜드 삭제 중 오류가 발생했습니다. (소속된 차량이나 견적 데이터가 있을 수 있습니다.)"};
     }
 }
+
+export async function updateBrand(brandId: number, newName: string, newCountry: string){
+    if (!brandId || !newName || !newCountry){
+        return {success: false, message: "수정할 정보를 모두 입력해주세요."};
+    }
+
+    try {
+        await prisma.carBrand.update({
+            where: {id: brandId},
+            data: {
+                brand_name: newName,
+                brand_country: newCountry,
+            },
+        });
+
+        revalidatePath('/admin');
+        return {success: true, message: "브랜드 정보가 수정되었습니다."};
+    } catch (error){
+        console.error("Failed to update brand:", error);
+        return {success: false, message: "브랜드 정보 수정 중 오류가 발생했습니다."};
+    }
+}
