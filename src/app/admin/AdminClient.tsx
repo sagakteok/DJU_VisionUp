@@ -5,9 +5,9 @@ import Image from "next/image";
 import {Card, CardContent, Drawer, Button, Modal, Box, IconButton, TextField} from "@mui/material";
 import Icon from "@mdi/react"
 import {mdiClose} from "@mdi/js";
-import {useState, useEffect} from "react";
+import {useState, useEffect, use} from "react";
 import {useRouter} from "next/navigation";
-import {createBrand, deleteBrand, updateBrand} from "@/app/admin/actions";
+import {createBrand, deleteBrand, updateBrand, createCarModel} from "@/app/admin/actions";
 
 import AvanteNSide from "./assets/avanten_side.png";
 
@@ -72,6 +72,12 @@ export default function AdminClient({initialData}: AdminClientProps){
     const handleOpenAddCarModal = () => setOpenAddCarModal(true);
     const handleCloseAddCarModal = () => setOpenAddCarModal(false);
 
+    const [newCarName, setNewCarName] =useState("");
+    const [newCarPrice, setNewCarPrice] =useState("");
+    const [newCarLiter, setNewCarLiter] =useState("");
+    const [newCarFuel, setNewCarFuel] =useState("");
+    const [newCarBody, setNewCarBody] =useState("");
+
     const handleSaveBrand = async ()=>{
         const result = await createBrand(brandName, brandCountry);
 
@@ -115,6 +121,44 @@ export default function AdminClient({initialData}: AdminClientProps){
         if (result.success){
             alert(result.message);
             handleCloseEditBrandModal();
+            router.refresh();
+        } else {
+            alert(result.message);
+        }
+    };
+
+    const handleSaveCar = async ()=>{
+        if (!activeBrandId){
+            alert("브랜드를 선택해주세요.");
+            return;
+        }
+
+        const priceInt = parseInt(newCarPrice, 10);
+        const literInt = parseInt(newCarLiter, 10);
+        const fuelFloat = parseFloat(newCarFuel);
+
+        if (!newCarName || isNaN(priceInt) || isNaN(literInt) || isNaN(fuelFloat)){
+            alert("모든 정보를 올바르게 입력해주세요. (숫자 필드 확인)");
+            return;
+        }
+
+        const result = await createCarModel(activeBrandId, {
+            car_name: newCarName,
+            price: priceInt,
+            liter_size: literInt,
+            fuel_efficiency: fuelFloat,
+            body_type: newCarBody
+        });
+
+        if (result.success){
+            alert(result.message);
+            setNewCarName("");
+            setNewCarPrice("");
+            setNewCarLiter("");
+            setNewCarFuel("");
+            setNewCarBody("");
+
+            handleCloseAddCarModal();
             router.refresh();
         } else {
             alert(result.message);
@@ -255,12 +299,41 @@ export default function AdminClient({initialData}: AdminClientProps){
                         </IconButton>
                     </div>
                     <div className={styles.MainHomeModalBoxTextFieldWrapper}>
-                        <input className={styles.MainHomeModalBoxTextField} placeholder="차량명을 입력해주세요."/>
-                        <input className={styles.MainHomeModalBoxTextField} placeholder="시작 가격을 입력해주세요."/>
-                        <input className={styles.MainHomeModalBoxTextField} placeholder="배기량을 정수로 입력해주세요."/>
-                        <input className={styles.MainHomeModalBoxTextField} placeholder="연비를 소수점 한 자리까지 입력해주세요."/>
-                        <input className={styles.MainHomeModalBoxTextField} placeholder="바디 타입을 입력해주세요."/>
-                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained">추가하기</Button>
+                        <input
+                            className={styles.MainHomeModalBoxTextField}
+                            placeholder="차량명을 입력해주세요."
+                            value={newCarName}
+                            onChange={(e)=> setNewCarName(e.target.value)}
+                        />
+                        <input
+                            className={styles.MainHomeModalBoxTextField}
+                            placeholder="시작 가격을 입력해주세요. (단위: 만원)"
+                            type="number"
+                            value={newCarPrice}
+                            onChange={(e)=> setNewCarPrice(e.target.value)}
+                        />
+                        <input
+                            className={styles.MainHomeModalBoxTextField}
+                            placeholder="배기량을 정수로 입력해주세요. (cc)"
+                            type="number"
+                            value={newCarLiter}
+                            onChange={(e)=> setNewCarLiter(e.target.value)}
+                        />
+                        <input
+                            className={styles.MainHomeModalBoxTextField}
+                            placeholder="연비를 소수점 한 자리까지 입력해주세요. (km/l)"
+                            type="number"
+                            step="0.1"
+                            value={newCarFuel}
+                            onChange={(e)=> setNewCarFuel(e.target.value)}
+                        />
+                        <input
+                            className={styles.MainHomeModalBoxTextField}
+                            placeholder="바디 타입을 입력해주세요. (세단, SUV 등)"
+                            value={newCarBody}
+                            onChange={(e)=> setNewCarBody(e.target.value)}
+                        />
+                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained" onClick={handleSaveCar}>추가하기</Button>
                     </div>
                 </Box>
             </Modal>

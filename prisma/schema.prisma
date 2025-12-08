@@ -126,14 +126,14 @@ model CarTrim {
 model CarModel {
   id              Int      @id @default(autoincrement())
   brand_id        Int
-  trim_id         Int
+  trim_id         Int?
+  trim            CarTrim?  @relation(fields: [trim_id], references: [id])
   car_name        String
   body_type       String
   price           Int
   liter_size      Int
   fuel_efficiency Float
   brand           CarBrand @relation(fields: [brand_id], references: [id])
-  trim            CarTrim  @relation(fields: [trim_id], references: [id])
   quotes          Quote[]
 
   @@index([brand_id])

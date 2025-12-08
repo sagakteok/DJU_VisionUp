@@ -71,3 +71,40 @@ export async function updateBrand(brandId: number, newName: string, newCountry: 
         return {success: false, message: "브랜드 정보 수정 중 오류가 발생했습니다."};
     }
 }
+
+export async function createCarModel(
+    brandId: number,
+    carData: {
+        car_name: string;
+        price: number;
+        liter_size: number;
+        fuel_efficiency: number;
+        body_type: string;
+    }
+) {
+    if (!brandId) return {success: false, message: "브랜드가 선택되지 않았습니다."};
+    if (!carData.car_name) return {success: false, message: "차량명을 입력해주세요."};
+
+    try {
+        await prisma.carModel.create({
+            data: {
+                brand:{
+                    connect: {
+                        id: brandId
+                    }
+                },
+                car_name: carData.car_name,
+                price: Number(carData.price),
+                liter_size: Number(carData.liter_size),
+                fuel_efficiency: Number(carData.fuel_efficiency),
+                body_type: carData.body_type,
+            },
+        });
+
+        revalidatePath('/admin');
+        return {success: true, message: "차량이 성공적으로 추가되었습니다."};
+    } catch (error){
+        console.error("Failed to create car model:", error);
+        return {success: false, message: "차량 추가 중 오류가 발생했습니다."}
+    }
+}
