@@ -7,6 +7,7 @@ import Link from "next/link";
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 import styles from "./MainHome.module.scss";
 
+import e92m3 from "./assets/e92m3.png";
 import palisade from "./assets/hyundai/SUV/palisade.png";
 import nexo from "./assets/hyundai/EV/nexo.png";
 import ioniq9 from "./assets/hyundai/EV/ioniq9.png";
@@ -14,6 +15,7 @@ import grandeur from "./assets/hyundai/sedan/grandeur.png";
 import kona from "./assets/hyundai/SUV/kona.png";
 
 const carData = [
+  { name: "E92M3", brand: "BMW", price: 9999, link: "https://www.encar.com/index.do", image: e92m3 },
   { name: "PALISADE", brand: "Hyundai Motors", price: 4383, link: "https://www.hyundai.com/kr/ko/e/vehicles/the-all-new-palisade/intro", image: palisade },
   { name: "NEXO", brand: "Hyundai Motors", price: 7644, link: "https://www.hyundai.com/kr/ko/e/vehicles/the-all-new-nexo/intro", image: nexo },
   { name: "IONIQ 9", brand: "Hyundai Motors", price: 6715, link: "https://www.hyundai.com/kr/ko/e/vehicles/ioniq9/intro", image: ioniq9 },

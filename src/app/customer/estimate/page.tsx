@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardActions, Typography, IconButton, Collapse, Button } from "@mui/material";
 import { mdiChevronDown, mdiChevronUp } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -25,6 +26,7 @@ import Ioniq6Side from "../assets/hyundai/EV/Ioniq6_side.png"
 import Ioniq9Side from "../assets/hyundai/EV/Ioniq9_side.png"
 
 export default function Estimate() {
+    const router = useRouter();
     const [expanded, setExpanded] = useState(false);
     const handleToggle = () => setExpanded((prev) => !prev);
 
@@ -307,7 +309,7 @@ export default function Estimate() {
                                                     <span className={styles.EstimateCardCarInfoCarSpec}>배기량: ~ {car.displacement.toLocaleString()}cc</span>
                                                     <span className={styles.EstimateCardCarInfoCarSpec}>연비: ~ {car.efficiency}</span>
                                                 </div>
-                                                <Button className={styles.EstimateCardCarInfoSelectButton}>선택</Button>
+                                                <Button className={styles.EstimateCardCarInfoSelectButton} onClick={() => router.push("/customer/estimate/MatchOptions")}>선택</Button>
                                             </div>
                                         ))
                                     ) : (
