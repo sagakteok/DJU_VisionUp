@@ -126,3 +126,36 @@ export async function deleteCarModel(carId: number){
         return {success: false, message: "차량 삭제 중 오류가 발생했습니다. (견적 등 다른 테이블에서 이 차를 참조중이면 삭제 안됨)"};
     }
 }
+
+export async function updateCarModel(
+    carId: number,
+    carData: {
+        car_name: string;
+        price: number;
+        liter_size:number;
+        fuel_efficiency: number;
+        body_type: string;
+    }
+) {
+    if (!carId) return {success: false, message: "차량 ID가 없습니다."};
+
+    try {
+        await prisma.carModel.update({
+            where: {id: carId},
+            data: {
+                car_name: carData.car_name,
+                price: Number(carData.price),
+                liter_size: Number(carData.liter_size),
+                fuel_efficiency: Number(carData.fuel_efficiency),
+                body_type: carData.body_type,
+            },
+        });
+
+        revalidatePath('/admin/EditCar');
+        revalidatePath('/admin');
+        return {success: true, message: "차량 정보가 수정되었습니다."};
+    } catch (error){
+        console.error("Failed to update car model:", error);
+        return {success: false, message: "차량 수정 중 오류가 발생했습니다."};
+    }
+}

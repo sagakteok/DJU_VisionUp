@@ -248,7 +248,7 @@ export default function AdminClient({initialData}: AdminClientProps){
                                                     <span className={styles.MainHomeCardCarInfoCarSpec}>연비: ~ {car.fuel_efficiency} km/l</span>
                                                 </div>
                                                 <div className={styles.MainHomeCardCarInfoSelectButtonGroupStyle}>
-                                                    <Button className={styles.MainHomeCardCarInfoSelectButton} onClick={() => router.push("/admin/EditCar")}>수정하기</Button>
+                                                    <Button className={styles.MainHomeCardCarInfoSelectButton} onClick={() => router.push(`/admin/EditCar?id=${car.id}`)}>수정하기</Button>
                                                     <Button className={styles.MainHomeCardCarInfoSelectButton} onClick={()=> handleDeleteCar(car.id, car.car_name)}>삭제하기</Button>
                                                 </div>
                                             </div>
