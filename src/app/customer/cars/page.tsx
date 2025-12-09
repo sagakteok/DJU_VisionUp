@@ -110,7 +110,7 @@ export default async function CarsPage({searchParams}: SearchProps) {
                                     <Typography variant="h6" sx={{fontWeight: 'bold'}}>{car.car_name}</Typography>
                                 </div>
                                 <Typography variant="body2" color="textSecondary">
-                                    {car.trim?.trim_name} | {car.body_type} | {car.fuel_efficiency}km/l
+                                    {car.trims?.[0]?.trim_name || "트림 정보 없음"} | {car.body_type} | {car.fuel_efficiency}km/l
                                 </Typography>
                             </div>
 

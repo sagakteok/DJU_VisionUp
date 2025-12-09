@@ -40,7 +40,7 @@ export async function searchCarsByModel(modelName: string) {
             },
             include: {
                 brand: true,
-                trim: true,
+                trims: true,
             },
             orderBy: {
                 price: 'asc'
