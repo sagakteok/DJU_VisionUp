@@ -159,3 +159,168 @@ export async function updateCarModel(
         return {success: false, message: "차량 수정 중 오류가 발생했습니다."};
     }
 }
+
+export async function createTrim(carModelId: number, trimName: string, trimPrice: number){
+    if (!carModelId || !trimName) return { success: false, message: "정보를 모두 입력해주세요." };
+
+    try {
+        await prisma.carTrim.create({
+            data: {
+                car_model_id: carModelId,
+                trim_name: trimName,
+                trim_price: trimPrice,
+            },
+        });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "트림이 추가되었습니다." };
+    } catch (error){
+        console.error("Failed to create trim:", error);
+        return { success: false, message: "트림 추가에 실패했습니다." };
+    }
+}
+
+export async function updateTrim(trimId: number, trimName: string, trimPrice: number){
+    try {
+        await prisma.carTrim.update({
+            where: {id: trimId},
+            data: {
+                trim_name: trimName,
+                trim_price: trimPrice,
+            },
+        });
+        return { success: true, message: "트림이 수정되었습니다." };
+    } catch (error){
+        console.error("Failed to update trim:", error);
+        return { success: false, message: "트림 수정에 실패했습니다." };
+    }
+}
+
+export async function deleteTrim(trimId: number){
+    try {
+        await prisma.carTrim.delete({
+            where: { id: trimId },
+        });
+        revalidatePath('/admin/EditCar');
+        return {success: true, message: "트림이 삭제되었습니다."}
+    } catch (error){
+        console.error("Failed to delete trim:", error);
+        return {success: false, message: "트림 삭제에 실패했습니다."};
+    }
+}
+
+export async function createExteriorColor(trimId: number, name: string, hex: string, price: number) {
+    try {
+        await prisma.carExteriorColor.create({
+            data: {
+                trim_id: trimId,
+                exterior_color_name: name,
+                exterior_color_hexcode: hex,
+                exterior_color_price: price,
+            }
+        });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "외장 색상이 추가되었습니다." };
+    } catch (error) {
+        console.error(error);
+        return { success: false, message: "추가 실패" };
+    }
+}
+
+export async function deleteExteriorColor(id: number) {
+    try {
+        await prisma.carExteriorColor.delete({ where: { id } });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "삭제되었습니다." };
+    } catch (e) { return { success: false, message: "삭제 실패" }; }
+}
+
+export async function createInteriorColor(trimId: number, name: string, hex: string, price: number) {
+    try {
+        await prisma.carInteriorColor.create({
+            data: {
+                trim_id: trimId,
+                interior_color_name: name,
+                interior_color_hexcode: hex,
+                interior_color_price: price,
+            }
+        });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "내장 색상이 추가되었습니다." };
+    } catch (error) { return { success: false, message: "추가 실패" }; }
+}
+
+export async function deleteInteriorColor(id: number) {
+    try {
+        await prisma.carInteriorColor.delete({ where: { id } });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "삭제되었습니다." };
+    } catch (e) { return { success: false, message: "삭제 실패" }; }
+}
+
+export async function createOption(trimId: number, pkgName: string, detail: string, price: number) {
+    try {
+        await prisma.carOption.create({
+            data: {
+                trim_id: trimId,
+                package_name: pkgName,
+                option_detail: detail,
+                option_price: price,
+            }
+        });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "옵션이 추가되었습니다." };
+    } catch (error) { return { success: false, message: "추가 실패" }; }
+}
+
+export async function deleteOption(id: number) {
+    try {
+        await prisma.carOption.delete({ where: { id } });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "삭제되었습니다." };
+    } catch (e) { return { success: false, message: "삭제 실패" }; }
+}
+
+export async function updateExteriorColor(id: number, name: string, hex: string, price: number) {
+    try {
+        await prisma.carExteriorColor.update({
+            where: { id },
+            data: {
+                exterior_color_name: name,
+                exterior_color_hexcode: hex,
+                exterior_color_price: price,
+            }
+        });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "수정되었습니다." };
+    } catch (error) { return { success: false, message: "수정 실패" }; }
+}
+
+export async function updateInteriorColor(id: number, name: string, hex: string, price: number) {
+    try {
+        await prisma.carInteriorColor.update({
+            where: { id },
+            data: {
+                interior_color_name: name,
+                interior_color_hexcode: hex,
+                interior_color_price: price,
+            }
+        });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "수정되었습니다." };
+    } catch (error) { return { success: false, message: "수정 실패" }; }
+}
+
+export async function updateOption(id: number, pkgName: string, detail: string, price: number) {
+    try {
+        await prisma.carOption.update({
+            where: { id },
+            data: {
+                package_name: pkgName,
+                option_detail: detail,
+                option_price: price,
+            }
+        });
+        revalidatePath('/admin/EditCar');
+        return { success: true, message: "수정되었습니다." };
+    } catch (error) { return { success: false, message: "수정 실패" }; }
+}

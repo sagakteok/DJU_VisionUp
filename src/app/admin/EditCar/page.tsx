@@ -17,7 +17,14 @@ export default async function EditCarPage({searchParams}: EditCarPageProps){
         where: {id: parseInt(id)},
         include: {
             brand: true,
-            trim: true
+            trims: {
+                include: {
+                    exteriorColors: true,
+                    interiorColors: true,
+                    options: true,
+                },
+                orderBy: {id: 'asc'}
+            }
         }
     });
 
