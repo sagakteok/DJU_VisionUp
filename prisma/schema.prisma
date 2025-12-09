@@ -80,64 +80,57 @@ model CarBrand {
 
 model CarExteriorColor {
   id                     Int       @id @default(autoincrement())
-  exterior_color_id      Int
+  trim_id                Int
+  trim                   CarTrim   @relation(fields: [trim_id], references: [id], onDelete: Cascade)
   exterior_color_name    String
   exterior_color_hexcode String
   exterior_color_price   Int
-  trims                  CarTrim[]
 }
 
 model CarInteriorColor {
   id                     Int       @id @default(autoincrement())
-  interior_color_id      Int
+  trim_id                Int
+  trim                   CarTrim   @relation(fields: [trim_id], references: [id], onDelete: Cascade)
   interior_color_name    String
   interior_color_hexcode String
   interior_color_price   Int
-  trims                  CarTrim[]
 }
 
 model CarOption {
   id            Int       @id @default(autoincrement())
-  option_id     Int
+  trim_id       Int
+  trim          CarTrim   @relation(fields: [trim_id], references: [id], onDelete: Cascade)
   package_name  String
   option_detail String
   option_price  Int
-  trims         CarTrim[]
 }
 
 model CarTrim {
-  id                Int              @id @default(autoincrement())
-  trim_id           Int
+  id                Int                 @id @default(autoincrement())
+  car_model_id      Int
+  carModel          CarModel            @relation(fields: [car_model_id], references: [id], onDelete: Cascade)
   trim_name         String
   trim_price        Int
-  option_id         Int
-  exterior_color_id Int
-  interior_color_id Int
-  models            CarModel[]
-  option            CarOption        @relation(fields: [option_id], references: [id])
-  exteriorColor     CarExteriorColor @relation(fields: [exterior_color_id], references: [id])
-  interiorColor     CarInteriorColor @relation(fields: [interior_color_id], references: [id])
+  exteriorColors    CarExteriorColor[]
+  interiorColors    CarInteriorColor[]
+  options           CarOption[]
 
-  @@index([option_id])
-  @@index([exterior_color_id])
-  @@index([interior_color_id])
+  @@index([car_model_id])
 }
 
 model CarModel {
   id              Int      @id @default(autoincrement())
   brand_id        Int
-  trim_id         Int
   car_name        String
   body_type       String
   price           Int
   liter_size      Int
   fuel_efficiency Float
   brand           CarBrand @relation(fields: [brand_id], references: [id])
-  trim            CarTrim  @relation(fields: [trim_id], references: [id])
   quotes          Quote[]
+  trims           CarTrim[]
 
   @@index([brand_id])
-  @@index([trim_id])
 }
 
 model Quote {
