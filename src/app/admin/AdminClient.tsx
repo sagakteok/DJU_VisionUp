@@ -7,7 +7,7 @@ import Icon from "@mdi/react"
 import {mdiClose} from "@mdi/js";
 import {useState, useEffect, use} from "react";
 import {useRouter} from "next/navigation";
-import {createBrand, deleteBrand, updateBrand, createCarModel} from "@/app/admin/actions";
+import {createBrand, deleteBrand, updateBrand, createCarModel, deleteCarModel} from "@/app/admin/actions";
 
 import AvanteNSide from "./assets/avanten_side.png";
 
@@ -165,6 +165,21 @@ export default function AdminClient({initialData}: AdminClientProps){
         }
     };
 
+    const handleDeleteCar = async (carId: number, carName: string)=>{
+        if (!confirm(`'${carName}' 차량을 정말 삭제하시겠습니까?`)){
+            return;
+        }
+
+        const result = await deleteCarModel(carId);
+
+        if (result.success){
+            alert(result.message);
+            router.refresh();
+        } else {
+            alert(result.message);
+        }
+    };
+
     useEffect(()=>{
         const allBrands = initialData.flatMap(group => group.CarBrand);
         const isValid = allBrands.some(brand => brand.brand_id === activeBrandId);
@@ -216,7 +231,7 @@ export default function AdminClient({initialData}: AdminClientProps){
                                 {initialData.flatMap(country =>
                                     country.CarBrand.flatMap(brand =>
                                         brand.CarModel?.filter(() =>
-                                            activeBrandId === null || activeBrandId === brand.brand_id
+                                            activeBrandId === 0 || activeBrandId === brand.brand_id
                                         )?.map(car => (
                                             <div key={car.id} className={styles.MainHomeCardCarInfoStyle}>
                                                 <Image
@@ -234,7 +249,7 @@ export default function AdminClient({initialData}: AdminClientProps){
                                                 </div>
                                                 <div className={styles.MainHomeCardCarInfoSelectButtonGroupStyle}>
                                                     <Button className={styles.MainHomeCardCarInfoSelectButton} onClick={() => router.push("/admin/EditCar")}>수정하기</Button>
-                                                    <Button className={styles.MainHomeCardCarInfoSelectButton}>삭제하기</Button>
+                                                    <Button className={styles.MainHomeCardCarInfoSelectButton} onClick={()=> handleDeleteCar(car.id, car.car_name)}>삭제하기</Button>
                                                 </div>
                                             </div>
                                         ))

@@ -108,3 +108,21 @@ export async function createCarModel(
         return {success: false, message: "차량 추가 중 오류가 발생했습니다."}
     }
 }
+
+export async function deleteCarModel(carId: number){
+    if (!carId){
+        return {success: false, message: "삭제할 차량 정보가 없습니다."};
+    }
+
+    try {
+        await prisma.carModel.delete({
+            where: {id: carId},
+        });
+
+        revalidatePath('/admin');
+        return {success: true, message: "차량이 삭제되었습니다."};
+    } catch (error){
+        console.error("Failed to delete car model:", error);
+        return {success: false, message: "차량 삭제 중 오류가 발생했습니다. (견적 등 다른 테이블에서 이 차를 참조중이면 삭제 안됨)"};
+    }
+}
