@@ -50,8 +50,9 @@ export default function MyEstimatePage() {
         }
     };
 
+    // 상담 버튼 클릭 시 페이지 이동
     const handleConsult = (dealerName: string) => {
-        alert(`${dealerName} 딜러님과의 상담 페이지로 이동합니다.`);
+        router.push(`/customer/consultations?dealer=${encodeURIComponent(dealerName)}`);
     };
 
     return (
