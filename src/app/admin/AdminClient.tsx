@@ -11,7 +11,7 @@ import {createBrand, deleteBrand, updateBrand, createCarModel, deleteCarModel} f
 
 import AvanteNSide from "./assets/avanten_side.png";
 
-interface CarModel{
+interface CarModel {
     id: number;
     car_name: string;
     price: number;
@@ -20,22 +20,22 @@ interface CarModel{
     car_image?: any;
 }
 
-interface CarBrand{
+interface CarBrand {
     brand_id: number;
     brand_name: string;
     CarModel: CarModel[];
 }
 
-interface CountryGroup{
+interface CountryGroup {
     brand_country: string;
     CarBrand: CarBrand[];
 }
 
-interface AdminClientProps{
+interface AdminClientProps {
     initialData: CountryGroup[];
 }
 
-export default function AdminClient({initialData}: AdminClientProps){
+export default function AdminClient({initialData}: AdminClientProps) {
     const router = useRouter();
 
     const firstBrandId = initialData[0]?.CarBrand[0]?.brand_id || 0;
@@ -53,14 +53,14 @@ export default function AdminClient({initialData}: AdminClientProps){
     const [openEditBrandModal, setOpenEditBrandModal] = useState(false);
     const handleOpenEditBrandModal = () => {
         const currentBrand = initialData
-            .flatMap(g=> g.CarBrand)
-            .find(b=> b.brand_id === activeBrandId);
+            .flatMap(g => g.CarBrand)
+            .find(b => b.brand_id === activeBrandId);
 
-        if (currentBrand){
+        if (currentBrand) {
             setEditBrandName(currentBrand.brand_name);
 
-            const parentGroup = initialData.find(group=>
-            group.CarBrand.some(b=> b.brand_id === activeBrandId)
+            const parentGroup = initialData.find(group =>
+                group.CarBrand.some(b => b.brand_id === activeBrandId)
             );
             setEditBrandCountry(parentGroup?.brand_country || "");
             setOpenEditBrandModal(true);
@@ -72,16 +72,16 @@ export default function AdminClient({initialData}: AdminClientProps){
     const handleOpenAddCarModal = () => setOpenAddCarModal(true);
     const handleCloseAddCarModal = () => setOpenAddCarModal(false);
 
-    const [newCarName, setNewCarName] =useState("");
-    const [newCarPrice, setNewCarPrice] =useState("");
-    const [newCarLiter, setNewCarLiter] =useState("");
-    const [newCarFuel, setNewCarFuel] =useState("");
-    const [newCarBody, setNewCarBody] =useState("");
+    const [newCarName, setNewCarName] = useState("");
+    const [newCarPrice, setNewCarPrice] = useState("");
+    const [newCarLiter, setNewCarLiter] = useState("");
+    const [newCarFuel, setNewCarFuel] = useState("");
+    const [newCarBody, setNewCarBody] = useState("");
 
-    const handleSaveBrand = async ()=>{
+    const handleSaveBrand = async () => {
         const result = await createBrand(brandName, brandCountry);
 
-        if (result.success){
+        if (result.success) {
             alert(result.message);
             setBrandName("");
             setBrandCountry("");
@@ -92,20 +92,20 @@ export default function AdminClient({initialData}: AdminClientProps){
         }
     };
 
-    const handleDeleteBrand = async ()=>{
+    const handleDeleteBrand = async () => {
         if (!activeBrandId) return;
 
         const currentBrand = initialData
-            .flatMap(g=> g.CarBrand)
-            .find(b=> b.brand_id === activeBrandId);
+            .flatMap(g => g.CarBrand)
+            .find(b => b.brand_id === activeBrandId);
 
-        if (!confirm(`'${currentBrand?.brand_name}' 브랜드를 정말 삭제하시겠습니까?\n소속된 모든 차량 정보도 함께 삭제됩니다.`)){
+        if (!confirm(`'${currentBrand?.brand_name}' 브랜드를 정말 삭제하시겠습니까?\n소속된 모든 차량 정보도 함께 삭제됩니다.`)) {
             return;
         }
 
         const result = await deleteBrand(activeBrandId);
 
-        if (result.success){
+        if (result.success) {
             alert(result.message);
             router.refresh();
         } else {
@@ -113,12 +113,12 @@ export default function AdminClient({initialData}: AdminClientProps){
         }
     };
 
-    const handleUpdateBrand = async ()=>{
+    const handleUpdateBrand = async () => {
         if (!activeBrandId) return;
 
         const result = await updateBrand(activeBrandId, editBrandName, editBrandCountry);
 
-        if (result.success){
+        if (result.success) {
             alert(result.message);
             handleCloseEditBrandModal();
             router.refresh();
@@ -127,8 +127,8 @@ export default function AdminClient({initialData}: AdminClientProps){
         }
     };
 
-    const handleSaveCar = async ()=>{
-        if (!activeBrandId){
+    const handleSaveCar = async () => {
+        if (!activeBrandId) {
             alert("브랜드를 선택해주세요.");
             return;
         }
@@ -137,7 +137,7 @@ export default function AdminClient({initialData}: AdminClientProps){
         const literInt = parseInt(newCarLiter, 10);
         const fuelFloat = parseFloat(newCarFuel);
 
-        if (!newCarName || isNaN(priceInt) || isNaN(literInt) || isNaN(fuelFloat)){
+        if (!newCarName || isNaN(priceInt) || isNaN(literInt) || isNaN(fuelFloat)) {
             alert("모든 정보를 올바르게 입력해주세요. (숫자 필드 확인)");
             return;
         }
@@ -150,7 +150,7 @@ export default function AdminClient({initialData}: AdminClientProps){
             body_type: newCarBody
         });
 
-        if (result.success){
+        if (result.success) {
             alert(result.message);
             setNewCarName("");
             setNewCarPrice("");
@@ -165,14 +165,14 @@ export default function AdminClient({initialData}: AdminClientProps){
         }
     };
 
-    const handleDeleteCar = async (carId: number, carName: string)=>{
-        if (!confirm(`'${carName}' 차량을 정말 삭제하시겠습니까?`)){
+    const handleDeleteCar = async (carId: number, carName: string) => {
+        if (!confirm(`'${carName}' 차량을 정말 삭제하시겠습니까?`)) {
             return;
         }
 
         const result = await deleteCarModel(carId);
 
-        if (result.success){
+        if (result.success) {
             alert(result.message);
             router.refresh();
         } else {
@@ -180,11 +180,11 @@ export default function AdminClient({initialData}: AdminClientProps){
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         const allBrands = initialData.flatMap(group => group.CarBrand);
         const isValid = allBrands.some(brand => brand.brand_id === activeBrandId);
 
-        if (!isValid && allBrands.length > 0){
+        if (!isValid && allBrands.length > 0) {
             setActiveBrandId(allBrands[0].brand_id);
         }
     }, [initialData, activeBrandId]);
@@ -194,7 +194,16 @@ export default function AdminClient({initialData}: AdminClientProps){
             <div className={styles.MainHomeContainer}>
                 <div className={styles.MainHomeContent}>
                     <Card className={styles.MainHomeCardStyle}>
-                        <Drawer variant="permanent" anchor="left" PaperProps={{ style: {position: "absolute", height: "100%", width: "180px", overflowY: "auto", border: "none", boxShadow: "none", }}}>
+                        <Drawer variant="permanent" anchor="left" PaperProps={{
+                            style: {
+                                position: "absolute",
+                                height: "100%",
+                                width: "180px",
+                                overflowY: "auto",
+                                border: "none",
+                                boxShadow: "none",
+                            }
+                        }}>
                             <span className={styles.MainHomeLeftContentTitle}>대시보드</span>
                             <div className={styles.MainHomeLeftContentItemContainer}>
                                 {initialData.flatMap(country => country.CarBrand.map(brand => (
@@ -208,9 +217,10 @@ export default function AdminClient({initialData}: AdminClientProps){
                                     ))
                                 )}
                             </div>
-                            <Button variant="contained" className={styles.MainHomeLeftContentBottomButton} onClick={handleOpenAddBrandModal}>브랜드 추가</Button>
+                            <Button variant="contained" className={styles.MainHomeLeftContentBottomButton}
+                                    onClick={handleOpenAddBrandModal}>브랜드 추가</Button>
                         </Drawer>
-                        <CardContent style={{ height: '100%', overflowY: 'auto', marginLeft: '180px'}}>
+                        <CardContent style={{height: '100%', overflowY: 'auto', marginLeft: '180px'}}>
                             <div>
                                 {initialData.flatMap(country =>
                                     country.CarBrand
@@ -218,7 +228,8 @@ export default function AdminClient({initialData}: AdminClientProps){
                                         .map(brand => (
                                             <div className={styles.MainHomeCardTitlesContainer} key={brand.brand_id}>
                                                 <span className={styles.MainHomeCardMainTitle}>{brand.brand_name}</span>
-                                                <span className={styles.MainHomeCardSubTitle}>국가: {country.brand_country}</span>
+                                                <span
+                                                    className={styles.MainHomeCardSubTitle}>국가: {country.brand_country}</span>
                                             </div>
                                         ))
                                 )}
@@ -241,24 +252,33 @@ export default function AdminClient({initialData}: AdminClientProps){
                                                 />
                                                 <div className={styles.MainHomeCardCarInfoContainer}>
                                                     <div className={styles.MainHomeCardCarInfoTitleContent}>
-                                                        <span className={styles.MainHomeCardCarInfoCarName}>{car.car_name}</span>
+                                                        <span
+                                                            className={styles.MainHomeCardCarInfoCarName}>{car.car_name}</span>
                                                     </div>
-                                                    <span className={styles.MainHomeCardCarInfoCarPrice}>{car.price}만원 ~</span>
-                                                    <span className={styles.MainHomeCardCarInfoCarSpec}>배기량: ~ {car.liter_size}cc</span>
-                                                    <span className={styles.MainHomeCardCarInfoCarSpec}>연비: ~ {car.fuel_efficiency} km/l</span>
+                                                    <span
+                                                        className={styles.MainHomeCardCarInfoCarPrice}>{car.price}만원 ~</span>
+                                                    <span
+                                                        className={styles.MainHomeCardCarInfoCarSpec}>배기량: ~ {car.liter_size}cc</span>
+                                                    <span
+                                                        className={styles.MainHomeCardCarInfoCarSpec}>연비: ~ {car.fuel_efficiency} km/l</span>
                                                 </div>
                                                 <div className={styles.MainHomeCardCarInfoSelectButtonGroupStyle}>
-                                                    <Button className={styles.MainHomeCardCarInfoSelectButton} onClick={() => router.push(`/admin/EditCar?id=${car.id}`)}>수정하기</Button>
-                                                    <Button className={styles.MainHomeCardCarInfoSelectButton} onClick={()=> handleDeleteCar(car.id, car.car_name)}>삭제하기</Button>
+                                                    <Button className={styles.MainHomeCardCarInfoSelectButton}
+                                                            onClick={() => router.push(`/admin/EditCar?id=${car.id}`)}>수정하기</Button>
+                                                    <Button className={styles.MainHomeCardCarInfoSelectButton}
+                                                            onClick={() => handleDeleteCar(car.id, car.car_name)}>삭제하기</Button>
                                                 </div>
                                             </div>
                                         ))
                                     )
                                 )}
                                 <div className={styles.MainHomeCardCarAddButtonWrapper}>
-                                    <Button className={styles.MainHomeCardBrandDeleteButton} onClick={handleDeleteBrand}>브랜드 삭제</Button>
-                                    <Button className={styles.MainHomeCardBrandEditButton} onClick={handleOpenEditBrandModal}>브랜드 정보 수정</Button>
-                                    <Button className={styles.MainHomeCardCarAddButton} onClick={handleOpenAddCarModal}>차량 추가하기</Button>
+                                    <Button className={styles.MainHomeCardBrandDeleteButton}
+                                            onClick={handleDeleteBrand}>브랜드 삭제</Button>
+                                    <Button className={styles.MainHomeCardBrandEditButton}
+                                            onClick={handleOpenEditBrandModal}>브랜드 정보 수정</Button>
+                                    <Button className={styles.MainHomeCardCarAddButton} onClick={handleOpenAddCarModal}>차량
+                                        추가하기</Button>
                                 </div>
                             </div>
                         </CardContent>
@@ -270,13 +290,16 @@ export default function AdminClient({initialData}: AdminClientProps){
                     <div className={styles.MainHomeModalBoxTitleWrapper}>
                         <span className={styles.MainHomeModalBoxMainTitle}>브랜드 추가</span>
                         <IconButton onClick={handleCloseAddBrandModal}>
-                            <Icon path={mdiClose} size={1} />
+                            <Icon path={mdiClose} size={1}/>
                         </IconButton>
                     </div>
                     <div className={styles.MainHomeModalBoxTextFieldWrapper}>
-                        <input className={styles.MainHomeModalBoxTextField} value={brandName} onChange={(e) => setBrandName(e.target.value)} placeholder="브랜드 명을 입력해주세요."/>
-                        <input className={styles.MainHomeModalBoxTextField} value={brandCountry} onChange={(e) => setBrandCountry(e.target.value)} placeholder="브랜드 국가를 입력해주세요."/>
-                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained" onClick={handleSaveBrand}>저장하기</Button>
+                        <input className={styles.MainHomeModalBoxTextField} value={brandName}
+                               onChange={(e) => setBrandName(e.target.value)} placeholder="브랜드 명을 입력해주세요."/>
+                        <input className={styles.MainHomeModalBoxTextField} value={brandCountry}
+                               onChange={(e) => setBrandCountry(e.target.value)} placeholder="브랜드 국가를 입력해주세요."/>
+                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained"
+                                onClick={handleSaveBrand}>저장하기</Button>
                     </div>
                 </Box>
             </Modal>
@@ -285,7 +308,7 @@ export default function AdminClient({initialData}: AdminClientProps){
                     <div className={styles.MainHomeModalBoxTitleWrapper}>
                         <span className={styles.MainHomeModalBoxMainTitle}>브랜드 정보 수정</span>
                         <IconButton onClick={handleCloseEditBrandModal}>
-                            <Icon path={mdiClose} size={1} />
+                            <Icon path={mdiClose} size={1}/>
                         </IconButton>
                     </div>
                     <div className={styles.MainHomeModalBoxTextFieldWrapper}>
@@ -293,7 +316,7 @@ export default function AdminClient({initialData}: AdminClientProps){
                             className={styles.MainHomeModalBoxTextField}
                             placeholder="변경할 브랜드 명을 입력해주세요."
                             value={editBrandName}
-                            onChange={(e)=> setEditBrandName(e.target.value)}
+                            onChange={(e) => setEditBrandName(e.target.value)}
                         />
                         <input
                             className={styles.MainHomeModalBoxTextField}
@@ -301,7 +324,8 @@ export default function AdminClient({initialData}: AdminClientProps){
                             value={editBrandCountry}
                             onChange={(e) => setEditBrandCountry(e.target.value)}
                         />
-                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained" onClick={handleUpdateBrand}>수정하기</Button>
+                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained"
+                                onClick={handleUpdateBrand}>수정하기</Button>
                     </div>
                 </Box>
             </Modal>
@@ -310,7 +334,7 @@ export default function AdminClient({initialData}: AdminClientProps){
                     <div className={styles.MainHomeModalBoxTitleWrapper}>
                         <span className={styles.MainHomeModalBoxMainTitle}>차량 추가</span>
                         <IconButton onClick={handleCloseAddCarModal}>
-                            <Icon path={mdiClose} size={1} />
+                            <Icon path={mdiClose} size={1}/>
                         </IconButton>
                     </div>
                     <div className={styles.MainHomeModalBoxTextFieldWrapper}>
@@ -318,21 +342,21 @@ export default function AdminClient({initialData}: AdminClientProps){
                             className={styles.MainHomeModalBoxTextField}
                             placeholder="차량명을 입력해주세요."
                             value={newCarName}
-                            onChange={(e)=> setNewCarName(e.target.value)}
+                            onChange={(e) => setNewCarName(e.target.value)}
                         />
                         <input
                             className={styles.MainHomeModalBoxTextField}
                             placeholder="시작 가격을 입력해주세요. (단위: 만원)"
                             type="number"
                             value={newCarPrice}
-                            onChange={(e)=> setNewCarPrice(e.target.value)}
+                            onChange={(e) => setNewCarPrice(e.target.value)}
                         />
                         <input
                             className={styles.MainHomeModalBoxTextField}
                             placeholder="배기량을 정수로 입력해주세요. (cc)"
                             type="number"
                             value={newCarLiter}
-                            onChange={(e)=> setNewCarLiter(e.target.value)}
+                            onChange={(e) => setNewCarLiter(e.target.value)}
                         />
                         <input
                             className={styles.MainHomeModalBoxTextField}
@@ -340,15 +364,16 @@ export default function AdminClient({initialData}: AdminClientProps){
                             type="number"
                             step="0.1"
                             value={newCarFuel}
-                            onChange={(e)=> setNewCarFuel(e.target.value)}
+                            onChange={(e) => setNewCarFuel(e.target.value)}
                         />
                         <input
                             className={styles.MainHomeModalBoxTextField}
                             placeholder="바디 타입을 입력해주세요. (세단, SUV 등)"
                             value={newCarBody}
-                            onChange={(e)=> setNewCarBody(e.target.value)}
+                            onChange={(e) => setNewCarBody(e.target.value)}
                         />
-                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained" onClick={handleSaveCar}>추가하기</Button>
+                        <Button className={styles.MainHomeModalBoxSaveButton} variant="contained"
+                                onClick={handleSaveCar}>추가하기</Button>
                     </div>
                 </Box>
             </Modal>

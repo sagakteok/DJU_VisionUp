@@ -2,8 +2,8 @@ import {searchCarsByModel} from "@/app/customer/cars/actions";
 import Link from 'next/link';
 import {Button, Paper, Typography, Box, Chip} from '@mui/material';
 
-interface SearchProps{
-    searchParams: Promise<{model?: string}>;
+interface SearchProps {
+    searchParams: Promise<{ model?: string }>;
 }
 
 /*const CARS = [
@@ -68,7 +68,7 @@ interface SearchProps{
 ];
 */
 
-export default async function CarsPage({searchParams}: SearchProps){
+export default async function CarsPage({searchParams}: SearchProps) {
     const resolvedParams = await searchParams;
     const query = resolvedParams.model || "";
 
@@ -86,25 +86,26 @@ export default async function CarsPage({searchParams}: SearchProps){
 
             {cars.length > 0 ? (
                 <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                    {cars.map((car)=>(
+                    {cars.map((car) => (
                         <Paper
-                        key={car.id}
-                        elevation={0}
-                        sx={{
-                            p: 3,
-                            border: '1px solid #e0e0e0',
-                            borderRadius: '12px',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            transition: 'box-shadow 0.2s',
-                            '&:hover': {boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}
-                        }}
+                            key={car.id}
+                            elevation={0}
+                            sx={{
+                                p: 3,
+                                border: '1px solid #e0e0e0',
+                                borderRadius: '12px',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                transition: 'box-shadow 0.2s',
+                                '&:hover': {boxShadow: '0 4px 12px rgba(0,0,0,0.1)'}
+                            }}
                         >
                             <div>
                                 <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px'}}>
                                     {car.brand && (
-                                        <Chip label={car.brand.brand_name} size="small" color="primary" variant="outlined"/>
+                                        <Chip label={car.brand.brand_name} size="small" color="primary"
+                                              variant="outlined"/>
                                     )}
                                     <Typography variant="h6" sx={{fontWeight: 'bold'}}>{car.car_name}</Typography>
                                 </div>
@@ -114,7 +115,7 @@ export default async function CarsPage({searchParams}: SearchProps){
                             </div>
 
                             <div style={{textAlign: 'right', minWidth: '120px'}}>
-                                <Typography variant="h6" color="primary" sx={{fontWeight:'bold', mb: 1}}>
+                                <Typography variant="h6" color="primary" sx={{fontWeight: 'bold', mb: 1}}>
                                     {car.price.toLocaleString()} 만원~
                                 </Typography>
                                 <Button
@@ -145,7 +146,13 @@ export default async function CarsPage({searchParams}: SearchProps){
                     ))}
                 </div>
             ) : (
-                <Paper sx={{p:6, textAlign: 'center', backgroundColor: '#f9f9f9', borderRadius: '12px', border: '1px dashed #ddd'}}>
+                <Paper sx={{
+                    p: 6,
+                    textAlign: 'center',
+                    backgroundColor: '#f9f9f9',
+                    borderRadius: '12px',
+                    border: '1px dashed #ddd'
+                }}>
                     <Typography variant="h6" color="textSecondary" gutterBottom>
                         검색된 차량이 없습니다.
                     </Typography>
@@ -154,7 +161,7 @@ export default async function CarsPage({searchParams}: SearchProps){
                         입력하신 검색어: <strong>{query}</strong><br/>
                         철자나 띄어쓰기를 확인하거나, 다른 차종으로 검색해주세요.
                     </Typography>
-                    <Button variant="outlined" component={Link} href="/customer" sx={{mt:3}}>
+                    <Button variant="outlined" component={Link} href="/customer" sx={{mt: 3}}>
                         메인으로 돌아가기
                     </Button>
                 </Paper>

@@ -58,7 +58,7 @@ export default function DesktopHeader() {
                 const names = await getCarNamesForAutocomplete(value);
                 setFilteredSuggestions(names);
                 if (names.length > 0) setShowSuggestions(true);
-            } catch (error){
+            } catch (error) {
                 console.error("Failed to fetch suggestions", error);
             }
         } else {
@@ -217,7 +217,7 @@ export default function DesktopHeader() {
 
                                     <span
                                         className={styles.DesktopHeader_AccountInfoCustomerDefault}
-                                        style={{ color: userRole === 'DEALER' ? '#FFFFFF' : 'inherit' }}
+                                        style={{color: userRole === 'DEALER' ? '#FFFFFF' : 'inherit'}}
                                     >
                                          {userRole === 'DEALER' ? ' 딜러님' : ' 고객님'}
                                     </span>
@@ -234,7 +234,8 @@ export default function DesktopHeader() {
                         {isLoggedIn && isAccountActive && (
                             <div className={styles.DesktopHeader_AccountInfoForm}>
                                 <div className={styles.DesktopHeader_AccountNameContainer}>
-                                    <div className={styles.DesktopHeader_AccountName}>{session?.user?.name || '이름 없음'}</div>
+                                    <div
+                                        className={styles.DesktopHeader_AccountName}>{session?.user?.name || '이름 없음'}</div>
                                     <div className={styles.DesktopHeader_AccountRole}>
 
                                         {userRole === 'DEALER' ? '딜러' : '고객'}

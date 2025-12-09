@@ -2,13 +2,13 @@
 
 import {prisma} from "@/lib/prisma";
 
-export async function getCarNamesForAutocomplete(keyword: string){
+export async function getCarNamesForAutocomplete(keyword: string) {
     if (!keyword) return [];
 
     try {
         const cars = await prisma.carModel.findMany({
-            where:{
-                car_name:{
+            where: {
+                car_name: {
                     contains: keyword,
                     mode: 'insensitive',
                 },
@@ -21,19 +21,19 @@ export async function getCarNamesForAutocomplete(keyword: string){
         });
 
         return cars.map((car) => car.car_name);
-    } catch (error){
+    } catch (error) {
         console.error("Error fetching car names:", error);
         return [];
     }
 }
 
-export async function searchCarsByModel(modelName: string){
+export async function searchCarsByModel(modelName: string) {
     if (!modelName) return [];
 
     try {
         const cars = await prisma.carModel.findMany({
-            where:{
-                car_name:{
+            where: {
+                car_name: {
                     contains: modelName,
                     mode: 'insensitive',
                 },
@@ -47,7 +47,7 @@ export async function searchCarsByModel(modelName: string){
             },
         });
         return cars;
-    } catch (error){
+    } catch (error) {
         console.error("Error searching cars:", error);
         return [];
     }

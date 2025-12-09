@@ -1,23 +1,23 @@
 import {prisma} from "@/lib/prisma";
 import AdminClient from "@/app/admin/AdminClient";
 
-export default async function AdminPage(){
+export default async function AdminPage() {
     const allBrands = await prisma.carBrand.findMany({
-        include:{
+        include: {
             models: true,
         },
-        orderBy:{
+        orderBy: {
             brand_country: 'asc',
         }
     });
 
-    const groupedData = allBrands.reduce((acc: any[], brand)=>{
-        const existingGroup = acc.find((group)=> group.brand_country === brand.brand_country);
+    const groupedData = allBrands.reduce((acc: any[], brand) => {
+        const existingGroup = acc.find((group) => group.brand_country === brand.brand_country);
 
         const formattedBrand = {
             brand_id: brand.id,
             brand_name: brand.brand_name,
-            CarModel: brand.models.map(model =>({
+            CarModel: brand.models.map(model => ({
                 id: model.id,
                 car_name: model.car_name,
                 price: model.price,
@@ -27,7 +27,7 @@ export default async function AdminPage(){
             }))
         };
 
-        if (existingGroup){
+        if (existingGroup) {
             existingGroup.CarBrand.push(formattedBrand);
         } else {
             acc.push({
